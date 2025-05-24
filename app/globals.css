@@ -1,21 +1,250 @@
+/* app/globals.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Your custom global styles from the previous style.css, adapted */
+body {
+  font-family: 'Inter', sans-serif; /* Or your chosen default sans-serif from tailwind.config.js */
+  overflow-x: hidden;
+  color: #333; /* Default text color */
+  line-height: 1.6;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+body.modal-open-react { /* For when modal is open */
+  overflow: hidden;
+}
+
+/* General container (use Tailwind's `container` class with `mx-auto px-4` etc. in JSX,
+   or define your custom .container if needed beyond Tailwind) */
+.container {
+  width: 100%;
+  padding-left: 1rem; /* equivalent to px-4 */
+  padding-right: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (min-width: 640px) { /* sm */
+  .container {
+    max-width: 640px;
+    padding-left: 1.5rem; /* px-6 */
+    padding-right: 1.5rem;
+  }
+}
+@media (min-width: 768px) { /* md */
+  .container {
+    max-width: 768px;
+  }
+}
+@media (min-width: 1024px) { /* lg */
+  .container {
+    max-width: 1024px;
+  }
+}
+@media (min-width: 1280px) { /* xl */
+  .container {
+    max-width: 1280px;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+
+/* --- Notification Ticker Styles --- */
+.notification-ticker-container {
+  background-color: #fff8e1; /* Example color */
+  color: #333;
+  padding: 8px 0;
+  width: 100%;
+  overflow: hidden;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.notification-ticker {
+  display: inline-block;
+  white-space: nowrap;
+  padding-left: 100%;
+  animation: ticker-scroll 30s linear infinite;
+}
+
+.notification-ticker span {
+  display: inline-block;
+  padding: 0 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.notification-ticker span a {
+  color: #0779e4; /* Example link color */
+  text-decoration: none;
+}
+.notification-ticker span a:hover {
+  text-decoration: underline;
+}
+
+@keyframes ticker-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+/* --- College Branding Section Styles --- */
+.college-branding-section {
+  width: 100%;
+  padding: 15px 0;
+  background-color: #f8f9fa; /* Light grey background */
+  text-align: center;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.college-branding-content h1 { /* For English Name */
+  font-size: clamp(1.6rem, 4vw, 2rem); /* Responsive font size */
+  color: #003366; /* Dark blue */
+  font-weight: 700; /* Tailwind: font-bold */
+  margin-bottom: 0;
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+.college-branding-content h2 { /* For Hindi Name */
+  font-size: clamp(1.4rem, 3.5vw, 1.8rem);
+  color: #003366;
+  margin-bottom: 0;
+  font-weight: 500; /* Tailwind: font-medium */
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+.college-branding-content p { /* For affiliation */
+  font-size: clamp(0.85rem, 2.5vw, 1rem);
+  color: #495057; /* Dark gray */
+  margin-top: 5px;
+  padding: 0 10px;
+}
+
+.college-social-media-links {
+  margin-top: 12px;
+}
+
+.college-social-media-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 6px;
+  color: #003366;
+  font-size: 1.3rem; /* Base icon size */
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.2s ease;
+  width: 30px;
+  height: 30px;
+}
+@media (min-width: 640px) { /* sm screens */
+  .college-social-media-links a {
+    font-size: 1.5rem;
+    margin: 0 8px;
+    width: 34px;
+    height: 34px;
+  }
+}
+
+.college-social-media-links a:hover {
+  color: #0779e4;
+  transform: scale(1.15);
+}
+
+
+/* --- Single Full-Width Hero Slideshow Styles --- */
+.hero-slideshow-full {
+  width: 100%;
+  height: 55vh;
+  min-height: 300px;
+  max-height: 550px;
+  position: relative;
+  background-size: cover;
+  background-position: center center;
+  transition: background-image 0.8s ease-in-out;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+}
+@media (min-width: 768px) { /* md screens */
+  .hero-slideshow-full {
+    height: 65vh;
+    min-height: 400px;
+    max-height: 650px;
+  }
+}
+
+
+.slideshow-college-name { /* Overlay on hero slideshow */
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 5px 12px;
+  border-radius: 4px;
+  font-size: clamp(0.9rem, 3vw, 1.3rem);
+  font-weight: bold;
+  text-align: center;
+  z-index: 5;
+  max-width: 85%;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.6);
+}
+@media (min-width: 768px) {
+  .slideshow-college-name {
+    font-size: clamp(1.6rem, 3.5vw, 2rem);
+    padding: 10px 20px;
+    top: 25px;
+    white-space: nowrap;
+  }
+}
+
+.slideshow-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  border: none;
+  font-size: clamp(18px, 4vw, 22px);
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10;
+  border-radius: 50%;
+  width: clamp(30px, 8vw, 38px);
+  height: clamp(30px, 8vw, 38px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  line-height: 1;
+}
+.slideshow-arrow:hover {
+  background-color: rgba(0, 0, 0, 0.55);
+}
+.slideshow-arrow.prev { left: 8px; }
+.slideshow-arrow.next { right: 8px; }
+
+@media (min-width: 768px) {
+  .slideshow-arrow {
+    font-size: clamp(24px, 4vw, 28px);
+    width: clamp(40px, 6vw, 48px);
+    height: clamp(40px, 6vw, 48px);
+  }
+  .slideshow-arrow.prev { left: 20px; }
+  .slideshow-arrow.next { right: 20px; }
+}
+
+/* Basic CTA button styles if not fully relying on Tailwind utilities in JSX */
+.cta-btn {
+    background: #0779e4;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+.cta-btn:hover {
+    background: #045aab;
 }

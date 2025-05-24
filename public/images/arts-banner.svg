@@ -1,0 +1,28 @@
+<svg width="1200" height="300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#EAEAEA" />
+
+  <text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" font-family="Arial, sans-serif" font-size="48" fill="#333333" font-weight="bold">
+    Department of Arts & Humanities
+  </text>
+
+  <text x="50%" y="65%" dominant-baseline="middle" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" fill="#555555">
+    Exploring Creativity and Culture
+  </text>
+
+  <line x1="100" y1="250" x2="1100" y2="250" stroke="#CCCCCC" stroke-width="2"/>
+  <circle cx="60" cy="150" r="20" fill="#A0A0A0" />
+  <rect x="1120" y="130" width="40" height="40" fill="#A0A0A0" />
+
+  <style>
+    <![CDATA[
+      @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Open+Sans&display=swap');
+      text:nth-of-type(1) {
+        font-family: 'Merriweather', serif;
+        font-weight: 700;
+      }
+      text:nth-of-type(2) {
+        font-family: 'Open Sans', sans-serif;
+      }
+    ]]>
+  </style>
+</svg>

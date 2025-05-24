@@ -1,0 +1,68 @@
+/* components/Modal.css */
+.modal-overlay-react { /* Ensure this matches className in Modal.tsx */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1050; /* High z-index */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0s linear 0.3s; /* Corrected transition for visibility */
+}
+
+.modal-overlay-react.active {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.modal-content-react { /* Ensure this matches className in Modal.tsx */
+    background-color: white;
+    padding: 12px; /* Mobile first padding */
+    border-radius: 0.5rem; /* Tailwind: rounded-lg */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Tailwind shadow-xl */
+    width: 90%;
+    max-width: 500px; /* Max width */
+    position: relative;
+    transform: scale(0.95);
+    transition: transform 0.3s ease-in-out;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-overlay-react.active .modal-content-react {
+    transform: scale(1);
+}
+
+.modal-close-btn-react { /* Ensure this matches className in Modal.tsx */
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    font-size: 1.75rem; /* text-2xl */
+    font-weight: bold;
+    color: #6B7280; /* Tailwind: text-gray-500 */
+    cursor: pointer;
+    padding: 0.25rem; /* p-1 */
+    line-height: 1;
+}
+
+.modal-close-btn-react:hover {
+    color: #111827; /* Tailwind: text-gray-900 */
+}
+
+@media (min-width: 640px) { /* sm breakpoint */
+    .modal-content-react {
+        padding: 20px;
+    }
+     .modal-close-btn-react {
+        top: 12px;
+        right: 16px;
+    }
+}
