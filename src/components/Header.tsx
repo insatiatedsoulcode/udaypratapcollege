@@ -37,15 +37,15 @@ function Header() {
   };
 
   return (
-    <header className="bg-gray-800 text-white py-3 border-b-3 border-blue-500 sticky top-0 z-50"> {/* Example Tailwind classes */}
+    <header className="bg-gray-800 text-white py-2 border-b-3 border-blue-500 sticky top-0 z-50"> {/* Example Tailwind classes */}
       <div className="container mx-auto px-4 flex justify-between items-center">
         <div className="logo-container">
           <Link href="/" className="flex items-center">
             <Image
               src="/images/logo.png" // Path relative to public folder
               alt="Uday Pratap College Logo"
-              width={120} // Adjust actual width of your logo
-              height={60} // Adjust actual height of your logo
+              width={80} // Adjust actual width of your logo
+              height={1} // Adjust actual height of your logo
               className="header-logo" // You can keep your custom class for other specific styles if needed
               priority //  Load logo image with priority
             />

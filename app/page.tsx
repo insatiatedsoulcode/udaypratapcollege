@@ -7,9 +7,11 @@ import Image from 'next/image'; // Using Next.js Image component for slideshow
 
 // Adjust these import paths based on where your components directory is.
 // If 'components' is at the root (sibling to 'app'):
-import Modal from '../components/Modal';
-import InquiryForm from '../components/InquiryForm';
-import NotificationTicker from '../components/NotificationTicker';
+// ... other code ...
+import Modal from '../src/components/Modal';
+import InquiryForm from '../src/components/InquiryForm'; // <--- THIS IS THE FIX!
+import NotificationTicker from '../src/components/NotificationTicker';
+// ... other code ...
 // If you decided to put 'components' inside 'src/' and 'app' is at the root:
 // import Modal from '../src/components/Modal';
 // import InquiryForm from '../src/components/InquiryForm';
