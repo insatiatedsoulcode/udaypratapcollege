@@ -1,51 +1,56 @@
 // src/components/TopBar.tsx
 import React from 'react';
 import Link from 'next/link';
-
-// Optional: If you want to use icons, you can install a library like react-icons
-// For example: npm install react-icons
-// Then import them:
-// import { FaPhoneAlt, FaEnvelope } from 'react-icons/fa';
+import { FaTwitter, FaInstagram, FaFacebookF, FaYoutube, FaLinkedinIn } from 'react-icons/fa'; // Krea social icons
 
 const TopBar = () => {
-  return (
-    // You can customize the background color (e.g., bg-emerald-700, bg-teal-800, or your custom color)
-    // and text color (e.g., text-gray-200, text-white)
-    // py-2 provides vertical padding, text-xs makes font small. Adjust as needed.
-    <div className="bg-slate-800 text-slate-300 text-xs py-2">
-      <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+  const commonLinkClasses = "hover:text-gray-300 transition-colors duration-150 focus:outline-none focus:text-gray-300 focus:ring-1 focus:ring-sky-500 rounded-sm";
+  const socialIconClasses = "hover:text-sky-300 transition-colors duration-150 focus:outline-none focus:text-sky-300 focus:ring-1 focus:ring-sky-500 rounded-sm p-0.5";
 
-        {/* Left Side: Contact Info */}
-        {/* On small (xs) screens, contact items will be centered and stack. */}
-        {/* On sm screens and up, they'll be in a row. */}
-        {/* The whole contact block will stack above links on screens smaller than md. */}
-        <div className="flex flex-col text-center sm:flex-row sm:text-left items-center space-y-1 sm:space-y-0 sm:space-x-4 rtl:sm:space-x-reverse mb-2 md:mb-0">
-          <div className="flex items-center">
-            {/* Example of using an icon: <FaPhoneAlt className="mr-1.5 text-slate-400" /> */}
-            <span>Mobile: +91 XXXXXXXXXX</span> {/* Replace with your actual phone number */}
-          </div>
-          <div className="flex items-center">
-            {/* Example of using an icon: <FaEnvelope className="mr-1.5 text-slate-400" /> */}
-            <span>Email: info@udaypratapcollege.ac.in</span> {/* Replace with your actual email */}
-          </div>
+
+  return (
+    // Krea top bar: Dark blue background, white/light text, minimal padding
+    <div className="bg-blue-900 text-white text-xs py-2"> {/* Adjusted to a blue shade */}
+      <div className="container mx-auto px-4 flex flex-col lg:flex-row justify-between items-center">
+
+        {/* Left Side: Links */}
+        <div className="flex flex-wrap justify-center lg:justify-start items-center space-x-3 sm:space-x-4 rtl:sm:space-x-reverse mb-2 lg:mb-0">
+          <Link href="/campus-visit" className={commonLinkClasses}>Campus Visit</Link>
+          <Link href="/career-services" className={commonLinkClasses}>Career Services</Link>
+          <Link href="https://krea.edu.in" target="_blank" rel="noopener noreferrer" className={commonLinkClasses}>Uday Pratap College</Link> {/* Example external link */}
+          <Link href="/contact" className={commonLinkClasses}>Contact</Link>
         </div>
 
-        {/* Right Side: Links */}
-        {/* On small (xs) screens, links will be centered. */}
-        <nav className="flex flex-wrap justify-center items-center space-x-3 sm:space-x-4 rtl:sm:space-x-reverse">
-          <Link href="/blog" className="hover:text-white transition-colors">
-            Blog {/* Replace with your link label */}
+        {/* Right Side: Login, Apply Now, Social Icons */}
+        <div className="flex flex-wrap justify-center lg:justify-end items-center space-x-3 sm:space-x-4 rtl:sm:space-x-reverse">
+          <Link href="/portal-login" className={commonLinkClasses}>Portal Login</Link>
+
+          <Link href="/apply" legacyBehavior>
+            <a className="bg-red-600 hover:bg-red-700 text-white font-semibold py-1.5 px-3 text-xs rounded-sm transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 focus:ring-offset-blue-900">
+              Apply Now
+            </a>
           </Link>
-          {/* Simple separator, hidden on extra-small screens to prevent awkward wrapping */}
-          <span className="text-slate-500 hidden sm:inline">|</span>
-          <Link href="/disclosures" className="hover:text-white transition-colors">
-            Disclosures {/* Replace with your link label */}
-          </Link>
-          <span className="text-slate-500 hidden sm:inline">|</span>
-          <Link href="/contact-info" className="hover:text-white transition-colors"> {/* Example: maybe a more specific contact page */}
-            Support {/* Replace with your link label */}
-          </Link>
-        </nav>
+
+          {/* Social Media Icons */}
+          <div className="flex items-center space-x-2 rtl:space-x-reverse pl-2">
+            <a href="https://twitter.com/kreauniversity" target="_blank" rel="noopener noreferrer" aria-label="Twitter" className={socialIconClasses}>
+              <FaTwitter size="1.1em" />
+            </a>
+            <a href="https://www.instagram.com/kreauniversity/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className={socialIconClasses}>
+              <FaInstagram size="1.1em" />
+            </a>
+            <a href="https://www.facebook.com/KreaUniversity/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className={socialIconClasses}>
+              <FaFacebookF size="1.1em" />
+            </a>
+            <a href="https://www.youtube.com/c/KreaUniversity/" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className={socialIconClasses}>
+              <FaYoutube size="1.1em" />
+            </a>
+            <a href="https://www.linkedin.com/school/kreauniversity" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className={socialIconClasses}>
+              <FaLinkedinIn size="1.1em" />
+            </a>
+            {/* Replace with your actual social media links */}
+          </div>
+        </div>
 
       </div>
     </div>
