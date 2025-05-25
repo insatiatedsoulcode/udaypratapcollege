@@ -1,5 +1,6 @@
 // app/academics/page.tsx
 import React from 'react';
+import Link from 'next/link';
 
 // You can add specific imports for this page later, e.g.:
 // import Link from 'next/link';
