@@ -181,7 +181,9 @@ function Header() {
 
 
   return (
-    <header className="bg-white text-gray-800 shadow-md sticky top-0 z-40">
+    <header className="bg-red-500 p-10"> {/* Use obvious different styling for test */}
+          <p>Minimal Header Test</p>
+        </header>
       <div className="container mx-auto px-4 flex justify-between items-center py-3 min-h-[70px]">
 
         <div className="quote-container flex-shrink-0 max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl">
