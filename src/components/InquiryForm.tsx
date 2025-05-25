@@ -1,8 +1,8 @@
-// components/InquiryForm.tsx
+// src/components/InquiryForm.tsx
 'use client'; // This component uses client-side hooks (useState)
 
 import React, { useState, FormEvent } from 'react';
-// import collegeLogo from '/images/logo.png'; // If using next/image and logo is in public/images
+import Image from 'next/image'; // Import Next.js Image component
 
 interface InquiryFormProps {
   onSuccess?: () => void; // Optional callback for successful submission
@@ -53,7 +53,8 @@ const InquiryForm: React.FC<InquiryFormProps> = ({ onSuccess }) => {
   };
 
   const validateForm = (): boolean => {
-    let tempErrors: Errors = {};
+    // FIX 1: Changed 'let tempErrors' to 'const tempErrors'
+    const tempErrors: Errors = {};
     let isValid = true;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^[+\d\s-()]{7,20}$/;
@@ -90,6 +91,7 @@ const InquiryForm: React.FC<InquiryFormProps> = ({ onSuccess }) => {
       setIsSubmitting(true);
       setErrors({});
 
+      // Note: formData.phone is collected but not included in dataToSend here. This is fine if intentional.
       const dataToSend = {
         name: formData.name,
         email: formData.email,
@@ -97,7 +99,7 @@ const InquiryForm: React.FC<InquiryFormProps> = ({ onSuccess }) => {
         message: formData.message,
       };
 
-      const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3001'; // Use NEXT_PUBLIC_ for client-side env vars
+      const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3001';
       const ENQUIRY_ENDPOINT = `${API_BASE_URL}/api/send-enquiry`;
 
       try {
@@ -123,7 +125,14 @@ const InquiryForm: React.FC<InquiryFormProps> = ({ onSuccess }) => {
           }
         } else {
           let errorMsg = `Server error: ${response.status}.`;
-          try { const errData = await response.json(); errorMsg = errData.message || errorMsg; if (errData.errors) setErrors(errData.errors); } catch (_) { /* no json body */ }
+          try {
+            const errData = await response.json();
+            errorMsg = errData.message || errorMsg;
+            if (errData.errors) setErrors(errData.errors);
+          // FIX 2: Removed unused '_' from catch parameter for the inner try...catch
+          } catch {
+            /* no json body, error object from inner catch not needed here */
+          }
           setSubmissionStatus({ submitted: true, message: errorMsg, type: 'error' });
         }
       } catch (networkError) {
@@ -145,11 +154,16 @@ const InquiryForm: React.FC<InquiryFormProps> = ({ onSuccess }) => {
   return (
     <>
       <div className={`text-center mb-1.5 sm:mb-2 md:mb-3 ${isSubmitting ? 'opacity-50' : ''}`}>
-        <img
-          src="/images/logo.png" // Assuming logo.png is in public/images/
-          alt="Uday Pratap College Logo"
-          className="mx-auto h-9 w-9 sm:h-10 sm:w-10 md:h-12 md:w-12 rounded-full mb-0.5 sm:mb-1 object-cover shadow-sm"
-        />
+        {/* FIX 3: Replaced <img> with Next.js <Image /> component */}
+        <div className="relative mx-auto h-9 w-9 sm:h-10 sm:w-10 md:h-12 md:w-12 rounded-full overflow-hidden mb-0.5 sm:mb-1 shadow-sm">
+          <Image
+            src="/images/logo.png" // Assuming logo.png is in public/images/
+            alt="Uday Pratap College Logo"
+            layout="fill" // Use "fill" to make it responsive to the parent div's size
+            objectFit="cover" // Ensures the image covers the area, might crop; use "contain" if you want to see the whole logo
+            // You can add 'className="rounded-full"' if objectFit="cover" doesn't make it perfectly round with your image
+          />
+        </div>
         <h1 className="text-base sm:text-lg md:text-xl font-bold text-indigo-700">
           Uday Pratap College
         </h1>

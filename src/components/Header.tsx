@@ -187,7 +187,7 @@ function Header() {
         <div className="quote-container flex-shrink-0 max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl">
           <blockquote className="text-xs">
             <p className="text-sm font-bold text-black not-italic transition-opacity duration-500 ease-in-out">
-              "{vivekanandaQuotes[currentQuoteIndex]}"
+              &quot;{vivekanandaQuotes[currentQuoteIndex]}&quot; // <--- FIX HERE
             </p>
             <cite className="block text-right italic text-gray-500 text-xs mt-1">- Swami Vivekananda</cite>
           </blockquote>
