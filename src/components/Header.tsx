@@ -55,23 +55,18 @@ const mainNavLinks = [
     href: "/student-life",
     label: "Student Life",
     hasDropdown: true,
-    dropdownLinks: [ // This is an array
-      { href: "/student-life/facilities", label: "Facilities" } // This is an object inside the array
-      // If you have more sub-links for "Student Life", add them here as new objects, separated by commas:
-      // { href: "/student-life/clubs", label: "Clubs & Societies" },
-      // { href: "/student-life/sports", label: "Sports" }
+    dropdownLinks: [
+      { href: "/student-life/facilities", label: "Facilities" }
     ]
   },
   { href: "/contact", label: "Contact Us" },
 ];
 
-// Define type for dropdown links, useful for NavLinkItem props
 type DropdownLink = {
   href: string;
   label: string;
 };
 
-// Define type for main navigation links, including optional dropdownLinks
 type MainNavLink = {
   href: string;
   label: string;
@@ -84,12 +79,12 @@ type MainNavLink = {
 function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
-  const [openMobileSubmenus, setOpenMobileSubmenus] = useState<Record<string, boolean>>({}); // State for mobile submenus
+  const [openMobileSubmenus, setOpenMobileSubmenus] = useState<Record<string, boolean>>({});
   const pathname = usePathname();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
-    if (isMobileMenuOpen) { // If closing main menu, also close all submenus
+    if (isMobileMenuOpen) {
       setOpenMobileSubmenus({});
     }
   };
@@ -101,7 +96,6 @@ function Header() {
     }));
   };
 
-  // Effect to cycle through quotes
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentQuoteIndex(prevIndex => (prevIndex + 1) % vivekanandaQuotes.length);
@@ -109,44 +103,40 @@ function Header() {
     return () => clearInterval(timer);
   }, []);
 
-  // Effect to close mobile menu on resize
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
         setIsMobileMenuOpen(false);
-        setOpenMobileSubmenus({}); // Close submenus too
+        setOpenMobileSubmenus({});
       }
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Sub-component for individual navigation links
   const NavLinkItem = ({ href, label, exact, hasDropdown, dropdownLinks, isMobile = false }: MainNavLink & { isMobile?: boolean }) => {
     const isActive = exact ? pathname === href : pathname.startsWith(href) && (href !== "/" || pathname === "/");
     const isSubmenuOpenForThisItem = isMobile && hasDropdown && !!openMobileSubmenus[href];
 
     const handleClick = (e: React.MouseEvent) => {
       if (isMobile && hasDropdown && dropdownLinks && dropdownLinks.length > 0) {
-        e.preventDefault(); // Prevent navigation for parent, it just toggles
+        e.preventDefault();
         toggleMobileSubmenu(href);
       } else if (isMobile) {
-        setIsMobileMenuOpen(false); // For non-dropdown links or if parent is clicked when already open
-        setOpenMobileSubmenus({}); // Close all submenus when navigating from a top-level mobile link
+        setIsMobileMenuOpen(false);
+        setOpenMobileSubmenus({});
       }
-      // Desktop click is handled by Next.js Link naturally
     };
 
     return (
-      // For desktop hover dropdown, the parent li has 'group'. For mobile, we handle click.
       <Link
         href={href}
         onClick={handleClick}
         className={`
           px-2 py-2 text-sm font-medium transition-all duration-150 ease-in-out
           relative flex items-center
-          ${isMobile ? 'justify-between w-full' : 'group'} // 'group' for desktop hover effects
-          ${isActive && !isSubmenuOpenForThisItem // Don't keep parent active if submenu is the focus on mobile
+          ${isMobile ? 'justify-between w-full' : 'group'}
+          ${isActive && !isSubmenuOpenForThisItem
             ? 'text-orange-600'
             : 'text-gray-700 hover:text-orange-500 focus:text-orange-500'
           }
@@ -164,7 +154,6 @@ function Header() {
             `}
           />
         )}
-        {/* Animated Underline for desktop */}
         {!isMobile && (
           <span
             className={`
@@ -179,15 +168,14 @@ function Header() {
     );
   };
 
-
   return (
-    <header className="bg-white text-gray-800 shadow md-sticky top-0 z-40">
+    <header className="bg-white text-gray-800 shadow-md sticky top-0 z-40">
       <div className="container mx-auto px-4 flex justify-between items-center py-3 min-h-[70px]">
 
         <div className="quote-container flex-shrink-0 max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl">
           <blockquote className="text-xs">
             <p className="text-sm font-bold text-black not-italic transition-opacity duration-500 ease-in-out">
-              &quot;{vivekanandaQuotes[currentQuoteIndex]}&quot; // <--- FIX HERE
+              &quot;{vivekanandaQuotes[currentQuoteIndex]}&quot;
             </p>
             <cite className="block text-right italic text-gray-500 text-xs mt-1">- Swami Vivekananda</cite>
           </blockquote>
@@ -200,9 +188,8 @@ function Header() {
                 <li key={linkItem.href} className="relative group">
                   <NavLinkItem
                     {...linkItem}
-                    isMobile={false} // Explicitly false for desktop
+                    isMobile={false}
                   />
-                  {/* Desktop Dropdown Menu - visible on group-hover */}
                   {linkItem.hasDropdown && linkItem.dropdownLinks && (
                     <div className="absolute left-0 mt-1 w-60 origin-top-left bg-white border border-gray-200 rounded-md shadow-xl opacity-0 group-hover:opacity-100 group-hover:visible invisible transition-all duration-200 ease-out z-50 group-hover:animate-fadeIn">
                       <div className="py-1 divide-y divide-gray-100" role="menu" aria-orientation="vertical">
@@ -240,18 +227,16 @@ function Header() {
         </div>
       </div>
 
-      {/* Mobile Menu Dropdown */}
       {isMobileMenuOpen && (
         <div className="md:hidden border-t border-gray-200 bg-white shadow-lg absolute top-full left-0 right-0 z-30 animate-fadeIn">
           <nav className="container mx-auto px-4 py-3">
             <ul className="flex flex-col space-y-1">
               {mainNavLinks.map(linkItem => (
                 <li key={linkItem.href}>
-                  <NavLinkItem // Pass all props for the main link item
+                  <NavLinkItem
                     {...linkItem}
-                    isMobile={true} // Indicate this is for mobile
+                    isMobile={true}
                   />
-                  {/* Conditionally render sub-menu for mobile */}
                   {linkItem.hasDropdown && linkItem.dropdownLinks && openMobileSubmenus[linkItem.href] && (
                     <ul className="pl-5 mt-1 mb-2 space-y-1 border-l border-gray-200 ml-2 py-1">
                       {linkItem.dropdownLinks.map(subLink => (
@@ -259,8 +244,8 @@ function Header() {
                           <Link
                             href={subLink.href}
                             onClick={() => {
-                              setIsMobileMenuOpen(false); // Close main mobile menu on sub-link click
-                              setOpenMobileSubmenus({}); // Close all submenus
+                              setIsMobileMenuOpen(false);
+                              setOpenMobileSubmenus({});
                             }}
                             className="block px-3 py-2 text-xs text-gray-600 hover:bg-orange-50 hover:text-orange-600 rounded-md transition-colors"
                           >
@@ -280,4 +265,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default Header; // <--- MAKE SURE THIS LINE IS PRESENT AND CORRECT AT THE VERY END
