@@ -59,7 +59,7 @@ const mainNavLinks = [
       { href: "/student-life/facilities", label: "Facilities" }
     ]
   },
-  { href: "/contact", label: "Contact Us" },
+  { href: "/contact-us", label: "Contact Us" },
 ];
 
 type DropdownLink = {
