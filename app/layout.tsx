@@ -8,6 +8,7 @@ import './globals.css'; // Your global styles
 import TopBar from '@/components/TopBar';   // <--- ADD THIS IMPORT
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -28,6 +29,7 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased`}> {/* Applies Inter font and antialiasing */}
         <TopBar /> {/* <--- ADD THE TOPBAR COMPONENT HERE */}
         <Header />
+        <Breadcrumbs />
         <main className="flex-grow"> {/* Added flex-grow if you want main content to push footer down in a flex column layout */}
           {children} {/* Page specific content will be rendered here */}
         </main>
