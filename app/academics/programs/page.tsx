@@ -12,7 +12,7 @@ const programsData = [
     description: 'A comprehensive program designed to equip students with essential business management skills...',
     duration: '3 Years',
     eligibility: '10+2 or equivalent from a recognized board.',
-    imageUrl: '/images/programs/BBA.png',
+    imageUrl: '/images/programs/bbav1.png',
   },
   {
     id: 'bca',
@@ -20,7 +20,7 @@ const programsData = [
     description: 'Focuses on computer science fundamentals, software development, and application design...',
     duration: '3 Years',
     eligibility: '10+2 with Mathematics as a subject or equivalent.',
-    imageUrl: '/images/programs/BCA.png',
+    imageUrl: '/images/programs/bcav1.png',
   },
   {
     id: 'ba',
@@ -28,7 +28,7 @@ const programsData = [
     description: 'A versatile degree offering a broad understanding of humanities and social sciences...',
     duration: '3 Years',
     eligibility: '10+2 or equivalent from a recognized board.',
-    imageUrl: '/images/programs/BA.png',
+    imageUrl: '/images/programs/bav1.png',
     specializations: [
       'English',
       'Political Science',
@@ -56,7 +56,7 @@ const ProgramsOfferedPage = () => {
             className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col hover:shadow-2xl transition-shadow duration-300"
           >
             {program.imageUrl && (
-              <div className="relative w-full bg-pink-500" style={{ height: '192px' }}> {/* Removed h-48, added inline style */} {/* <<< Pink background (bg-pink-500) REMOVED HERE */}
+              <div className="relative w-full bg-pink-500" style={{ height: '266px' }}> {/* Removed h-48, added inline style */} {/* <<< Pink background (bg-pink-500) REMOVED HERE */}
                 <Image
                   src={program.imageUrl}
                   alt={`${program.name} program image`}
