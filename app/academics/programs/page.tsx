@@ -69,7 +69,7 @@ const ProgramsOfferedPage = () => {
       {/* Academic Programs */}
       <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-8">Our Academic Programs</h2>
       <p className="text-base sm:text-lg text-gray-600 mb-6 text-center max-w-3xl mx-auto">
-        Uday Pratap College offers a diverse range of undergraduate programs designed to foster intellectual growth, critical thinking, and career readiness. Explore our offerings below to find the path that's right for you.
+        Uday Pratap College offers a diverse range of undergraduate programs designed to foster intellectual growth, critical thinking, and career readiness. Explore our offerings below to find the path that&apos;s right for you.
       </p>
 
       {/* Search and Toggle */}
