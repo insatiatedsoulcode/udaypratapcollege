@@ -3,6 +3,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import KeyFeatureSection from '@/components/KeyFeatureSection';
 // import Link from 'next/link';
 
 const programsData = [
@@ -49,6 +50,7 @@ const ProgramsOfferedPage = () => {
         Uday Pratap College offers a diverse range of undergraduate programs designed to foster intellectual growth, critical thinking, and career readiness. Explore our offerings below to find the path that&apos;s right for you.
       </p>
 
+        <KeyFeatureSection />
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {programsData.map((program) => (
           <div

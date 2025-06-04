@@ -13,6 +13,7 @@ import NotificationTicker from '../src/components/NotificationTicker';
 //import SummerSchoolBanner from '@/components/SummerSchoolBanner';
 import FeaturedEventsCarousel from '@/components/FeaturedEventsCarousel';
 
+
 // Social Media Icons
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaYoutube } from 'react-icons/fa';
 
