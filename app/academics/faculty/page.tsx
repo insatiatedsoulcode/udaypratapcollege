@@ -4,11 +4,13 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaGraduationCap, FaMicroscope, FaUserTie, FaChevronRight, FaUsers, FaBook } from 'react-icons/fa';
+// --- CORRECTED IMPORT LINE ---
+// FaGraduationCap and FaMicroscope have been removed as they were not used in the component.
+import { FaUserTie, FaChevronRight, FaUsers, FaBook, FaFlask, FaLaptopCode, FaLightbulb, FaBalanceScale, FaHandshake, FaLeaf, FaInfinity, FaBrain, FaChartLine } from 'react-icons/fa';
+
 
 // --- Updated Faculty Data with 4 Members per Department ---
-// IMPORTANT: Replace this placeholder data with your actual faculty details.
-// All imageUrls are currently set to faculty1.png as requested for placeholder.
+// Using faculty1.png for all images as requested.
 const facultyData = [
   {
     department: 'Department of Computer Applications',
@@ -19,7 +21,7 @@ const facultyData = [
         qualifications: 'Ph.D. (Computer Science), M.Tech (CSE)',
         imageUrl: '/images/faculty/faculty1.png',
         expertise: ['Artificial Intelligence', 'Machine Learning', 'Data Mining'],
-        profileLink: '/faculty/rakesh-sharma', // Example, update later
+        profileLink: '/faculty/rakesh-sharma',
         hoverInfo: {
           researchFocus: 'Developing novel algorithms for predictive modeling in large-scale datasets.',
           recentPublication: '"A Framework for Unsupervised Anomaly Detection", IEEE Transactions, 2023.',
@@ -171,6 +173,7 @@ const facultyData = [
   },
 ];
 
+
 const FacultyPage = () => {
   return (
     <main>
@@ -199,9 +202,8 @@ const FacultyPage = () => {
                   key={memberIndex}
                   className="group relative block overflow-hidden rounded-lg shadow-md transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
                 >
-                  {/* Default Visible Content */}
                   <div className="transition-transform duration-500 group-hover:scale-105">
-                    <div className="relative w-full h-56"> {/* Rectangular Image Container */}
+                    <div className="relative w-full h-56">
                       <Image
                         src={member.imageUrl}
                         alt={`Photo of ${member.name}`}
@@ -213,11 +215,9 @@ const FacultyPage = () => {
                     <div className="p-5 text-center bg-white">
                       <h3 className="text-lg font-bold text-sky-700">{member.name}</h3>
                       <p className="text-sm text-gray-500 mt-1">{member.designation}</p>
-                      {/* Qualifications removed from default view to simplify, can be added to hover or profile page */}
                     </div>
                   </div>
 
-                  {/* Hover Overlay */}
                   <div className="absolute inset-0 bg-sky-800/95 p-6 flex flex-col justify-center items-center text-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm rounded-lg">
                     <div>
                       <h3 className="text-md font-semibold text-white mb-1">{member.name}</h3>
