@@ -21,6 +21,8 @@ const programsData = [
     name: 'Bachelor of Business Administration (BBA)',
     tagline: 'Strategic Innovation & Data-Driven Decisions',
     description: 'Our BBA program integrates core business principles with modern data analytics and research methodologies, preparing leaders for an evolving global market.',
+    duration: '3 Years', // <<< ADDED
+    eligibility: '10+2 or equivalent',
     imageUrl: '/images/programs/bbav1.png',
     keyFeatures: [
       { icon: FaLightbulb, text: 'Entrepreneurship & Innovation Lab' },
@@ -33,6 +35,8 @@ const programsData = [
     name: 'Bachelor of Computer Applications (BCA)',
     tagline: 'Pioneering Software & AI Solutions',
     description: 'Explore the frontiers of computer science with hands-on experience in AI, machine learning, and software engineering within our advanced research labs.',
+    duration: '3 Years', // <<< ADDED
+        eligibility: '10+2 or equivalent',
     imageUrl: '/images/programs/bcav1.png',
     keyFeatures: [
       { icon: FaLaptopCode, text: 'Advanced Software Development' },
@@ -45,6 +49,8 @@ const programsData = [
     name: 'Bachelor of Arts (BA)',
     tagline: 'Critical Inquiry & Societal Impact',
     description: 'Our BA program encourages in-depth research across humanities and social sciences, fostering analytical skills to address complex societal challenges.',
+    duration: '3 Years', // <<< ADDED
+        eligibility: '10+2 or equivalent',
     imageUrl: '/images/programs/bav1.png',
     specializations: [
       'English (Focus: Digital Humanities Research)',
