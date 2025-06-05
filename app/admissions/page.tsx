@@ -11,7 +11,6 @@ import {
   FaDollarSign,
   FaCalendarAlt,
   FaChevronDown,
-  FaChevronRight,
 } from 'react-icons/fa';
 
 // --- Data for this page (easy to edit) ---

@@ -136,8 +136,7 @@ const FeeStructurePage = () => {
         <div className="bg-sky-50 p-6 rounded-lg border border-sky-200 text-sm text-sky-800 space-y-2">
           <p>• Hostel and Mess fees are separate and are not included in the tuition fees table above. Please contact the hostel office for details.</p>
           <p>• The fee structure is subject to revision as per the guidelines of the university/state government.</p>
-          <p>• All fees once paid are non-refundable. Please refer to the college's refund policy for more details.</p>
-        </div>
+        <p>• All fees once paid are non-refundable. Please refer to the college&apos;s refund policy for more details.</p></div>
       </section>
     </main>
   );
