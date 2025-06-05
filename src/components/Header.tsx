@@ -172,7 +172,7 @@ function Header() {
     <header className="bg-white text-gray-800 shadow-md sticky top-0 z-40">
       <div className="container mx-auto px-4 flex justify-between items-center py-3 min-h-[70px]">
 
-        <div className="quote-container flex-shrink-0 max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl">
+        <div className="quote-container flex-shrink-0 max-w-sm md:max-w-md lg:max-w-md xl:max-w-lg">
           <blockquote className="text-xs">
             <p className="text-sm font-bold text-black not-italic transition-opacity duration-500 ease-in-out">
               &quot;{vivekanandaQuotes[currentQuoteIndex]}&quot;
