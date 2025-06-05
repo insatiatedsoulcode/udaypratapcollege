@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { FaGraduationCap, FaHandHoldingUsd, FaMoneyCheckAlt, FaInfoCircle } from 'react-icons/fa';
 
 // --- Placeholder Fee Data ---
-// IMPORTANT: Replace this with your actual program fee details. All amounts are per year.
+// IMPORTANT: Replace this with your actual program fee details.
 const feeData = [
   {
     program: 'Bachelor of Business Administration (BBA)',
@@ -27,7 +27,6 @@ const feeData = [
     other: '₹2,500',
     total: '₹37,500'
   },
-  // Add more programs as needed
 ];
 
 const scholarshipsData = [
@@ -57,7 +56,6 @@ const FeeStructurePage = () => {
         </p>
       </div>
 
-      {/* Tuition Fee Table Section */}
       <section>
         <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 mb-6 flex items-center">
           <FaGraduationCap className="mr-3 text-sky-600" /> Program Tuition Fees (Per Annum)
@@ -90,7 +88,6 @@ const FeeStructurePage = () => {
         </div>
       </section>
 
-      {/* Scholarships Section */}
       <section className="mt-16">
         <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 mb-6 flex items-center">
           <FaHandHoldingUsd className="mr-3 text-sky-600" /> Scholarships & Financial Aid
@@ -108,7 +105,6 @@ const FeeStructurePage = () => {
         </div>
       </section>
 
-      {/* How to Pay Section */}
       <section className="mt-16">
         <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 mb-6 flex items-center">
           <FaMoneyCheckAlt className="mr-3 text-sky-600" /> How to Pay Fees
@@ -118,7 +114,7 @@ const FeeStructurePage = () => {
             College fees can be paid through our online payment portal, bank transfer (NEFT/RTGS), or Demand Draft.
           </p>
           <p>
-            For online payments, please use the official student portal. Ensure you enter the student's registration number correctly.
+            For online payments, please use the official student portal. Ensure you enter the student&apos;s registration number correctly.
           </p>
           <div className="mt-4">
             <Link href="/portal-login" className="inline-block bg-orange-500 text-white font-semibold px-6 py-2.5 rounded-lg hover:bg-orange-600 transition-colors">
@@ -128,7 +124,6 @@ const FeeStructurePage = () => {
         </div>
       </section>
 
-      {/* Important Notes */}
       <section className="mt-16">
          <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 mb-6 flex items-center">
           <FaInfoCircle className="mr-3 text-sky-600" /> Important Notes
@@ -136,7 +131,8 @@ const FeeStructurePage = () => {
         <div className="bg-sky-50 p-6 rounded-lg border border-sky-200 text-sm text-sky-800 space-y-2">
           <p>• Hostel and Mess fees are separate and are not included in the tuition fees table above. Please contact the hostel office for details.</p>
           <p>• The fee structure is subject to revision as per the guidelines of the university/state government.</p>
-        <p>• All fees once paid are non-refundable. Please refer to the college&apos;s refund policy for more details.</p></div>
+          <p>• All fees once paid are non-refundable. Please refer to the college&apos;s refund policy for more details.</p>
+        </div>
       </section>
     </main>
   );
