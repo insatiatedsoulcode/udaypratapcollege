@@ -7,7 +7,7 @@ import Link from 'next/link';
 // --- CORRECTED IMPORT LINE ---
 // FaGraduationCap and FaMicroscope have been removed as they were not used in the component.
 //import { FaUserTie, FaChevronRight, FaUsers, FaBook, FaFlask, FaLaptopCode, FaLightbulb, FaBalanceScale, FaHandshake, FaLeaf, FaInfinity, FaBrain, FaChartLine } from 'react-icons/fa';
-import { FaUserTie, FaChevronRight, FaUsers } from 'react-icons/fa';
+//import { FaUserTie, FaChevronRight, FaUsers } from 'react-icons/fa';
 
 // --- Updated Faculty Data with 4 Members per Department ---
 // Using faculty1.png for all images as requested.
