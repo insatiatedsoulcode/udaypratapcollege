@@ -179,7 +179,7 @@ const FacultyPage = () => {
     <main>
       <section className="bg-slate-100 border-b border-slate-200">
         <div className="container mx-auto px-4 py-12 text-center">
-          <FaUsers className="mx-auto h-12 w-12 text-sky-600 mb-4" />
+
           <h1 className="text-4xl md:text-5xl font-bold text-slate-800">
             Meet Our Esteemed Faculty
           </h1>
