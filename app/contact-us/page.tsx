@@ -1,28 +1,62 @@
 // app/contact-us/page.tsx
 import React from 'react';
-import Link from 'next/link'; // <<< ENSURE THIS IMPORT IS PRESENT AND UNCOMMENTED
-
-// ... (useState, Modal, InquiryForm imports if you're using them on this page) ...
+import Link from 'next/link';
 
 const ContactUsPage = () => {
-  // ... (googleMapsEmbedCode variable and other component logic) ...
+  // Replace with the iframe code you get from Google Maps for your college's location
+  const googleMapsEmbedCode = `
+    <iframe
+      src="YOUR_Maps_EMBED_URL_HERE"
+      width="100%"
+      height="350"
+      style={{ border:0 }}
+      allowFullScreen=""
+      loading="lazy"
+      referrerPolicy="no-referrer-when-downgrade"
+      title="Uday Pratap College Location Map"
+    ></iframe>
+  `;
 
   return (
-    <main className="container mx-auto px-4 py-12">
-      {/* ... other content ... */}
+    <main className="container mx-auto px-4 py-12 md:py-16">
+      <h1 className="text-4xl font-bold text-gray-800 mb-10 text-center">
+        Contact Us
+      </h1>
 
-      <div className="mt-12 text-center border-t pt-8">
-        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Have a Question?</h2>
-        <p className="mb-6 text-gray-700">
-          For specific inquiries or if you prefer to write to us, please use our inquiry form.
+      <div className="bg-white p-6 md:p-8 rounded-lg shadow-xl">
+        <p className="text-lg text-center text-gray-700 mb-10">
+          We&apos;d love to hear from you! Whether you have questions about admissions, programs, or campus life, please feel free to reach out using the information below.
         </p>
-        {/* CORRECTED LINK BELOW (around line 75 of your file) */}
-        <Link
-          href="/#inquiry-form-section-on-homepage-if-any" // Or the correct path to your form
-          className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
-        >
-          Go to Inquiry Form
-        </Link>
+
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12">
+          {/* Column 1: Contact Information */}
+          <div className="prose">
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4">Contact Information</h2>
+            <p>
+              <strong>Uday Pratap College</strong><br />
+              Bhojubeer, Varanasi, <br />
+              Uttar Pradesh - 221002, India
+            </p>
+            <p>
+              <strong>Phone:</strong> <a href="tel:+919044774488" className="text-orange-600 hover:underline">+91 9044774488</a>
+            </p>
+            <p>
+              <strong>Email:</strong> <a href="mailto:example@udaypratapcollege.ac.in" className="text-orange-600 hover:underline">example@udaypratapcollege.ac.in</a>
+            </p>
+            <p>
+              <strong>Office Hours:</strong> Monday - Friday, 9:00 AM - 5:00 PM IST
+            </p>
+          </div>
+
+          {/* Column 2: Our Location (Map) */}
+          <div className="prose">
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4">Our Location</h2>
+            <div
+              className="map-container overflow-hidden rounded-md shadow-md h-[350px]"
+              dangerouslySetInnerHTML={{ __html: googleMapsEmbedCode }}
+            />
+          </div>
+        </div>
       </div>
     </main>
   );

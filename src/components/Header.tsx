@@ -55,6 +55,7 @@ const mainNavLinks = [
     hasDropdown: true,
     dropdownLinks: [ { href: "/student-life/facilities", label: "Facilities" } ]
   },
+  { href: "/gallery", label: "Gallery" },
   { href: "/contact-us", label: "Contact Us" },
 ];
 
