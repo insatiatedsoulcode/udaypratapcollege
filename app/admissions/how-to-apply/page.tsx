@@ -83,7 +83,7 @@ const HowToApplyPage = () => {
       {/* Call to Action Button */}
       <div className="text-center my-12">
         <Link
-          href="/portal-login" // This should link to your actual application portal
+          href="/apply" // This should link to your actual application portal
           className="inline-block bg-orange-500 text-white text-lg font-semibold px-8 py-4 rounded-lg hover:bg-orange-600 transition-colors shadow-lg hover:shadow-xl"
         >
           Start Your Application Now
