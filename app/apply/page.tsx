@@ -46,8 +46,7 @@ const ApplicationFormPage = () => {
   };
 
   const nextStep = () => {
-    // Here you would add validation for the current step's fields before proceeding
-    if (currentStep < 3) { // Assuming 3 steps total later (Personal, Academic, Upload/Pay)
+    if (currentStep < 2) {
       setCurrentStep(prev => prev + 1);
     }
   };
@@ -60,12 +59,10 @@ const ApplicationFormPage = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // This is where we will later send the data to the backend
     alert('Form submitted! (Frontend Only)\n' + JSON.stringify(formData, null, 2));
     console.log("Final Form Data:", formData);
   };
 
-  // Common styles for input fields
   const inputClass = "mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500";
   const labelClass = "block text-sm font-medium text-slate-700";
 
@@ -74,13 +71,11 @@ const ApplicationFormPage = () => {
       <div className="container mx-auto px-4 max-w-3xl">
         <div className="bg-white p-6 md:p-10 rounded-xl shadow-lg">
 
-          {/* Header */}
           <div className="text-center border-b pb-4 mb-6">
             <h1 className="text-3xl md:text-4xl font-bold text-slate-800">College Application Form</h1>
             <p className="mt-2 text-slate-500">Please fill out the details carefully.</p>
           </div>
 
-          {/* Step Indicator */}
           <div className="flex justify-center items-center space-x-4 mb-8">
             <div className={`flex items-center ${currentStep >= 1 ? 'text-sky-600' : 'text-slate-400'}`}>
               <div className={`w-8 h-8 rounded-full flex items-center justify-center border-2 ${currentStep >= 1 ? 'border-sky-600 bg-sky-600 text-white' : 'border-slate-400'}`}><FaUser /></div>
@@ -115,7 +110,8 @@ const ApplicationFormPage = () => {
                   </select>
                 </div>
                 <div>
-                  <label htmlFor="parentName" className={labelClass}>Parent's/Guardian's Name</label>
+                  {/* --- CORRECTED LINE --- */}
+                  <label htmlFor="parentName" className={labelClass}>Parent&apos;s/Guardian&apos;s Name</label>
                   <input type="text" name="parentName" id="parentName" value={formData.parentName} onChange={handleInputChange} className={inputClass} required />
                 </div>
                 <div>
@@ -158,7 +154,6 @@ const ApplicationFormPage = () => {
                     <option value="BBA">Bachelor of Business Administration (BBA)</option>
                     <option value="BCA">Bachelor of Computer Applications (BCA)</option>
                     <option value="BA">Bachelor of Arts (BA)</option>
-                    {/* Add other programs here */}
                   </select>
                 </div>
               </div>
@@ -171,7 +166,6 @@ const ApplicationFormPage = () => {
                   <FaArrowLeft className="mr-2 h-4 w-4"/> Previous
                 </button>
               )}
-              {/* This empty div ensures the "Next" button stays on the right when "Previous" is not visible */}
               <div className="flex-grow"></div>
               {currentStep < 2 ? (
                 <button type="button" onClick={nextStep} className="inline-flex items-center bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors">
