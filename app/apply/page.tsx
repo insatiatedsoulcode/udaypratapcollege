@@ -81,6 +81,7 @@ const ApplicationFormPage = () => {
         setSubmissionStatus({ success: false, message: result.message || 'An error occurred. Please try again.' });
       }
     } catch (error) {
+        console.error('Form submission failed with a network error:', error);
       setSubmissionStatus({ success: false, message: 'A network error occurred. Please check your connection and try again.' });
     } finally {
       setIsSubmitting(false);

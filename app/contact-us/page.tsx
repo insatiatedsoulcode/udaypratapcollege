@@ -1,15 +1,16 @@
 // app/contact-us/page.tsx
 import React from 'react';
-import Link from 'next/link';
+// import Link from 'next/link'; // Removed as it's not currently used in the JSX
 
 const ContactUsPage = () => {
-  // Replace with the iframe code you get from Google Maps for your college's location
+  // IMPORTANT: You must replace 'YOUR_Maps_EMBED_URL_HERE' with the actual src URL from Google Maps.
+  // The 'style' attribute here has been corrected to be a string for HTML.
   const googleMapsEmbedCode = `
     <iframe
       src="YOUR_Maps_EMBED_URL_HERE"
       width="100%"
       height="350"
-      style={{ border:0 }}
+      style="border:0;"
       allowFullScreen=""
       loading="lazy"
       referrerPolicy="no-referrer-when-downgrade"

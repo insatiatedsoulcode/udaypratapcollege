@@ -79,7 +79,7 @@ const GalleryPage = () => {
         </motion.div>
 
         <div className="space-y-12">
-          {galleryCategories.map((category, categoryIndex) => {
+          {galleryCategories.map((category) => {
             const categoryStartIndex = slides.findIndex(slide => slide.src === category.items[0].src);
 
             return (
