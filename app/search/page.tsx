@@ -2,61 +2,36 @@
 import React from 'react';
 import Link from 'next/link';
 
-// --- IMPORTANT: You must copy your 'programsData' and 'facultyData' arrays here ---
+// Using minimal, hardcoded data directly inside the component for this test
 const programsData = [
-  // Example:
-  { id: 'bba', name: 'Bachelor of Business Administration', description: 'Equips students with essential business management skills.', detailsLink: '/academics/programs/bba' },
-  { id: 'bca', name: 'Bachelor of Computer Applications', description: 'Focuses on computer fundamentals and application design.', detailsLink: '/academics/programs/bca' },
-  { id: 'ba', name: 'Bachelor of Arts (BA)', description: 'A versatile degree offering a broad understanding of humanities and social sciences.', detailsLink: '/academics/programs/ba' },
-  // ... Paste your full programsData array here
+  { id: 'bba', name: 'Bachelor of Business Administration', description: 'A test description for BBA.', detailsLink: '/academics/programs/bba' },
 ];
-
 const facultyData = [
-  // Example:
-  {
-    department: 'Department of Computer Applications',
-    members: [
-      { name: 'Dr. Rakesh Sharma', designation: 'Professor', profileLink: '/faculty/rakesh-sharma', expertise: ['AI'] },
-    ]
-  },
-  // ... Paste your full facultyData array here
+  { department: 'Test Department', members: [
+    { name: 'Dr. Test Faculty', designation: 'Professor', profileLink: '/faculty/test-faculty', expertise: ['Testing'] },
+  ]},
 ];
-// --- END OF DATA SECTION ---
 
-
-// Define the type for the props that Next.js passes to the page
+// Explicitly define the props type as expected by Next.js App Router
 type SearchPageProps = {
-  searchParams: {
-    q?: string;
-  }
+  params: {}; // For dynamic routes like /blog/[slug], not used here
+  searchParams: { [key: string]: string | string[] | undefined }; // The official type for searchParams
 };
 
-// --- CORRECTED FUNCTION DEFINITION ---
-// By making the function 'async', we align with modern Next.js patterns for Server Components
-// that handle dynamic data like searchParams, which resolves the type issue.
+// Use the standard 'async function' definition for a Server Component page
 export default async function SearchPage({ searchParams }: SearchPageProps) {
-  const query = searchParams.q || '';
+  // Safely access the query parameter
+  const query = typeof searchParams.q === 'string' ? searchParams.q : '';
   const decodedQuery = decodeURIComponent(query).toLowerCase();
 
   let programResults = [];
   let facultyResults = [];
 
-  // Only perform search if there is a query
   if (decodedQuery) {
-    // Filter Programs
-    programResults = programsData.filter(program =>
-      program.name.toLowerCase().includes(decodedQuery) ||
-      (program.description && program.description.toLowerCase().includes(decodedQuery))
-    );
-
-    // Filter Faculty
+    programResults = programsData.filter(p => p.name.toLowerCase().includes(decodedQuery));
     facultyResults = facultyData
-      .flatMap(department => department.members.map(member => ({ ...member, department: department.department })))
-      .filter(member =>
-        member.name.toLowerCase().includes(decodedQuery) ||
-        (member.designation && member.designation.toLowerCase().includes(decodedQuery)) ||
-        (member.expertise && member.expertise.some(e => e.toLowerCase().includes(decodedQuery)))
-      );
+      .flatMap(d => d.members.map(m => ({ ...m, department: d.department })))
+      .filter(m => m.name.toLowerCase().includes(decodedQuery));
   }
 
   const hasResults = programResults.length > 0 || facultyResults.length > 0;
@@ -76,49 +51,18 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
         {query && !hasResults && (
           <div className="text-center py-10 bg-gray-50 rounded-lg">
             <p className="text-gray-700 font-semibold">No results found for your query.</p>
-            <p className="text-gray-500 text-sm mt-2">Please try a different search term.</p>
           </div>
         )}
 
         {hasResults && (
           <div className="space-y-10">
-            {/* Program Results Section */}
-            {programResults.length > 0 && (
-              <section>
-                <h2 className="text-2xl font-semibold text-gray-800 border-b pb-2 mb-4">
-                  Matching Programs ({programResults.length})
-                </h2>
-                <div className="space-y-4">
-                  {programResults.map(program => (
-                    <div key={program.id} className="p-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                      <Link href={program.detailsLink || '#'} className="font-semibold text-sky-600 hover:underline">
-                        {program.name}
-                      </Link>
-                      <p className="text-sm text-gray-600 mt-1">{program.description}</p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            )}
-
-            {/* Faculty Results Section */}
-            {facultyResults.length > 0 && (
-              <section>
-                <h2 className="text-2xl font-semibold text-gray-800 border-b pb-2 mb-4">
-                  Matching Faculty ({facultyResults.length})
-                </h2>
-                 <div className="space-y-4">
-                  {facultyResults.map(member => (
-                    <div key={member.name} className="p-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                       <Link href={member.profileLink || '#'} className="font-semibold text-sky-600 hover:underline">
-                        {member.name}
-                      </Link>
-                      <p className="text-sm text-gray-600 mt-1">{member.designation}, {member.department}</p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            )}
+            {/* Results sections will use the simplified data */}
+            {programResults.map(program => (
+              <div key={program.id}><Link href={program.detailsLink}>{program.name}</Link></div>
+            ))}
+            {facultyResults.map(member => (
+              <div key={member.name}><Link href={member.profileLink}>{member.name}</Link></div>
+            ))}
           </div>
         )}
       </div>
