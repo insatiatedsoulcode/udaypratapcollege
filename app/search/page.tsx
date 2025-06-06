@@ -2,49 +2,57 @@
 import React from 'react';
 import Link from 'next/link';
 
-// --- IMPORTANT: You must copy your 'programsData' and 'facultyData' arrays here ---
+// --- IMPORTANT: You must copy your full 'programsData' and 'facultyData' arrays here. ---
+// This placeholder data needs to be replaced with your actual data for search to work correctly.
 const programsData = [
-  // Example:
   { id: 'bba', name: 'Bachelor of Business Administration', description: 'Equips students with essential business management skills.', detailsLink: '/academics/programs/bba' },
   { id: 'bca', name: 'Bachelor of Computer Applications', description: 'Focuses on computer fundamentals and application design.', detailsLink: '/academics/programs/bca' },
   { id: 'ba', name: 'Bachelor of Arts (BA)', description: 'A versatile degree offering a broad understanding of humanities and social sciences.', detailsLink: '/academics/programs/ba' },
-  // ... Paste your full programsData array here
 ];
 
 const facultyData = [
-  // Example:
   {
     department: 'Department of Computer Applications',
     members: [
-      { name: 'Dr. Rakesh Sharma', designation: 'Professor', profileLink: '/faculty/rakesh-sharma', expertise: ['AI'] },
+      { name: 'Dr. Rakesh Sharma', designation: 'Professor', profileLink: '/faculty/rakesh-sharma', expertise: ['Artificial Intelligence'] },
+      // ... more members
     ]
   },
-  // ... Paste your full facultyData array here
+  {
+    department: 'Department of Business Administration',
+    members: [
+      { name: 'Dr. Alok Mishra', designation: 'Professor', profileLink: '/faculty/alok-mishra', expertise: ['Financial Modeling'] },
+      // ... more members
+    ]
+  }
 ];
 // --- END OF DATA SECTION ---
 
 
-// Define the type for the props that Next.js passes to the page
+// Define the type for the props that Next.js passes to this page
 type SearchPageProps = {
-  params: { [key: string]: string }; // <<< CORRECTED TYPE
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: {
+    q?: string; // The query 'q' is optional and will be a string if present
+  }
 };
 
-// Use the modern 'async function' definition for a Server Component page
+// This is a Server Component. Making it 'async' is the standard way to handle props like searchParams.
 export default async function SearchPage({ searchParams }: SearchPageProps) {
-  const query = typeof searchParams.q === 'string' ? searchParams.q : '';
+  const query = searchParams.q || '';
   const decodedQuery = decodeURIComponent(query).toLowerCase();
 
-  let programResults = [];
-  let facultyResults = [];
+  let programResults: typeof programsData = [];
+  let facultyResults: any[] = []; // Define a more specific type if needed
 
-  // Only perform search if there is a query
+  // Only perform the search if there is a query string
   if (decodedQuery) {
+    // Filter Programs
     programResults = programsData.filter(program =>
       program.name.toLowerCase().includes(decodedQuery) ||
       (program.description && program.description.toLowerCase().includes(decodedQuery))
     );
 
+    // Filter Faculty
     facultyResults = facultyData
       .flatMap(department => department.members.map(member => ({ ...member, department: department.department })))
       .filter(member =>
