@@ -2,12 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-// --- IMPORTANT: COPY YOUR DATA ARRAYS HERE ---
-// You should copy your up-to-date 'programsData' and 'facultyData' arrays
-// into this file so it has data to search through.
-// For better organization later, you could move these arrays to a central file
-// like `src/data/collegeData.ts` and import them in all the files that need them.
-
+// --- IMPORTANT: Copy your data arrays here ---
 const programsData = [
   // Example:
   { id: 'bba', name: 'Bachelor of Business Administration', description: 'Equips students with essential business management skills.', detailsLink: '/academics/programs/bba' },
@@ -19,27 +14,34 @@ const programsData = [
 const facultyData = [
   // Example:
   { department: 'Department of Computer Applications', members: [
-    { name: 'Dr. Rakesh Sharma', designation: 'Professor', profileLink: '/faculty/rakesh-sharma' },
+    { name: 'Dr. Rakesh Sharma', designation: 'Professor', profileLink: '/faculty/rakesh-sharma', expertise: ['AI'] },
   ]},
   // ... Paste your full facultyData array here
 ];
 // --- END OF DATA SECTION ---
 
 
-// This is a Server Component, so we can access searchParams directly.
-const SearchPage = ({ searchParams }: { searchParams: { q?: string } }) => {
+// Define the type for the props
+type SearchPageProps = {
+  searchParams: {
+    q?: string;
+  }
+};
+
+// --- CORRECTED FUNCTION DEFINITION ---
+// The component is now an 'async' function.
+export default async function SearchPage({ searchParams }: SearchPageProps) {
   const query = searchParams.q || '';
   const decodedQuery = decodeURIComponent(query).toLowerCase();
 
   let programResults = [];
   let facultyResults = [];
 
-  // Only perform search if there is a query
   if (decodedQuery) {
     // Filter Programs
     programResults = programsData.filter(program =>
       program.name.toLowerCase().includes(decodedQuery) ||
-      program.description.toLowerCase().includes(decodedQuery)
+      (program.description && program.description.toLowerCase().includes(decodedQuery))
     );
 
     // Filter Faculty
@@ -118,5 +120,3 @@ const SearchPage = ({ searchParams }: { searchParams: { q?: string } }) => {
     </main>
   );
 };
-
-export default SearchPage;
