@@ -1,6 +1,7 @@
 // app/admin/layout.tsx
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "../api/auth/[...nextauth]/route"; // Correct relative path
+// Corrected import path to use the new centralized auth file
+import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { FaTachometerAlt, FaFileAlt, FaInbox, FaSignOutAlt } from "react-icons/fa";
