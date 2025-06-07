@@ -1,7 +1,11 @@
 // app/search/page.tsx
-import React from 'react';
+'use client';
+
+import React, { useMemo } from 'react';
+import Fuse from 'fuse.js';
 import Link from 'next/link';
 
+// Sample data
 const programsData = [
   {
     id: 'bca',
@@ -31,15 +35,28 @@ const facultyData = [
   },
 ];
 
-// ✅ Utility to highlight keyword matches
-function highlightText(text: string, keyword: string): string {
-  if (!keyword) return text;
-  const escapedKeyword = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const regex = new RegExp(`(${escapedKeyword})`, 'gi');
-  return text.replace(regex, '<mark>$1</mark>');
+// 🔍 Highlight matched text
+function highlight(text: string, matches: readonly Fuse.RangeTuple[] | undefined): React.ReactNode {
+  if (!matches || matches.length === 0) return text;
+
+  const chunks: React.ReactNode[] = [];
+  let lastIndex = 0;
+
+  matches.forEach(([start, end], index) => {
+    if (lastIndex < start) {
+      chunks.push(text.slice(lastIndex, start));
+    }
+    chunks.push(<mark key={index}>{text.slice(start, end + 1)}</mark>);
+    lastIndex = end + 1;
+  });
+
+  if (lastIndex < text.length) {
+    chunks.push(text.slice(lastIndex));
+  }
+
+  return chunks;
 }
 
-// ✅ Component
 export default function SearchPage({
   searchParams,
 }: {
@@ -47,23 +64,39 @@ export default function SearchPage({
 }) {
   const query = searchParams?.q?.trim().toLowerCase() ?? '';
 
-  const programResults = programsData.filter((program) =>
-    program.name.toLowerCase().includes(query) ||
-    program.description.toLowerCase().includes(query)
+  const programFuse = useMemo(
+    () =>
+      new Fuse(programsData, {
+        keys: ['name', 'description'],
+        includeMatches: true,
+        threshold: 0.4,
+      }),
+    []
   );
 
-  const facultyResults = facultyData
-    .flatMap((dept) =>
-      dept.members.map((member) => ({
-        ...member,
-        department: dept.department,
-      }))
-    )
-    .filter((member) =>
-      member.name.toLowerCase().includes(query) ||
-      member.designation.toLowerCase().includes(query) ||
-      member.expertise.some((skill) => skill.toLowerCase().includes(query))
-    );
+  const facultyFlatList = useMemo(
+    () =>
+      facultyData.flatMap((dept) =>
+        dept.members.map((member) => ({
+          ...member,
+          department: dept.department,
+        }))
+      ),
+    []
+  );
+
+  const facultyFuse = useMemo(
+    () =>
+      new Fuse(facultyFlatList, {
+        keys: ['name', 'designation', 'department', 'expertise'],
+        includeMatches: true,
+        threshold: 0.4,
+      }),
+    [facultyFlatList]
+  );
+
+  const programResults = query ? programFuse.search(query) : [];
+  const facultyResults = query ? facultyFuse.search(query) : [];
 
   const hasResults = programResults.length > 0 || facultyResults.length > 0;
 
@@ -88,22 +121,16 @@ export default function SearchPage({
               Matching Programs
             </h2>
             <ul className="space-y-4">
-              {programResults.map((program) => (
-                <li key={program.id}>
-                  <Link href={program.detailsLink}>
-                    <span
-                      className="text-blue-600 hover:underline font-medium"
-                      dangerouslySetInnerHTML={{
-                        __html: highlightText(program.name, query),
-                      }}
-                    ></span>
+              {programResults.map(({ item, matches }) => (
+                <li key={item.id}>
+                  <Link href={item.detailsLink}>
+                    <span className="text-blue-600 hover:underline font-medium">
+                      {highlight(item.name, matches?.find((m) => m.key === 'name')?.indices)}
+                    </span>
                   </Link>
-                  <p
-                    className="text-sm text-gray-600"
-                    dangerouslySetInnerHTML={{
-                      __html: highlightText(program.description, query),
-                    }}
-                  ></p>
+                  <p className="text-sm text-gray-600">
+                    {highlight(item.description, matches?.find((m) => m.key === 'description')?.indices)}
+                  </p>
                 </li>
               ))}
             </ul>
@@ -116,25 +143,19 @@ export default function SearchPage({
               Matching Faculty
             </h2>
             <ul className="space-y-4">
-              {facultyResults.map((faculty, idx) => (
+              {facultyResults.map(({ item, matches }, idx) => (
                 <li key={idx}>
-                  <Link href={faculty.profileLink}>
-                    <span
-                      className="text-blue-600 hover:underline font-medium"
-                      dangerouslySetInnerHTML={{
-                        __html: highlightText(faculty.name, query),
-                      }}
-                    ></span>
+                  <Link href={item.profileLink}>
+                    <span className="text-blue-600 hover:underline font-medium">
+                      {highlight(item.name, matches?.find((m) => m.key === 'name')?.indices)}
+                    </span>
                   </Link>
-                  <p
-                    className="text-sm text-gray-600"
-                    dangerouslySetInnerHTML={{
-                      __html: highlightText(
-                        `${faculty.designation} • ${faculty.department} • ${faculty.expertise.join(', ')}`,
-                        query
-                      ),
-                    }}
-                  ></p>
+                  <p className="text-sm text-gray-600">
+                    {highlight(
+                      `${item.designation} • ${item.department} • ${item.expertise.join(', ')}`,
+                      matches?.find((m) => ['designation', 'department', 'expertise'].includes(m.key as string))?.indices
+                    )}
+                  </p>
                 </li>
               ))}
             </ul>
