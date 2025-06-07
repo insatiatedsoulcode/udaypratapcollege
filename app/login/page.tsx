@@ -3,7 +3,7 @@
 
 import { useState, FormEvent } from 'react';
 import { signIn } from 'next-auth/react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation'; // Keep useRouter for potential fallbacks
 import { FaLock } from 'react-icons/fa';
 
 export default function LoginPage() {
@@ -19,24 +19,31 @@ export default function LoginPage() {
     setError(null);
     setIsLoading(true);
 
-    const result = await signIn('credentials', {
-      redirect: false, // We handle the redirect manually
-      email: email,
-      password: password,
-    });
+    // Get the page the user was trying to access before being sent to login
+    const callbackUrl = searchParams.get('callbackUrl') || '/admin';
 
-    // --- VVV DEBUGGING LOG VVV ---
-    // This will show the final result of the sign-in attempt in your browser's console.
-    console.log('[Login Page] Result from signIn:', result);
+    try {
+      // --- THIS IS THE KEY CHANGE ---
+      // We removed `redirect: false` and are now passing the callbackUrl
+      // directly to the signIn function. NextAuth will handle the redirect.
+      const result = await signIn('credentials', {
+        email: email,
+        password: password,
+        callbackUrl: callbackUrl,
+      });
 
-    setIsLoading(false);
+      // This part of the code will now only run if there's an error and the redirect doesn't happen.
+      if (result?.error) {
+        setError('Invalid credentials. Please check your email and password.');
+        setIsLoading(false);
+      }
+      // If successful, the user will be redirected automatically and this part won't be reached.
 
-    if (result?.error) {
-      setError('Invalid credentials. Please check your email and password.');
-    } else if (result?.ok) {
-      const callbackUrl = searchParams.get('callbackUrl') || '/admin';
-      router.push(callbackUrl);
-      router.refresh();
+    } catch (err) {
+      // Handle unexpected errors
+      console.error('Sign-in error:', err);
+      setError('An unexpected error occurred. Please try again.');
+      setIsLoading(false);
     }
   };
 
