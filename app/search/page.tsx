@@ -1,11 +1,9 @@
-// app/search/page.tsx
 'use client';
 
 import React, { useMemo } from 'react';
 import Fuse from 'fuse.js';
 import Link from 'next/link';
 
-// Sample data
 const programsData = [
   {
     id: 'bca',
@@ -35,10 +33,8 @@ const facultyData = [
   },
 ];
 
-// 🔍 Highlight matched text
 function highlight(text: string, matches: readonly Fuse.RangeTuple[] | undefined): React.ReactNode {
   if (!matches || matches.length === 0) return text;
-
   const chunks: React.ReactNode[] = [];
   let lastIndex = 0;
 
@@ -57,48 +53,38 @@ function highlight(text: string, matches: readonly Fuse.RangeTuple[] | undefined
   return chunks;
 }
 
-export default function SearchPage({
-  searchParams,
-}: {
-  searchParams?: { q?: string };
-}) {
-  const query = searchParams?.q?.trim().toLowerCase() ?? '';
+type Props = {
+  searchParams?: {
+    q?: string;
+  };
+};
 
-  const programFuse = useMemo(
-    () =>
-      new Fuse(programsData, {
-        keys: ['name', 'description'],
-        includeMatches: true,
-        threshold: 0.4,
-      }),
-    []
+export default function SearchPage({ searchParams }: Props) {
+  const query = searchParams?.q?.toLowerCase().trim() ?? '';
+
+  const programFuse = useMemo(() => new Fuse(programsData, {
+    keys: ['name', 'description'],
+    includeMatches: true,
+    threshold: 0.4
+  }), []);
+
+  const facultyList = useMemo(() =>
+    facultyData.flatMap(dept =>
+      dept.members.map(member => ({
+        ...member,
+        department: dept.department,
+      }))
+    ), []
   );
 
-  const facultyFlatList = useMemo(
-    () =>
-      facultyData.flatMap((dept) =>
-        dept.members.map((member) => ({
-          ...member,
-          department: dept.department,
-        }))
-      ),
-    []
-  );
-
-  const facultyFuse = useMemo(
-    () =>
-      new Fuse(facultyFlatList, {
-        keys: ['name', 'designation', 'department', 'expertise'],
-        includeMatches: true,
-        threshold: 0.4,
-      }),
-    [facultyFlatList]
-  );
+  const facultyFuse = useMemo(() => new Fuse(facultyList, {
+    keys: ['name', 'designation', 'department', 'expertise'],
+    includeMatches: true,
+    threshold: 0.4
+  }), [facultyList]);
 
   const programResults = query ? programFuse.search(query) : [];
   const facultyResults = query ? facultyFuse.search(query) : [];
-
-  const hasResults = programResults.length > 0 || facultyResults.length > 0;
 
   return (
     <main className="container mx-auto px-4 py-12">
@@ -109,27 +95,23 @@ export default function SearchPage({
           Showing results for: <strong>{query}</strong>
         </p>
       ) : (
-        <p className="mt-2 text-slate-600">
-          Please enter a search query using <code>?q=your+search</code>.
-        </p>
+        <p className="mt-2 text-slate-600">Please enter a search query using <code>?q=your+search</code>.</p>
       )}
 
       <div className="mt-10 space-y-12">
         {programResults.length > 0 && (
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-gray-800">
-              Matching Programs
-            </h2>
+            <h2 className="text-2xl font-semibold mb-4 text-gray-800">Matching Programs</h2>
             <ul className="space-y-4">
               {programResults.map(({ item, matches }) => (
                 <li key={item.id}>
                   <Link href={item.detailsLink}>
                     <span className="text-blue-600 hover:underline font-medium">
-                      {highlight(item.name, matches?.find((m) => m.key === 'name')?.indices)}
+                      {highlight(item.name, matches?.find(m => m.key === 'name')?.indices)}
                     </span>
                   </Link>
                   <p className="text-sm text-gray-600">
-                    {highlight(item.description, matches?.find((m) => m.key === 'description')?.indices)}
+                    {highlight(item.description, matches?.find(m => m.key === 'description')?.indices)}
                   </p>
                 </li>
               ))}
@@ -139,21 +121,21 @@ export default function SearchPage({
 
         {facultyResults.length > 0 && (
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-gray-800">
-              Matching Faculty
-            </h2>
+            <h2 className="text-2xl font-semibold mb-4 text-gray-800">Matching Faculty</h2>
             <ul className="space-y-4">
               {facultyResults.map(({ item, matches }, idx) => (
                 <li key={idx}>
                   <Link href={item.profileLink}>
                     <span className="text-blue-600 hover:underline font-medium">
-                      {highlight(item.name, matches?.find((m) => m.key === 'name')?.indices)}
+                      {highlight(item.name, matches?.find(m => m.key === 'name')?.indices)}
                     </span>
                   </Link>
                   <p className="text-sm text-gray-600">
                     {highlight(
                       `${item.designation} • ${item.department} • ${item.expertise.join(', ')}`,
-                      matches?.find((m) => ['designation', 'department', 'expertise'].includes(m.key as string))?.indices
+                      matches?.find(m =>
+                        ['designation', 'department', 'expertise'].includes(m.key as string)
+                      )?.indices
                     )}
                   </p>
                 </li>
@@ -162,13 +144,10 @@ export default function SearchPage({
           </section>
         )}
 
-        {!hasResults && query && (
+        {query && programResults.length === 0 && facultyResults.length === 0 && (
           <div className="text-center py-10 bg-gray-50 rounded-lg">
             <p className="text-gray-700 font-semibold">
               No results found for <mark>{query}</mark>.
-            </p>
-            <p className="text-gray-500 text-sm mt-2">
-              Please try a different search term.
             </p>
           </div>
         )}
