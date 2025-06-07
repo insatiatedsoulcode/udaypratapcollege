@@ -1,9 +1,7 @@
 // app/search/page.tsx
-
 import React from 'react';
 import Link from 'next/link';
 
-// 🔧 Sample data
 const programsData = [
   {
     id: 'bca',
@@ -33,7 +31,7 @@ const facultyData = [
   },
 ];
 
-// 🔍 Utility to highlight matched text
+// ✅ Utility to highlight keyword matches
 function highlightText(text: string, keyword: string): string {
   if (!keyword) return text;
   const escapedKeyword = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
