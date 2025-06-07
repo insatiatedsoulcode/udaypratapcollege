@@ -1,24 +1,38 @@
 // app/gallery/page.tsx
-'use client'; // This page uses hooks for the interactive lightbox
+'use client';
 
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 
-// Import the Lightbox component and its required CSS
+// Lightbox and Plugins
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
-
-// Optional plugins for the lightbox (e.g., for thumbnails, zoom)
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
+import Video from "yet-another-react-lightbox/plugins/video";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
 
+// --- 1. Define TypeScript Types for Image & Video Items ---
+type GalleryItem =
+  | {
+      type: 'image';
+      src: string;
+      alt: string;
+    }
+  | {
+      type: 'video';
+      poster: string;
+      sources: { src: string; type: string }[];
+    };
 
-// --- Data for your Gallery ---
-// IMPORTANT: Replace this placeholder data with your actual images and video links.
-// Place your images in the `public/images/gallery/` folder.
-const galleryCategories = [
+type GalleryCategory = {
+  title: string;
+  items: GalleryItem[];
+};
+
+// --- 2. Define Your Gallery Data (Images + Video) ---
+const galleryCategories: GalleryCategory[] = [
   {
     title: "Campus Life",
     items: [
@@ -33,31 +47,37 @@ const galleryCategories = [
     items: [
       { type: 'image', src: '/images/gallery/event-1.jpg', alt: 'Annual sports day event' },
       { type: 'image', src: '/images/gallery/event-2.jpg', alt: 'Cultural fest performance on stage' },
-      { type: 'image', src: '/images/gallery/event-3.jpg', alt: 'Convocation ceremony' },
-      // Example of a video slide. 'src' is the thumbnail, 'poster' is the image shown before play.
-      // {
-      //   type: "video",
-      //   poster: "/images/gallery/video-poster.jpg",
-      //   sources: [
-      //     { src: "https://www.youtube.com/embed/your_video_id", type: "video/youtube" },
-      //   ]
-      // },
+      {
+        type: "video",
+        poster: "/images/gallery/video-poster.jpg",
+        sources: [
+          { src: "https://www.youtube.com/embed/ScMzIvxBSi4", type: "video/youtube" },
+        ]
+      },
     ]
   },
-  // Add more categories like "Infrastructure", "Sports", etc.
 ];
 
-// Prepare slides for the lightbox by flattening the categories
-const slides = galleryCategories.flatMap(category => category.items.map(item => ({
-    src: item.src,
-    alt: item.alt,
-    type: item.type,
-    // Add video specific properties if needed
-    // poster: item.poster,
-    // sources: item.sources,
-})));
+// --- 3. Flatten Items into Lightbox-Supported Slides ---
+const slides = galleryCategories.flatMap(category =>
+  category.items.map(item => {
+    if (item.type === 'image') {
+      return {
+        type: 'image' as const,
+        src: item.src,
+        alt: item.alt,
+      };
+    } else {
+      return {
+        type: 'video' as const,
+        poster: item.poster,
+        sources: item.sources,
+      };
+    }
+  })
+);
 
-
+// --- 4. Gallery Page Component ---
 const GalleryPage = () => {
   const [lightboxIndex, setLightboxIndex] = useState(-1);
 
@@ -80,7 +100,11 @@ const GalleryPage = () => {
 
         <div className="space-y-12">
           {galleryCategories.map((category) => {
-            const categoryStartIndex = slides.findIndex(slide => slide.src === category.items[0].src);
+            const categoryStartIndex = slides.findIndex(slide =>
+              'src' in slide && slide.src === category.items[0].type === 'image'
+                ? (category.items[0] as any).src
+                : ''
+            );
 
             return (
               <section key={category.title}>
@@ -88,26 +112,31 @@ const GalleryPage = () => {
                   {category.title}
                 </h2>
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-                  {category.items.map((item, itemIndex) => (
-                    <motion.div
-                      key={item.src}
-                      className="relative aspect-square cursor-pointer group overflow-hidden rounded-lg shadow-md"
-                      onClick={() => setLightboxIndex(categoryStartIndex + itemIndex)}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.3, delay: itemIndex * 0.1 }}
-                      viewport={{ once: true }}
-                    >
-                      <Image
-                        src={item.src}
-                        alt={item.alt}
-                        fill
-                        className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-110"
-                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                      />
-                      <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    </motion.div>
-                  ))}
+                  {category.items.map((item, itemIndex) => {
+                    const isImage = item.type === 'image';
+                    const imgSrc = isImage ? (item as any).src : (item as any).poster;
+
+                    return (
+                      <motion.div
+                        key={imgSrc}
+                        className="relative aspect-square cursor-pointer group overflow-hidden rounded-lg shadow-md"
+                        onClick={() => setLightboxIndex(categoryStartIndex + itemIndex)}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.3, delay: itemIndex * 0.1 }}
+                        viewport={{ once: true }}
+                      >
+                        <Image
+                          src={imgSrc}
+                          alt={'alt' in item ? item.alt : 'Video preview'}
+                          fill
+                          className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-110"
+                          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                        />
+                        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      </motion.div>
+                    );
+                  })}
                 </div>
               </section>
             );
@@ -115,13 +144,13 @@ const GalleryPage = () => {
         </div>
       </main>
 
+      {/* --- 5. Lightbox with Plugins for Image, Zoom, Thumbnails, Video --- */}
       <Lightbox
         open={lightboxIndex >= 0}
         close={() => setLightboxIndex(-1)}
         index={lightboxIndex}
         slides={slides}
-        // Enable plugins
-        plugins={[Thumbnails, Zoom]}
+        plugins={[Thumbnails, Zoom, Video]}
       />
     </>
   );
