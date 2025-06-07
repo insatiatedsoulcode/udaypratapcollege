@@ -1,11 +1,9 @@
-// app/gallery/page.tsx
 'use client';
 
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 
-// Lightbox and Plugins
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
@@ -13,7 +11,7 @@ import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import Video from "yet-another-react-lightbox/plugins/video";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
 
-// --- 1. Define TypeScript Types for Image & Video Items ---
+// 1. Define Image & Video types
 type GalleryItem =
   | {
       type: 'image';
@@ -31,7 +29,7 @@ type GalleryCategory = {
   items: GalleryItem[];
 };
 
-// --- 2. Define Your Gallery Data (Images + Video) ---
+// 2. Gallery data
 const galleryCategories: GalleryCategory[] = [
   {
     title: "Campus Life",
@@ -55,10 +53,10 @@ const galleryCategories: GalleryCategory[] = [
         ]
       },
     ]
-  },
+  }
 ];
 
-// --- 3. Flatten Items into Lightbox-Supported Slides ---
+// 3. Flatten into Lightbox-compatible slides
 const slides = galleryCategories.flatMap(category =>
   category.items.map(item => {
     if (item.type === 'image') {
@@ -77,7 +75,7 @@ const slides = galleryCategories.flatMap(category =>
   })
 );
 
-// --- 4. Gallery Page Component ---
+// 4. Component
 const GalleryPage = () => {
   const [lightboxIndex, setLightboxIndex] = useState(-1);
 
@@ -100,11 +98,18 @@ const GalleryPage = () => {
 
         <div className="space-y-12">
           {galleryCategories.map((category) => {
-            const categoryStartIndex = slides.findIndex(slide =>
-              'src' in slide && slide.src === category.items[0].type === 'image'
-                ? (category.items[0] as any).src
-                : ''
-            );
+            // Determine index of the first item in slides
+            const firstItem = category.items[0];
+            const categoryStartIndex = slides.findIndex(slide => {
+              if (firstItem.type === 'image' && 'src' in slide) {
+                const imageItem = firstItem as Extract<GalleryItem, { type: 'image' }>;
+                return slide.src === imageItem.src;
+              } else if (firstItem.type === 'video' && 'poster' in slide) {
+                const videoItem = firstItem as Extract<GalleryItem, { type: 'video' }>;
+                return slide.poster === videoItem.poster;
+              }
+              return false;
+            });
 
             return (
               <section key={category.title}>
@@ -113,8 +118,16 @@ const GalleryPage = () => {
                 </h2>
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
                   {category.items.map((item, itemIndex) => {
-                    const isImage = item.type === 'image';
-                    const imgSrc = isImage ? (item as any).src : (item as any).poster;
+                    let imgSrc: string;
+                    let altText: string;
+
+                    if (item.type === 'image') {
+                      imgSrc = item.src;
+                      altText = item.alt;
+                    } else {
+                      imgSrc = item.poster;
+                      altText = 'Video preview';
+                    }
 
                     return (
                       <motion.div
@@ -128,7 +141,7 @@ const GalleryPage = () => {
                       >
                         <Image
                           src={imgSrc}
-                          alt={'alt' in item ? item.alt : 'Video preview'}
+                          alt={altText}
                           fill
                           className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-110"
                           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
@@ -144,7 +157,7 @@ const GalleryPage = () => {
         </div>
       </main>
 
-      {/* --- 5. Lightbox with Plugins for Image, Zoom, Thumbnails, Video --- */}
+      {/* 5. Lightbox Viewer */}
       <Lightbox
         open={lightboxIndex >= 0}
         close={() => setLightboxIndex(-1)}
