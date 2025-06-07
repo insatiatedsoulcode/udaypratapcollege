@@ -37,14 +37,18 @@ const AdminApplicationsPage = () => {
       setError(null);
       const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3001';
       try {
-        const response = await fetch(`${API_BASE_URL}/api/admin/applications`, { cache: 'no-store' });
+        const response = await fetch(`${API_BASE_URL}/api/applications`, { cache: 'no-store' });
         if (!response.ok) {
           throw new Error('Failed to fetch applications from the server.');
         }
         const data = await response.json();
         setApplications(data.data || []);
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err: unknown) { // Changed 'any' to 'unknown' for better type safety
+        if (err instanceof Error) {
+            setError(err.message);
+        } else {
+            setError('An unexpected error occurred.');
+        }
       } finally {
         setIsLoading(false);
       }
@@ -61,7 +65,7 @@ const AdminApplicationsPage = () => {
 
   // Sorting logic based on the current sort configuration
   const sortedApplications = React.useMemo(() => {
-    let sortableItems = [...filteredApplications];
+    const sortableItems = [...filteredApplications]; // Changed 'let' to 'const'
     if (sortConfig !== null) {
       sortableItems.sort((a, b) => {
         if (a[sortConfig.key] < b[sortConfig.key]) {

@@ -1,11 +1,17 @@
 // app/admin/layout.tsx
-// Removed unnecessary imports for Metadata, Inter, and globals.css
-
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../api/auth/[...nextauth]/route"; // Correct relative path
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { FaTachometerAlt, FaFileAlt, FaInbox, FaSignOutAlt } from "react-icons/fa";
+
+// Define a type for the user session that includes the 'role' property
+interface UserSession {
+  name?: string | null;
+  email?: string | null;
+  image?: string | null;
+  role?: string;
+}
 
 export default async function AdminLayout({
   children,
@@ -13,7 +19,8 @@ export default async function AdminLayout({
   children: React.ReactNode;
 }) {
   const session = await getServerSession(authOptions);
-  const userRole = (session?.user as any)?.role;
+  // Cast the user to our specific type instead of 'any'
+  const userRole = (session?.user as UserSession)?.role;
 
   if (!session || userRole !== 'admin') {
     const loginUrl = new URL("/api/auth/signin", process.env.NEXTAUTH_URL || "http://localhost:3000");

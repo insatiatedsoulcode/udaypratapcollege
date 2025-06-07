@@ -1,7 +1,21 @@
 // app/api/auth/[...nextauth]/route.ts
 
 import NextAuth, { NextAuthOptions } from "next-auth"
+import { JWT } from "next-auth/jwt";
 import CredentialsProvider from "next-auth/providers/credentials"
+
+// Define interfaces for user and token to avoid using 'any'
+interface IUser {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+}
+
+interface IToken extends JWT {
+  id: string;
+  role: string;
+}
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -46,7 +60,8 @@ export const authOptions: NextAuthOptions = {
 
           if (responseData.success && responseData.user) {
             console.log('[NextAuth Authorize] Login successful. Returning user object.');
-            return responseData.user;
+            // We cast here to ensure the object matches our IUser interface
+            return responseData.user as IUser;
           } else {
             console.log('[NextAuth Authorize] Login failed according to backend response.');
             return null;
@@ -66,16 +81,23 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async jwt({ token, user }) {
+      // On sign-in, the 'user' object is passed. We use it to populate the token.
       if (user) {
-        token.role = (user as any).role;
-        token.id = (user as any).id;
+        const customUser = user as IUser;
+        token.role = customUser.role;
+        token.id = customUser.id;
       }
       return token;
     },
     async session({ session, token }) {
+      // The session object's user property is what the client-side sees.
+      // We add the role and id from the token to the session.
       if (session?.user) {
-        (session.user as any).role = token.role;
-        (session.user as any).id = token.id;
+        const customToken = token as IToken;
+        // Extend the default session user type to include our custom fields
+        const sessionUser = session.user as IUser;
+        sessionUser.role = customToken.role;
+        sessionUser.id = customToken.id;
       }
       return session;
     }
