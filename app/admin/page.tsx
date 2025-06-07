@@ -1,16 +1,26 @@
 // app/admin/page.tsx
 import React, { Suspense } from 'react';
 import Link from 'next/link';
-import { FaInbox, FaFileAlt, FaUserGraduate, FaRegClock } from 'react-icons/fa';
+import { FaInbox, FaFileAlt } from 'react-icons/fa';
+
+// --- Define a type for our application data ---
+interface Application {
+  _id: string;
+  fullName: string;
+  email: string;
+  programApplyingFor: string;
+  submittedAt: string;
+}
 
 // --- Helper function to fetch data ---
 async function getAdminData() {
   const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3001';
 
   try {
+    // Corrected API endpoints to match the backend
     const [statsRes, applicationsRes] = await Promise.all([
       fetch(`${API_BASE_URL}/api/admin/stats`, { cache: 'no-store' }),
-      fetch(`${API_BASE_URL}/api/admin/applications`, { cache: 'no-store' })
+      fetch(`${API_BASE_URL}/api/applications`, { cache: 'no-store' }) // Corrected path
     ]);
 
     // Simple error check for both fetches
@@ -107,7 +117,7 @@ async function DashboardData() {
               </thead>
               <tbody>
                 {allApplications.length > 0 ? (
-                  allApplications.map((app: any) => (
+                  allApplications.map((app: Application) => (
                     <tr key={app._id} className="bg-white border-b hover:bg-gray-50">
                       <td className="px-6 py-4 font-medium text-gray-900">
                         {app.fullName}
