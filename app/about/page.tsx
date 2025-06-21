@@ -1,12 +1,12 @@
 // app/about/page.tsx
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion, useInView, useAnimation, animate, useScroll, useTransform } from 'framer-motion';
+import { motion, useInView, animate, useScroll, useTransform } from 'framer-motion';
 // Import necessary icons
-import { FaBook, FaUsers, FaLightbulb, FaIndustry, FaBullseye, FaEye, FaCheckCircle, FaBalanceScale, FaUserTie } from 'react-icons/fa';
+import { FaBook, FaUsers, FaLightbulb, FaIndustry, FaBullseye, FaEye } from 'react-icons/fa';
 
 // --- Data for this page (easy for you to edit) ---
 const pageData = {
@@ -183,7 +183,7 @@ const AboutUsPage = () => {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-10 items-center">
             <motion.div
-              className="md:col-span-2 prose prose-lg max-w-none text-center md:text-left"
+              className="md:col-span-2 prose prose-lg max-w-none text-center md:text-left order-2 md:order-1"
               initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.5 }} variants={fadeInFromLeft}
             >
               <h2 className="text-3xl font-bold text-gray-800">Vision of Our Founder</h2>
@@ -196,7 +196,7 @@ const AboutUsPage = () => {
               </p>
             </motion.div>
             <motion.div
-              className="md:col-span-1"
+              className="md:col-span-1 order-1 md:order-2"
               initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.5 }} variants={fadeInFromRight}
             >
               <div className="relative w-48 h-48 md:w-60 md:h-60 mx-auto rounded-full overflow-hidden shadow-2xl ring-4 ring-white ring-offset-4 ring-offset-orange-100">
