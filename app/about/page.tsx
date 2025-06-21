@@ -5,8 +5,8 @@ import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useInView, animate, useScroll, useTransform } from 'framer-motion';
-// Import necessary icons
-import { FaBook, FaUsers, FaLightbulb, FaIndustry, FaBullseye, FaEye } from 'react-icons/fa';
+// Import necessary icons - Unused icons have been removed
+import { FaBook, FaUsers, FaLightbulb, FaIndustry } from 'react-icons/fa';
 
 // --- Data for this page (easy for you to edit) ---
 const pageData = {
@@ -25,13 +25,13 @@ const pageData = {
     name: "Dr. Anjana Singh",
     title: "Principal, Uday Pratap College",
     message: "Welcome to Uday Pratap College! Our journey began with a commitment to providing accessible, high-quality education that empowers the next generation. We focus on a blend of academic rigor, research-driven learning, and holistic development to prepare our students not just for a career, but for life.",
-    imageUrl: "/images/dranjana.png",
+    imageUrl: "/images/about/principal.jpg",
   },
-  foundersMessage: { // NEW SECTION DATA
+  foundersMessage: {
     name: "Shri Rajendra Prasad Singh",
     title: "Founder & Chairman",
     message: "From day one, our vision was to create an institution that would not only impart knowledge but also build character. We believe in nurturing talent from every corner of society and providing them with the platform to achieve greatness. Our commitment to research and innovation is unwavering, as we strive to contribute to the nation's progress.",
-    imageUrl: "/images/about/founder.jpg", // Replace with a photo of the Founder
+    imageUrl: "/images/about/founder.jpg",
   },
   historyMilestones: [
     { year: "2018", event: "Foundation of Uday Pratap College with a vision to provide quality higher education." },
@@ -88,7 +88,6 @@ const AboutUsPage = () => {
     target: heroRef,
     offset: ["start start", "end start"],
   });
-  // Creates a parallax effect where the background image moves slower than the scroll
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
 
   return (
@@ -178,7 +177,7 @@ const AboutUsPage = () => {
         </div>
       </section>
 
-      {/* 4. NEW: Founder's Message Section */}
+      {/* 4. Founder's Message Section */}
       <section className="bg-slate-50 py-16 md:py-24">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-10 items-center">
