@@ -39,10 +39,10 @@ const ContactUsPage = () => {
               Uttar Pradesh - 221002, India
             </p>
             <p>
-              <strong>Phone:</strong> <a href="tel:+919044774488" className="text-orange-600 hover:underline">+91 9044774488</a>
+              <strong>Phone:</strong> <a href="tel:+919208596868" className="text-orange-600 hover:underline">+91 9208596868</a>
             </p>
             <p>
-              <strong>Email:</strong> <a href="mailto:example@udaypratapcollege.ac.in" className="text-orange-600 hover:underline">example@udaypratapcollege.ac.in</a>
+              <strong>Email:</strong> <a href="mailto:collegeudaypratap@gmail.com" className="text-orange-600 hover:underline">collegeudaypratap@gmail.com</a>
             </p>
             <p>
               <strong>Office Hours:</strong> Monday - Friday, 9:00 AM - 5:00 PM IST
