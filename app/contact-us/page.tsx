@@ -33,14 +33,21 @@ const contactData = {
       icon: FaInfoCircle,
       name: "General Inquiries",
       description: "For all other questions, media requests, or information about the college.",
-      email: "info@udaypratapcollege.com", // Replace
-      phone: "+91 98765 43210", // Replace
+      email: "collegeudaypratap@gmail.com", // Replace
+      phone: "+91 9208596868", // Replace
     },
+    {
+      icon: FaPhoneAlt,
+      name: "Student Support",
+      description: "For existing students requiring academic or administrative support.",
+      email: "collegeudaypratap@gmail.com", // Replace
+      phone: "+91 9208596868", // Replace
+    },
+    // Add more departments if needed
   ],
   location: {
     addressLine1: "Bhojubeer, Varanasi",
     addressLine2: "Uttar Pradesh - 221002, India",
-    // --- CORRECTED: This now only contains the URL string from Google Maps ---
     googleMapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6562.389832051445!2d82.78555191331353!3d25.274870713977712!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39854b28a50b87e7%3A0x9e7beb7bf99a2777!2sKashi%20Institute%20Of%20Technology!5e0!3m2!1sen!2sin!4v1750523878984!5m2!1sen!2sin",
   },
   faqs: [
@@ -64,13 +71,11 @@ const contactData = {
 };
 // --- End of Data ---
 
-// --- Define a type for our FAQ item for better type safety ---
 type Faq = {
   question: string;
   answer: string;
 };
 
-// --- FAQ Accordion Item Component ---
 const FaqItem = ({ faq, isOpen, onClick }: { faq: Faq, isOpen: boolean, onClick: () => void }) => {
   return (
     <div className="border-b border-slate-200 py-4">
@@ -110,7 +115,6 @@ const FaqItem = ({ faq, isOpen, onClick }: { faq: Faq, isOpen: boolean, onClick:
 const ContactUsPage = () => {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
-  // This variable now correctly constructs the full iframe tag
   const mapHtml = `<iframe src="${contactData.location.googleMapsEmbedUrl}" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="College Location Map"></iframe>`;
 
   return (
@@ -144,44 +148,46 @@ const ContactUsPage = () => {
         </div>
       </section>
 
-      {/* 2. Interactive Contact Cards Section */}
-      <section className="container mx-auto px-4 py-16 md:py-20">
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          {contactData.departments.map((dept, index) => (
-            <motion.div
-              key={dept.name}
-              className="bg-white p-6 rounded-lg shadow-lg border-t-4 border-sky-500 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-              viewport={{ once: true }}
-            >
-              <dept.icon className="h-10 w-10 text-sky-600 mb-4" />
-              <h2 className="text-2xl font-bold text-gray-800 mb-2">{dept.name}</h2>
-              <p className="text-gray-600 text-sm mb-4">{dept.description}</p>
-              <div className="space-y-2 text-sm border-t pt-4">
-                <a href={`mailto:${dept.email}`} className="flex items-center text-gray-700 hover:text-orange-600 transition-colors">
-                  <FaEnvelope className="mr-2.5 h-4 w-4" /> {dept.email}
-                </a>
-                <a href={`tel:${dept.phone.replace(/\s/g, '')}`} className="flex items-center text-gray-700 hover:text-orange-600 transition-colors">
-                  <FaPhoneAlt className="mr-2.5 h-4 w-4" /> {dept.phone}
-                </a>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+      {/* 2. Horizontal Scrolling Contact Cards Section */}
+      <section className="py-16 md:py-20">
+        <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-bold text-slate-800">Department Contacts</h2>
+                <p className="mt-3 text-slate-600">Find the right office for your specific inquiry.</p>
+            </div>
+            <div className="flex space-x-8 overflow-x-auto pb-8 -mb-8 snap-x snap-mandatory">
+                {contactData.departments.map((dept, index) => (
+                    <motion.div
+                        key={dept.name}
+                        className="flex-shrink-0 w-80 md:w-96 snap-center bg-white p-6 rounded-lg shadow-lg border-t-4 border-sky-500 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                        viewport={{ once: true }}
+                    >
+                        <dept.icon className="h-10 w-10 text-sky-600 mb-4" />
+                        <h2 className="text-2xl font-bold text-gray-800 mb-2">{dept.name}</h2>
+                        <p className="text-gray-600 text-sm mb-4 h-12">{dept.description}</p>
+                        <div className="space-y-2 text-sm border-t pt-4">
+                            <a href={`mailto:${dept.email}`} className="flex items-center text-gray-700 hover:text-orange-600 transition-colors">
+                                <FaEnvelope className="mr-2.5 h-4 w-4" /> {dept.email}
+                            </a>
+                            <a href={`tel:${dept.phone.replace(/\s/g, '')}`} className="flex items-center text-gray-700 hover:text-orange-600 transition-colors">
+                                <FaPhoneAlt className="mr-2.5 h-4 w-4" /> {dept.phone}
+                            </a>
+                        </div>
+                    </motion.div>
+                ))}
+                 {/* This empty div can help with spacing at the end of the scroll */}
+                <div className="flex-shrink-0 w-1 snap-center"></div>
+            </div>
+        </div>
       </section>
 
       {/* 3. FAQ and Map Section */}
       <section className="bg-slate-50 py-16 md:py-24">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
-
             {/* FAQ Accordion */}
             <div>
               <h2 className="text-3xl font-bold text-slate-800 mb-6">Frequently Asked Questions</h2>
@@ -196,7 +202,6 @@ const ContactUsPage = () => {
                 ))}
               </div>
             </div>
-
             {/* Map & Address */}
             <div className="space-y-6">
               <h2 className="text-3xl font-bold text-slate-800 mb-6">Visit Us</h2>
@@ -216,7 +221,6 @@ const ContactUsPage = () => {
                 </p>
               </div>
             </div>
-
           </div>
         </div>
       </section>
