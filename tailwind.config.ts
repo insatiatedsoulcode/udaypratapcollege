@@ -3,9 +3,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   // --- CORRECTED CONTENT PATHS ---
+  // These paths now correctly point to your root 'app' folder
+  // and your 'src/components' folder.
   content: [
-    './app/**/*.{js,ts,jsx,tsx,mdx}', // Scans files in the root 'app' directory
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}', // Scans files in the 'src/components' directory
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   // --- END OF CORRECTION ---
 

@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     siteName: 'Uday Pratap College',
     images: [
       {
-        url: 'https://www.udaypratapcollege.com/og-image.jpg',
+        url: 'https://www.udaypratapcollege.com/images/og-image.jpg',
         width: 1200,
         height: 630,
       },
