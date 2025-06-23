@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
   description: 'Official website of Uday Pratap College, Varanasi. Explore our undergraduate and postgraduate programs, admissions process, campus life, and more.',
   openGraph: {
-    title: 'Uday Pratap College, Varanasi',
+    title: ' Uday Pratap College, Varanasi',
     description: 'A hub for academic excellence and research in Varanasi.',
     url: 'https://www.udaypratapcollege.com',
     siteName: 'Uday Pratap College',
