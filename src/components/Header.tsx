@@ -107,20 +107,11 @@ function Header() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // --- NavLinkItem component updated to remove unused prop ---
   const NavLinkItem = ({ href, label, exact, hasDropdown, isMobile = false }: MainNavLink & { isMobile?: boolean }) => {
     const isActive = exact ? pathname === href : pathname.startsWith(href) && (href !== "/" || pathname === "/");
     const isSubmenuOpenForThisItem = isMobile && hasDropdown && !!openMobileSubmenus[href];
 
-    const handleClick = (e: React.MouseEvent) => {
-      if (isMobile && hasDropdown) {
-        e.preventDefault();
-        toggleMobileSubmenu(href);
-      } else if (isMobile) {
-        setIsMobileMenuOpen(false);
-        setOpenMobileSubmenus({});
-      }
-    };
+    // The unused handleClick function has been removed.
 
     // For mobile links that have a dropdown, we render a special layout
     if (isMobile && hasDropdown) {
