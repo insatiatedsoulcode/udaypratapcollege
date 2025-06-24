@@ -107,10 +107,22 @@ function Header() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const NavLinkItem = ({ href, label, exact, hasDropdown, dropdownLinks, isMobile = false }: MainNavLink & { isMobile?: boolean }) => {
+  // --- NavLinkItem component updated to remove unused prop ---
+  const NavLinkItem = ({ href, label, exact, hasDropdown, isMobile = false }: MainNavLink & { isMobile?: boolean }) => {
     const isActive = exact ? pathname === href : pathname.startsWith(href) && (href !== "/" || pathname === "/");
     const isSubmenuOpenForThisItem = isMobile && hasDropdown && !!openMobileSubmenus[href];
 
+    const handleClick = (e: React.MouseEvent) => {
+      if (isMobile && hasDropdown) {
+        e.preventDefault();
+        toggleMobileSubmenu(href);
+      } else if (isMobile) {
+        setIsMobileMenuOpen(false);
+        setOpenMobileSubmenus({});
+      }
+    };
+
+    // For mobile links that have a dropdown, we render a special layout
     if (isMobile && hasDropdown) {
       return (
         <div className="flex justify-between items-center w-full px-2 py-2">
@@ -132,6 +144,7 @@ function Header() {
       );
     }
 
+    // Original logic for desktop links and simple mobile links
     return (
       <Link
         href={href}
@@ -191,31 +204,25 @@ function Header() {
             transition={{ duration: 0.3 }}
             className="w-full flex justify-between items-center"
           >
-            {/* --- UPDATED QUOTE SECTION --- */}
             <div className="quote-container flex-shrink-0 max-w-sm md:max-w-md lg:max-w-md xl:max-w-lg">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentQuoteIndex}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.4 }}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  transition={{ duration: 0.4, ease: 'easeInOut' }}
+                  className="absolute inset-0"
                 >
                   {currentQuote && (
                     <blockquote className="text-xs">
-                      <p className="text-sm font-bold text-black not-italic">
-                        &quot;{currentQuote.text}&quot;
-                      </p>
-                      <cite className="block text-right italic text-gray-500 text-xs mt-1">
-                        - {currentQuote.author}
-                      </cite>
+                      <p className="text-sm font-bold text-black not-italic">&quot;{currentQuote.text}&quot;</p>
+                      <cite className="block text-right italic text-gray-500 text-xs mt-1">- {currentQuote.author}</cite>
                     </blockquote>
                   )}
                 </motion.div>
               </AnimatePresence>
             </div>
-            {/* --- END OF UPDATED QUOTE SECTION --- */}
-
 
             <div className="hidden md:flex items-center space-x-4">
               <nav>
