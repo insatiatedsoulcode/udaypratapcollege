@@ -111,9 +111,6 @@ function Header() {
     const isActive = exact ? pathname === href : pathname.startsWith(href) && (href !== "/" || pathname === "/");
     const isSubmenuOpenForThisItem = isMobile && hasDropdown && !!openMobileSubmenus[href];
 
-    // The unused handleClick function has been removed.
-
-    // For mobile links that have a dropdown, we render a special layout
     if (isMobile && hasDropdown) {
       return (
         <div className="flex justify-between items-center w-full px-2 py-2">
@@ -135,7 +132,6 @@ function Header() {
       );
     }
 
-    // Original logic for desktop links and simple mobile links
     return (
       <Link
         href={href}
@@ -193,31 +189,36 @@ function Header() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
-            className="w-full flex justify-between items-center"
+            className="w-full flex justify-between items-center gap-4" // Added gap-4 for spacing
           >
-            <div className="quote-container flex-shrink-0 max-w-sm md:max-w-md lg:max-w-md xl:max-w-lg">
+            {/* --- UPDATED QUOTE SECTION --- */}
+            <div className="flex-1 min-w-0"> {/* Allows this container to shrink */}
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentQuoteIndex}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  transition={{ duration: 0.4, ease: 'easeInOut' }}
-                  className="absolute inset-0"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
                 >
                   {currentQuote && (
                     <blockquote className="text-xs">
-                      <p className="text-sm font-bold text-black not-italic">&quot;{currentQuote.text}&quot;</p>
-                      <cite className="block text-right italic text-gray-500 text-xs mt-1">- {currentQuote.author}</cite>
+                      <p className="text-sm font-bold text-black not-italic truncate"> {/* Truncate to prevent long quotes from wrapping */}
+                        &quot;{currentQuote.text}&quot;
+                      </p>
+                      <cite className="block text-right italic text-gray-500 text-xs mt-1 pr-2">
+                        - {currentQuote.author}
+                      </cite>
                     </blockquote>
                   )}
                 </motion.div>
               </AnimatePresence>
             </div>
 
-            <div className="hidden md:flex items-center space-x-4">
+            {/* --- DESKTOP NAV --- */}
+            <div className="hidden md:flex items-center space-x-4 flex-shrink-0"> {/* flex-shrink-0 prevents this from shrinking */}
               <nav>
-                <ul className="flex space-x-1 lg:space-x-2">
+                <ul className="flex items-center space-x-1 lg:space-x-2">
                   {mainNavLinks.map((linkItem) => (
                     <li key={linkItem.href} className="relative group">
                       <NavLinkItem {...linkItem} isMobile={false} />
@@ -241,7 +242,8 @@ function Header() {
               </button>
             </div>
 
-            <div className="md:hidden">
+            {/* --- MOBILE NAV BUTTON --- */}
+            <div className="md:hidden flex-shrink-0"> {/* flex-shrink-0 to prevent shrinking */}
               <button
                 onClick={toggleMobileMenu}
                 className="text-gray-700 hover:text-orange-500 p-1 rounded-md"
@@ -255,6 +257,7 @@ function Header() {
         )}
       </div>
 
+      {/* --- MOBILE MENU OVERLAY --- */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
