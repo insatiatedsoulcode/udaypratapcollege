@@ -22,13 +22,13 @@ const pageData = {
     { value: 50, label: "Expert Faculty", suffix: "+" },
   ],
   principalsMessage: {
-    name: "Dr. Anjana Singh",
+    name: "Shri Yogendra Pratap Singh",
     title: "Principal, Uday Pratap College",
     message: "Welcome to Uday Pratap College! Our journey began with a commitment to providing accessible, high-quality education that empowers the next generation. We focus on a blend of academic rigor, research-driven learning, and holistic development to prepare our students not just for a career, but for life.",
     imageUrl: "/images/about/principal.jpg",
   },
   foundersMessage: {
-    name: "Shri Rajendra Prasad Singh",
+    name: "Shri Surendra Pratap Singh",
     title: "Founder & Chairman",
     message: "From day one, our vision was to create an institution that would not only impart knowledge but also build character. We believe in nurturing talent from every corner of society and providing them with the platform to achieve greatness. Our commitment to research and innovation is unwavering, as we strive to contribute to the nation's progress.",
     imageUrl: "/images/about/founder.jpg",

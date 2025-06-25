@@ -44,8 +44,8 @@ const requiredDocuments = [
 ];
 
 const importantDates = [
-  { event: 'Online Application Opens', date: 'To be announced' },
-  { event: 'Last Date to Apply', date: 'To be announced' },
+  { event: 'Online Application Opens', date: '02-JUN-2025' },
+  { event: 'Last Date to Apply', date: '10-AUG-2025' },
   { event: 'Entrance Test (if applicable)', date: 'To be announced' },
   { event: 'Merit List Announcement', date: 'To be announced' },
 ];
