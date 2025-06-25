@@ -16,31 +16,30 @@ const VisitorCounter = () => {
       // We only track the visit once per browser session
       if (!sessionStorage.getItem('visit_tracked_2025')) {
         try {
-          console.log("Attempting to track new visit...");
           await fetch(`${API_BASE_URL}/api/analytics/track-visit`, { method: 'POST' });
           sessionStorage.setItem('visit_tracked_2025', 'true');
-          console.log("Visit tracked successfully.");
         } catch (err) {
-          console.error('Could not track visit. Is the backend server running?', err);
-          // We can still try to fetch the count even if tracking fails
+          console.error('Could not track visit:', err);
         }
       }
 
       // Now, fetch the latest count to display
       try {
-        console.log("Fetching visit count...");
         const response = await fetch(`${API_BASE_URL}/api/analytics/visits`);
-        console.log('Fetch response status:', response.status);
-
         if (!response.ok) {
           throw new Error(`Server responded with status ${response.status}`);
         }
         const data = await response.json();
-        console.log('Visit count data received:', data);
         setVisitCount(data.count);
-      } catch (err: any) {
-        console.error('Could not fetch visit count. Is the backend server running?', err);
-        setError("Could not load visitor count.");
+      } catch (err) { // <<< FIX: Removed the ': any' type assertion
+        // Type guard to safely access error message
+        if (err instanceof Error) {
+          console.error('Could not fetch visit count:', err.message);
+          setError("Could not load visitor count.");
+        } else {
+          console.error('An unknown error occurred while fetching visit count:', err);
+          setError("An unknown error occurred.");
+        }
       } finally {
         setIsLoading(false);
       }
