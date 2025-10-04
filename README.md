@@ -2,10 +2,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ### Documentation
 
-- Start with `docs/README.md` for an overview.
-- Component APIs live under `docs/components/`.
-- Page docs live under `docs/pages/` (routes, layout, error/loading/404, metadata generators).
-- SEO docs under `docs/seo/`; shared types under `docs/types/`.
+- Full project docs: [`docs/README.md`](docs/README.md)
 
 ## Getting Started
 

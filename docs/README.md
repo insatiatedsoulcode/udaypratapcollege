@@ -1,10 +1,21 @@
 # Project Documentation
 
-Welcome to the documentation for this Next.js application. This docs set covers:
+Welcome to the documentation for this Next.js application.
 
-- Components (reusable UI)
-- Pages (app router routes)
-- SEO utilities (sitemap and robots)
-- Shared types
+## App Router
+- [Overview](./app/overview.md)
+- [Root layout](./app/layout.md)
+- [System pages (error, loading, 404)](./app/system-pages.md)
+- [Metadata generators (sitemap, robots)](./app/metadata-generators.md)
+- [Routes](./app/routes.md)
 
-Use the left navigation (or file tree) to browse topics.
+## Components
+- See the [Components Index](./components/README.md) for all component APIs and examples
+
+## Types
+- [Public Types](./types.md)
+
+## Environment / Backend
+- [Environment variables and expected backend endpoints](../docs/environment.md)
+
+Tip: Static assets live under `public/` and can be referenced as `/images/...`.
