@@ -1,5 +1,11 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+### Documentation
+
+- Start with `docs/README.md` for an overview.
+- Component APIs live under `docs/components/`.
+- App router docs live under `docs/app/` (routes, layout, system pages, metadata generators).
+
 ## Getting Started
 
 First, run the development server:
