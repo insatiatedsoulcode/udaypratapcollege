@@ -1,23 +1,11 @@
-## Footer
+### Footer
 
-Site footer with social icons and includes `VisitorCounter`.
+- **File**: `src/components/Footer.tsx`
+- **Type**: Server Component
+- **Purpose**: Site footer with social links and a visitor counter.
 
-- File: `src/components/Footer.tsx`
-- Export: default React component
+#### Props
+- None
 
-### Props
-- None.
-
-### Example
-```tsx
-import Footer from '@/components/Footer';
-
-export default function Layout({ children }: { children: React.ReactNode }) {
-  return (
-    <>
-      {children}
-      <Footer />
-    </>
-  );
-}
-```
+#### Notes
+- Renders `VisitorCounter` (client) internally; ensure it can run on the client safely.

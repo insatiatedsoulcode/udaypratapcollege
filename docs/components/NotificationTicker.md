@@ -1,23 +1,20 @@
-## NotificationTicker
+### NotificationTicker
 
-Horizontal marquee for announcements.
+- **File**: `src/components/NotificationTicker.tsx`
+- **Type**: Server Component
+- **Purpose**: Thin marquee-like ticker that loops important announcements.
 
-- File: `src/components/NotificationTicker.tsx`
-- Export: default React component
+#### Props
+- None
 
-### Props
-- None.
+#### Customization
+- Edit the `announcements` array inside the component.
 
-### Example
+#### Usage
 ```tsx
 import NotificationTicker from '@/components/NotificationTicker';
 
-export default function Page() {
-  return (
-    <>
-      <NotificationTicker />
-      {/* page content */}
-    </>
-  );
+export default function Home() {
+  return <NotificationTicker />;
 }
 ```

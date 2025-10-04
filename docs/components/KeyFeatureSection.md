@@ -1,18 +1,21 @@
-## KeyFeatureSection
+### KeyFeatureSection
 
-Feature highlights section with autoplaying background image and caption.
+- **File**: `src/components/KeyFeatureSection.tsx`
+- **Type**: Client Component
+- **Purpose**: Animated feature spotlight with background images and rotating feature cards.
 
-- File: `src/components/KeyFeatureSection.tsx`
-- Export: default React component
+#### Props
+- None
 
-### Props
-- None.
-
-### Example
+#### Usage
 ```tsx
 import KeyFeatureSection from '@/components/KeyFeatureSection';
 
-export default function Page() {
-  return <KeyFeatureSection />;
+export default function ProgramsPage() {
+  return (
+    <>
+      <KeyFeatureSection />
+    </>
+  );
 }
 ```

@@ -1,14 +1,17 @@
-## Breadcrumbs
+### Breadcrumbs
 
-Client component that renders hierarchical breadcrumbs computed from the current pathname.
+- **File**: `src/components/Breadcrumbs.tsx`
+- **Type**: Client Component
+- **Purpose**: Renders breadcrumb trail derived from the current pathname.
 
-- File: `src/components/Breadcrumbs.tsx`
-- Export: default React component
+#### Props
+- None
 
-### Props
-- None.
+#### Behavior
+- Hidden on `/`.
+- Converts slugs like `contact-us` to `Contact Us`.
 
-### Example
+#### Usage
 ```tsx
 import Breadcrumbs from '@/components/Breadcrumbs';
 

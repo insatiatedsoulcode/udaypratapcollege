@@ -1,14 +1,13 @@
-## TopBar
+### TopBar
 
-Client navigation strip with quick links and social icons.
+- **File**: `src/components/TopBar.tsx`
+- **Type**: Client Component
+- **Purpose**: Renders the blue top strip with utility links and social icons. Includes an "Apply Now" button.
 
-- File: `src/components/TopBar.tsx`
-- Export: default React component
+#### Props
+- None
 
-### Props
-- None.
-
-### Example
+#### Usage
 ```tsx
 import TopBar from '@/components/TopBar';
 
@@ -21,3 +20,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 ```
+
+#### Notes
+- Uses Next.js `Link` for internal navigation.
+- Social icons from `react-icons`.

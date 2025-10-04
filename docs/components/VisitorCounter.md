@@ -1,27 +1,26 @@
-## VisitorCounter
+### VisitorCounter
 
-Client-only visitor counter that fetches and displays total visits.
+- **File**: `src/components/VisitorCounter.tsx`
+- **Type**: Client Component
+- **Purpose**: Displays total visitor count; tracks first view in the current session and fetches counts from an external API.
 
-- File: `src/components/VisitorCounter.tsx`
-- Export: default React component
+#### Props
+- None
 
-### Props
-- None.
+#### Environment & Endpoints
+- `NEXT_PUBLIC_API_BASE_URL` (default `http://localhost:3001`)
+- On first render without session flag: `GET /` (increments + returns `{ visits }`)
+- Otherwise: `GET /api/visits` (returns `{ visits }`)
 
-### Behavior
-- Uses `NEXT_PUBLIC_API_BASE_URL` (default `http://localhost:3001`).
-- First load hits `/` to increment; subsequent loads fetch `/api/visits`.
-- Uses sessionStorage to avoid double-counting in a session.
-
-### Example
+#### Usage
 ```tsx
 import VisitorCounter from '@/components/VisitorCounter';
 
-export default function FooterLike() {
-  return (
-    <footer>
-      <VisitorCounter />
-    </footer>
-  );
+export default function FooterRight() {
+  return <VisitorCounter />;
 }
 ```
+
+#### Notes
+- Skips SSR rendering until mounted to avoid mismatches.
+- Shows loading and error states.

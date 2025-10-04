@@ -1,18 +1,23 @@
-## FeaturedEventsCarousel
+### FeaturedEventsCarousel
 
-Client carousel showcasing featured events with a split layout.
+- **File**: `src/components/FeaturedEventsCarousel.tsx`
+- **Type**: Client Component
+- **Purpose**: Displays a two-column hero carousel for featured events with timed auto-advance.
 
-- File: `src/components/FeaturedEventsCarousel.tsx`
-- Export: default React component
+#### Props
+- None
 
-### Props
-- None.
+#### Data model
+```ts
+// internal type
+ type SlideData = {
+  id: string;
+  leftContent: { /* textBanner | imageWithOverlays */ };
+  rightBox: { title: string; description: string; buttonText: string; buttonLink: string };
+ };
+```
 
-### Behavior
-- Auto-plays every 8 seconds; left/right arrows navigate.
-- Slide data is embedded in the file; customize `slides`.
-
-### Example
+#### Usage
 ```tsx
 import FeaturedEventsCarousel from '@/components/FeaturedEventsCarousel';
 
@@ -20,3 +25,7 @@ export default function Page() {
   return <FeaturedEventsCarousel />;
 }
 ```
+
+#### Notes
+- Customize slides by editing the `slides` array.
+- Uses `next/image` for images.
