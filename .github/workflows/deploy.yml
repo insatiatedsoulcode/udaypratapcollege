@@ -10,7 +10,7 @@ on:
 env:
   NODE_VERSION: '18.x'
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: insatiatedsoulcode/udaypratapcollege
 
 jobs:
   # Build and Test Job
@@ -41,8 +41,8 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} .
-        docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest .
+        docker build -f Dockerfile.simple -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} .
+        docker build -f Dockerfile.simple -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest .
 
     - name: Login to GitHub Container Registry
       if: github.event_name != 'pull_request'
