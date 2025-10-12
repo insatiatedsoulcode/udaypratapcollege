@@ -3,11 +3,46 @@ import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: {
-      userAgent: '*', // Applies to all search engine bots
-      allow: '/', // Allow crawling of the entire site
-      disallow: '/admin/', // IMPORTANT: Disallow crawling of your private admin pages
-    },
-    sitemap: 'https://www.udaypratapcollege.com/sitemap.xml',
+    rules: [
+      {
+        userAgent: '*',
+        allow: [
+          '/',
+          '/about/',
+          '/academics/',
+          '/admissions/',
+          '/apply',
+          '/student-life/',
+          '/gallery/',
+          '/contact-us',
+        ],
+        disallow: [
+          '/admin/',
+          '/api/',
+          '/data/',
+          '/uploads/',
+          '/test-form',
+          '/test-application',
+          '/_next/',
+          '/static/',
+        ],
+        crawlDelay: 1,
+      },
+      {
+        userAgent: 'Googlebot',
+        allow: '/',
+        disallow: [
+          '/admin/',
+          '/api/',
+          '/data/',
+          '/uploads/',
+          '/test-form',
+          '/test-application',
+        ],
+        crawlDelay: 0,
+      },
+    ],
+    sitemap: 'https://udaypratapcollege.com/sitemap.xml',
+    host: 'https://udaypratapcollege.com',
   };
 }

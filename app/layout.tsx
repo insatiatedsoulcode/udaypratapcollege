@@ -13,23 +13,79 @@ import PageTransition from '@/components/PageTransition'; // Import for page tra
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://udaypratapcollege.com'),
   title: {
-    template: '%s | Uday Pratap College, Varanasi',
-    default: 'Uday Pratap College, Varanasi | Official Website',
+    template: '%s | Uday Pratap College',
+    default: 'Uday Pratap College - Premier Educational Institution | BA, BBA, BCA Programs',
   },
-  description: 'Official website of Uday Pratap College, Varanasi. Explore our undergraduate and postgraduate programs, admissions process, campus life, and more.',
+  description: 'Uday Pratap College offers quality education in BA, BBA, and BCA programs. Join our prestigious institution for academic excellence, modern facilities, and career success.',
+  keywords: [
+    'college',
+    'education',
+    'BA program',
+    'BBA program', 
+    'BCA program',
+    'admissions',
+    'Uday Pratap College',
+    'higher education',
+    'academic excellence',
+    'undergraduate programs',
+    'college admissions',
+    'educational institution'
+  ],
+  authors: [{ name: 'Uday Pratap College' }],
+  creator: 'Uday Pratap College',
+  publisher: 'Uday Pratap College',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   openGraph: {
-    title: 'Uday Pratap College, Varanasi',
-    description: 'A hub for academic excellence and research in Varanasi.',
-    url: 'https://www.udaypratapcollege.com',
+    title: 'Uday Pratap College - Premier Educational Institution',
+    description: 'Quality education in BA, BBA, and BCA programs. Modern facilities, experienced faculty, and excellent placement opportunities.',
+    url: 'https://udaypratapcollege.com',
     siteName: 'Uday Pratap College',
-    images: [{ url: 'https://www.udaypratapcollege.com/images/og-image.jpg', width: 1200, height: 630 }],
+    images: [
+      {
+        url: '/images/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Uday Pratap College Campus',
+      }
+    ],
     locale: 'en_IN',
     type: 'website',
   },
-  icons: {
-    icon: '/favicon.ico',
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Uday Pratap College - Premier Educational Institution',
+    description: 'Quality education in BA, BBA, and BCA programs. Join us for academic excellence and career success.',
+    images: ['/images/og-image.jpg'],
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon.png', type: 'image/png' }
+    ],
+    apple: '/icon.png',
+  },
+  manifest: '/manifest.json',
+  alternates: {
+    canonical: 'https://udaypratapcollege.com',
+  },
+  category: 'education',
 };
 
 export default function RootLayout({

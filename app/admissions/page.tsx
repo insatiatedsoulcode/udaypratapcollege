@@ -2,6 +2,8 @@
 'use client'; // This component uses hooks (useState) for the FAQ accordion
 
 import React, { useState } from 'react';
+import SEO from '@/components/SEO';
+import { webPageSchema, faqSchema, breadcrumbSchema } from '@/utils/structuredData';
 import Link from 'next/link';
 import Image from 'next/image';
 // Import icons for visual appeal
@@ -61,7 +63,6 @@ const faqData = [
 ];
 // --- End of Data Definition ---
 
-
 const AdmissionsPage = () => {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
@@ -69,9 +70,31 @@ const AdmissionsPage = () => {
     setOpenFaqIndex(openFaqIndex === index ? null : index);
   };
 
+  // Breadcrumb items for structured data
+  const breadcrumbItems = [
+    { name: 'Home', url: '/' },
+    { name: 'Admissions', url: '/admissions' }
+  ];
+
+  // Use existing FAQ data
+  const faqs = faqData;
+
   return (
-    <main>
-      {/* 1. Hero Section */}
+    <>
+      <SEO
+        title="Admissions - Apply to Uday Pratap College"
+        description="Apply to Uday Pratap College for BA, BBA, and BCA programs. Learn about admission requirements, application process, fee structure, and important dates. Start your journey to academic excellence."
+        keywords="college admissions, apply online, BA admission, BBA admission, BCA admission, college application, admission requirements, fee structure"
+        canonical="/admissions"
+        structuredData={[
+          webPageSchema('Admissions', 'Apply to Uday Pratap College for undergraduate programs', '/admissions'),
+          faqSchema(faqs),
+          breadcrumbSchema(breadcrumbItems)
+        ]}
+      />
+      
+      <main>
+        {/* 1. Hero Section */}
       <section className="relative h-64 md:h-80 bg-slate-700 text-white">
         <Image
           src="/images/admissions-banner.jpg" // IMPORTANT: Replace with a high-quality, inspiring photo
@@ -167,7 +190,8 @@ const AdmissionsPage = () => {
           </div>
         </div>
       </section>
-    </main>
+      </main>
+    </>
   );
 };
 
