@@ -48,10 +48,11 @@ export const metadata: Metadata = {
     siteName: 'Uday Pratap College',
     images: [
       {
-        url: '/images/og-image.jpg',
+        url: 'https://udaypratapcollege.com/images/og-image-1200x630.jpg',
         width: 1200,
         height: 630,
-        alt: 'Uday Pratap College Campus',
+        alt: 'Uday Pratap College - Premier Educational Institution',
+        type: 'image/jpeg',
       }
     ],
     locale: 'en_IN',
@@ -59,9 +60,11 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
+    site: '@udaypratapcollege',
+    creator: '@udaypratapcollege',
     title: 'Uday Pratap College - Premier Educational Institution',
     description: 'Quality education in BA, BBA, and BCA programs. Join us for academic excellence and career success.',
-    images: ['/images/og-image.jpg'],
+    images: ['https://udaypratapcollege.com/images/og-image-1200x630.jpg'],
   },
   robots: {
     index: true,

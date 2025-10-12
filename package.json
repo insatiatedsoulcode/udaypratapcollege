@@ -19,7 +19,9 @@
     "deploy:staging": "npm run build && npm run docker:build && npm run docker:prod",
     "deploy:production": "npm run build && npm run type-check && npm run lint",
     "clean": "rm -rf .next && rm -rf node_modules/.cache",
-    "postinstall": "npm run clean"
+    "postinstall": "npm run clean",
+    "generate:og-image": "node scripts/generate-og-image.js",
+    "test:og-image": "open scripts/generate-og-image.html"
   },
   "dependencies": {
     "@types/bcrypt": "^6.0.0",

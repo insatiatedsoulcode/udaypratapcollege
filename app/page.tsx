@@ -15,6 +15,7 @@ import FeaturedEventsCarousel from '@/components/FeaturedEventsCarousel';
 
 // SEO Component
 import SEO from '@/components/SEO';
+import SocialShare from '@/components/SocialShare';
 import { organizationSchema, breadcrumbSchema } from '@/utils/structuredData';
 
 // Social Media Icons
@@ -55,6 +56,12 @@ const HomePage = () => {
         description="Join Uday Pratap College for quality education in BA, BBA, and BCA programs. Modern facilities, experienced faculty, and excellent placement opportunities. Apply now!"
         keywords="college admissions, BA program, BBA program, BCA program, higher education, academic excellence, college application, educational institution"
         canonical="/"
+        ogImage="/images/og-image-1200x630.jpg"
+        ogImageWidth={1200}
+        ogImageHeight={630}
+        ogImageAlt="Uday Pratap College - Premier Educational Institution with modern campus and quality education"
+        twitterSite="@udaypratapcollege"
+        twitterCreator="@udaypratapcollege"
         structuredData={[
           organizationSchema,
           breadcrumbSchema(breadcrumbItems)
@@ -383,6 +390,20 @@ const HomePage = () => {
               <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">
                 <FaYoutube size={24} />
               </a>
+            </div>
+          </div>
+        </section>
+
+        {/* Social Share Section */}
+        <section className="py-16 bg-gray-100">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">Share Our College</h2>
+              <p className="text-lg text-gray-600">Help others discover Uday Pratap College by sharing this page</p>
+            </div>
+            
+            <div className="max-w-2xl mx-auto">
+              <SocialShare />
             </div>
           </div>
         </section>
