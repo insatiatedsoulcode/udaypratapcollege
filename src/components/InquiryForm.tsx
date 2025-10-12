@@ -99,8 +99,7 @@ const InquiryForm: React.FC<InquiryFormProps> = ({ onSuccess }) => {
         message: formData.message,
       };
 
-      const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3001';
-      const ENQUIRY_ENDPOINT = `${API_BASE_URL}/api/send-enquiry`;
+      const ENQUIRY_ENDPOINT = '/api/enquiries';
 
       try {
         const response = await fetch(ENQUIRY_ENDPOINT, {

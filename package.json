@@ -9,12 +9,23 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/formidable": "^3.4.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/nodemailer": "^7.0.2",
+    "@types/sqlite3": "^3.1.11",
+    "bcrypt": "^6.0.0",
+    "better-sqlite3": "^12.4.1",
+    "formidable": "^3.5.4",
     "framer-motion": "^12.16.0",
     "fuse.js": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
     "next": "15.1.8",
+    "nodemailer": "^7.0.9",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
+    "sqlite3": "^5.1.7",
     "yet-another-react-lightbox": "^3.23.2"
   },
   "devDependencies": {

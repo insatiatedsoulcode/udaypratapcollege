@@ -65,14 +65,28 @@ const ApplicationFormPage = () => {
     setIsSubmitting(true);
     setSubmissionStatus({ success: false, message: '' });
 
-    const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3001';
-    const APPLICATION_ENDPOINT = `${API_BASE_URL}/api/applications`;
+    const APPLICATION_ENDPOINT = '/api/applications';
+
+    // Map form data to API expected format
+    const apiData = {
+      name: formData.fullName,
+      email: formData.email,
+      phone: formData.phone,
+      program: formData.programApplyingFor,
+      qualification: `10th: ${formData.tenthBoard} (${formData.tenthPercentage}%), 12th: ${formData.twelfthBoard} (${formData.twelfthPercentage}%)`,
+      address: formData.fullAddress,
+      dob: formData.dob,
+      gender: formData.gender,
+      father_name: formData.parentName,
+      mother_name: '', // Not collected in current form
+      guardian_phone: '' // Not collected in current form
+    };
 
     try {
       const response = await fetch(APPLICATION_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(apiData),
       });
       const result = await response.json();
       if (response.ok && result.success) {

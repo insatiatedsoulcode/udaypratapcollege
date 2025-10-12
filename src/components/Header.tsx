@@ -54,6 +54,7 @@ const mainNavLinks = [
   },
   { href: "/gallery", label: "Gallery" },
   { href: "/contact-us", label: "Contact Us" },
+  { href: "/admin", label: "Admin", exact: true },
 ];
 
 type DropdownLink = { href: string; label: string; };

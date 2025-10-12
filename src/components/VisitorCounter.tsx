@@ -11,19 +11,17 @@ const VisitorCounter = () => {
   useEffect(() => {
     setHasMounted(true);
 
-    const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3001';
-
     const fetchAndTrack = async () => {
       try {
         const alreadyTracked = sessionStorage.getItem('visit_tracked_2025');
 
         if (!alreadyTracked) {
-          const res = await fetch(`${API_BASE_URL}/`);
+          const res = await fetch('/api/visits', { method: 'POST' });
           const data = await res.json();
           setVisitCount(data.visits);
           sessionStorage.setItem('visit_tracked_2025', 'true');
         } else {
-          const res = await fetch(`${API_BASE_URL}/api/visits`);
+          const res = await fetch('/api/visits');
           const data = await res.json();
           setVisitCount(data.visits);
         }
