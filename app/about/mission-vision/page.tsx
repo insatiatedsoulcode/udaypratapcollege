@@ -94,7 +94,7 @@ const coreValues = [
 const fadeInAnimation = {
   initial: { opacity: 0, y: 50 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.7, ease: "easeOut" }
+  transition: { duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }
 };
 
 const staggerContainer = {
@@ -109,7 +109,14 @@ const staggerContainer = {
 
 const fadeInUpItem = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { 
+      duration: 0.5, 
+      ease: [0.25, 0.1, 0.25, 1] 
+    } 
+  },
 };
 
 

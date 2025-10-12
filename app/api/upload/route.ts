@@ -1,13 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import formidable from 'formidable';
 import fs from 'fs';
 import path from 'path';
-
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
 
 export async function POST(request: NextRequest) {
   try {
@@ -17,51 +10,57 @@ export async function POST(request: NextRequest) {
       fs.mkdirSync(uploadsDir, { recursive: true });
     }
 
-    const form = formidable({
-      uploadDir: uploadsDir,
-      keepExtensions: true,
-      maxFileSize: 5 * 1024 * 1024, // 5MB limit
-      filter: ({ mimetype }) => {
-        // Allow only specific file types
-        const allowedTypes = [
-          'image/jpeg',
-          'image/png',
-          'image/gif',
-          'application/pdf',
-          'application/msword',
-          'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-        ];
-        return allowedTypes.includes(mimetype || '');
-      }
-    });
-
-    const [fields, files] = await form.parse(await request.formData());
+    const formData = await request.formData();
+    const files = formData.getAll('files') as File[];
     
+    if (!files || files.length === 0) {
+      return NextResponse.json(
+        { success: false, message: 'No files provided' },
+        { status: 400 }
+      );
+    }
+
     const uploadedFiles = [];
     
-    if (files.files) {
-      const fileArray = Array.isArray(files.files) ? files.files : [files.files];
+    for (const file of files) {
+      // Validate file type
+      const allowedTypes = [
+        'image/jpeg',
+        'image/png',
+        'image/gif',
+        'application/pdf',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+      ];
       
-      for (const file of fileArray) {
-        if (file.filepath) {
-          // Generate unique filename
-          const timestamp = Date.now();
-          const extension = path.extname(file.originalFilename || '');
-          const filename = `${timestamp}-${Math.random().toString(36).substring(7)}${extension}`;
-          const newPath = path.join(uploadsDir, filename);
-          
-          // Move file to final location
-          fs.renameSync(file.filepath, newPath);
-          
-          uploadedFiles.push({
-            originalName: file.originalFilename,
-            filename: filename,
-            size: file.size,
-            mimetype: file.mimetype,
-            url: `/uploads/${filename}`
-          });
-        }
+      if (!allowedTypes.includes(file.type)) {
+        continue; // Skip invalid file types
       }
+
+      // Validate file size (5MB limit)
+      if (file.size > 5 * 1024 * 1024) {
+        continue; // Skip oversized files
+      }
+
+      // Generate unique filename
+      const timestamp = Date.now();
+      const extension = path.extname(file.name);
+      const filename = `${timestamp}-${Math.random().toString(36).substring(7)}${extension}`;
+      const filePath = path.join(uploadsDir, filename);
+      
+      // Convert file to buffer and save
+      const bytes = await file.arrayBuffer();
+      const buffer = Buffer.from(bytes);
+      
+      fs.writeFileSync(filePath, buffer);
+      
+      uploadedFiles.push({
+        originalName: file.name,
+        filename: filename,
+        size: file.size,
+        mimetype: file.type,
+        url: `/uploads/${filename}`
+      });
     }
     
     return NextResponse.json({

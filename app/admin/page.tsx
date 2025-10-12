@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { FaEye, FaEyeSlash, FaDownload, FaTrash, FaRedo } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { FaEye, FaEyeSlash, FaDownload, FaRedo } from 'react-icons/fa';
 
 interface Enquiry {
   id: number;
@@ -74,7 +74,7 @@ const AdminPage = () => {
     setLoading(false);
   };
 
-  const exportToCSV = (data: any[], filename: string) => {
+  const exportToCSV = (data: (Enquiry | Application)[], filename: string) => {
     if (data.length === 0) return;
     
     const headers = Object.keys(data[0]).join(',');

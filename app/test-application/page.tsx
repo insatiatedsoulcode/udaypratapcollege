@@ -213,7 +213,7 @@ const TestApplicationPage = () => {
             
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Father's Name
+                Father&apos;s Name
               </label>
               <input
                 type="text"
@@ -227,7 +227,7 @@ const TestApplicationPage = () => {
             
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Mother's Name
+                Mother&apos;s Name
               </label>
               <input
                 type="text"
@@ -241,7 +241,7 @@ const TestApplicationPage = () => {
             
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Guardian's Phone
+                Guardian&apos;s Phone
               </label>
               <input
                 type="tel"

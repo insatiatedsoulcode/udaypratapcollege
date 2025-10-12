@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { getVisitorCount, incrementVisitorCount } from '../../../lib/database';
 
 export async function GET() {

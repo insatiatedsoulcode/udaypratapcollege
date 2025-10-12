@@ -1,5 +1,27 @@
 import nodemailer from 'nodemailer';
 
+// Type definitions
+interface EnquiryData {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
+
+interface ApplicationData {
+  name: string;
+  email: string;
+  phone: string;
+  program: string;
+  qualification: string;
+  address?: string;
+  dob?: string;
+  gender?: string;
+  father_name?: string;
+  mother_name?: string;
+  guardian_phone?: string;
+}
+
 // Email configuration
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST || 'smtp.gmail.com',
@@ -11,7 +33,7 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-export const sendEnquiryNotification = async (enquiry: any) => {
+export const sendEnquiryNotification = async (enquiry: EnquiryData) => {
   try {
     const mailOptions = {
       from: process.env.SMTP_USER || 'your-email@gmail.com',
@@ -49,7 +71,7 @@ export const sendEnquiryNotification = async (enquiry: any) => {
   }
 };
 
-export const sendApplicationNotification = async (application: any) => {
+export const sendApplicationNotification = async (application: ApplicationData) => {
   try {
     const mailOptions = {
       from: process.env.SMTP_USER || 'your-email@gmail.com',
@@ -96,9 +118,12 @@ export const sendApplicationNotification = async (application: any) => {
   }
 };
 
-export const sendConfirmationEmail = async (email: string, type: 'enquiry' | 'application', data: any) => {
+export const sendConfirmationEmail = async (email: string, type: 'enquiry' | 'application', data: EnquiryData | ApplicationData) => {
   try {
     const isEnquiry = type === 'enquiry';
+    const enquiryData = isEnquiry ? data as EnquiryData : null;
+    const applicationData = !isEnquiry ? data as ApplicationData : null;
+    
     const mailOptions = {
       from: process.env.SMTP_USER || 'your-email@gmail.com',
       to: email,
@@ -123,15 +148,15 @@ export const sendConfirmationEmail = async (email: string, type: 'enquiry' | 'ap
           ${isEnquiry ? `
           <div style="background-color: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
             <h3 style="color: #374151; margin-top: 0;">Your Enquiry Details</h3>
-            <p><strong>Subject:</strong> ${data.subject}</p>
-            <p><strong>Message:</strong> ${data.message}</p>
+            <p><strong>Subject:</strong> ${enquiryData?.subject}</p>
+            <p><strong>Message:</strong> ${enquiryData?.message}</p>
           </div>
           ` : `
           <div style="background-color: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
             <h3 style="color: #374151; margin-top: 0;">Your Application Details</h3>
-            <p><strong>Program:</strong> ${data.program}</p>
-            <p><strong>Qualification:</strong> ${data.qualification}</p>
-            <p><strong>Phone:</strong> ${data.phone}</p>
+            <p><strong>Program:</strong> ${applicationData?.program}</p>
+            <p><strong>Qualification:</strong> ${applicationData?.qualification}</p>
+            <p><strong>Phone:</strong> ${applicationData?.phone}</p>
           </div>
           `}
           

@@ -1,6 +1,29 @@
 import Database from 'better-sqlite3';
 import { existsSync, mkdirSync } from 'fs';
 import path from 'path';
+import bcrypt from 'bcrypt';
+
+// Type definitions
+interface EnquiryData {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
+
+interface ApplicationData {
+  name: string;
+  email: string;
+  phone: string;
+  program: string;
+  qualification: string;
+  address?: string;
+  dob?: string;
+  gender?: string;
+  father_name?: string;
+  mother_name?: string;
+  guardian_phone?: string;
+}
 
 // Database file path
 const DB_DIR = path.join(process.cwd(), 'data');
@@ -77,11 +100,11 @@ export const initDatabase = () => {
     `);
 
     // Insert default admin user if not exists
-    const adminExists = db.prepare('SELECT COUNT(*) as count FROM users WHERE username = ?').get('admin');
+    const adminExists = db.prepare('SELECT COUNT(*) as count FROM users WHERE username = ?').get('admin') as { count: number };
     
     if (adminExists.count === 0) {
       // Default password: admin123 (hashed)
-      const bcrypt = require('bcrypt');
+      // bcrypt is already imported at the top
       const hashedPassword = bcrypt.hashSync('admin123', 10);
       
       db.prepare(`
@@ -101,7 +124,7 @@ export const getEnquiries = () => {
   return db.prepare('SELECT * FROM enquiries ORDER BY submitted_at DESC').all();
 };
 
-export const addEnquiry = (enquiry: any) => {
+export const addEnquiry = (enquiry: EnquiryData) => {
   return db.prepare(`
     INSERT INTO enquiries (name, email, subject, message)
     VALUES (?, ?, ?, ?)
@@ -112,7 +135,7 @@ export const getApplications = () => {
   return db.prepare('SELECT * FROM applications ORDER BY submitted_at DESC').all();
 };
 
-export const addApplication = (application: any) => {
+export const addApplication = (application: ApplicationData) => {
   return db.prepare(`
     INSERT INTO applications (name, email, phone, program, qualification, address, dob, gender, father_name, mother_name, guardian_phone)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -124,9 +147,8 @@ export const addApplication = (application: any) => {
 };
 
 export const getVisitorCount = () => {
-  const today = new Date().toISOString().split('T')[0];
-  const result = db.prepare('SELECT SUM(count) as total FROM visitor_stats').get();
-  return result.total || 0;
+  const result = db.prepare('SELECT SUM(count) as total FROM visitor_stats').get() as { total: number } | undefined;
+  return result?.total || 0;
 };
 
 export const incrementVisitorCount = () => {
@@ -134,7 +156,7 @@ export const incrementVisitorCount = () => {
   
   try {
     db.prepare('INSERT INTO visitor_stats (date, count) VALUES (?, 1)').run(today);
-  } catch (error) {
+  } catch {
     // If date already exists, increment count
     db.prepare('UPDATE visitor_stats SET count = count + 1 WHERE date = ?').run(today);
   }
@@ -142,12 +164,12 @@ export const incrementVisitorCount = () => {
   return getVisitorCount();
 };
 
-export const authenticateUser = (username: string, password: string) => {
-  const user = db.prepare('SELECT * FROM users WHERE username = ?').get(username);
+export const authenticateUser = (username: string, password: string): { id: number; username: string; email: string; role: string; password_hash: string } | null => {
+  const user = db.prepare('SELECT * FROM users WHERE username = ?').get(username) as { id: number; username: string; email: string; role: string; password_hash: string } | undefined;
   
   if (!user) return null;
   
-  const bcrypt = require('bcrypt');
+  // bcrypt is already imported at the top
   if (bcrypt.compareSync(password, user.password_hash)) {
     // Update last login
     db.prepare('UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE id = ?').run(user.id);

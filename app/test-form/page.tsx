@@ -46,7 +46,7 @@ const TestFormPage = () => {
           type: 'error'
         });
       }
-    } catch (error) {
+    } catch {
       setSubmissionStatus({
         submitted: true,
         message: 'Network error. Please try again.',
