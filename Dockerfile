@@ -3,7 +3,7 @@ FROM node:18-alpine AS base
 
 # Install dependencies only when needed
 FROM base AS deps
-RUN apk add --no-cache libc6-compat curl python3 make g++ sqlite-dev
+RUN apk add --no-cache libc6-compat curl python3 make g++ sqlite-dev py3-setuptools
 WORKDIR /app
 
 # Copy package files
@@ -19,7 +19,7 @@ RUN npm ci && npm cache clean --force
 
 # Rebuild the source code only when needed
 FROM base AS builder
-RUN apk add --no-cache python3 make g++ sqlite-dev
+RUN apk add --no-cache python3 make g++ sqlite-dev py3-setuptools
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
