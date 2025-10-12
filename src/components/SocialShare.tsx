@@ -12,12 +12,10 @@ interface SocialShareProps {
 const SocialShare: React.FC<SocialShareProps> = ({
   url = typeof window !== 'undefined' ? window.location.href : '',
   title = 'Uday Pratap College - Premier Educational Institution',
-  description = 'Quality education in BA, BBA, and BCA programs. Join our prestigious institution for academic excellence and career success.',
   className = ''
 }) => {
   const encodedUrl = encodeURIComponent(url);
   const encodedTitle = encodeURIComponent(title);
-  const encodedDescription = encodeURIComponent(description);
 
   const shareLinks = {
     facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,

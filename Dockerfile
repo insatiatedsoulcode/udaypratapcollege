@@ -14,8 +14,8 @@ ENV npm_config_build_from_source=true
 ENV npm_config_cache=/tmp/.npm
 ENV PYTHON=/usr/bin/python3
 
-# Install dependencies with better-sqlite3 compilation
-RUN npm ci --omit=dev && npm cache clean --force
+# Install all dependencies (including dev dependencies for build)
+RUN npm ci && npm cache clean --force
 
 # Rebuild the source code only when needed
 FROM base AS builder
