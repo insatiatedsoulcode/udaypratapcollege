@@ -1,32 +1,22 @@
-# Multi-stage build for production deployment
-FROM node:18-alpine AS base
+# Simplified Dockerfile with prebuilt better-sqlite3 binaries
+FROM node:20-alpine AS base
 
 # Install dependencies only when needed
 FROM base AS deps
-RUN apk add --no-cache libc6-compat curl python3 make g++ sqlite-dev
+RUN apk add --no-cache libc6-compat curl
 WORKDIR /app
 
 # Copy package files
 COPY package.json package-lock.json* ./
 
-# Set environment variables for better-sqlite3
-ENV npm_config_build_from_source=true
-ENV npm_config_cache=/tmp/.npm
-ENV PYTHON=/usr/bin/python3
-
-# Install dependencies with better-sqlite3 compilation
+# Install dependencies with prebuilt binaries
 RUN npm ci --omit=dev && npm cache clean --force
 
 # Rebuild the source code only when needed
 FROM base AS builder
-RUN apk add --no-cache python3 make g++ sqlite-dev
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-
-# Set environment variables for better-sqlite3 compilation
-ENV npm_config_build_from_source=true
-ENV PYTHON=/usr/bin/python3
 
 # Disable telemetry
 ENV NEXT_TELEMETRY_DISABLED=1

@@ -21,7 +21,10 @@
     "clean": "rm -rf .next && rm -rf node_modules/.cache",
     "postinstall": "npm run clean",
     "generate:og-image": "node scripts/generate-og-image.js",
-    "test:og-image": "open scripts/generate-og-image.html"
+    "test:og-image": "open scripts/generate-og-image.html",
+    "docker:build:simple": "docker build -f Dockerfile.simple -t udaypratapcollege:simple .",
+    "docker:build:postgres": "docker build -f Dockerfile.postgres -t udaypratapcollege:postgres .",
+    "docker:build:fixed": "docker build -f Dockerfile -t udaypratapcollege:fixed ."
   },
   "dependencies": {
     "@types/bcrypt": "^6.0.0",

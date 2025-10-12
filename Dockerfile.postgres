@@ -1,32 +1,22 @@
-# Multi-stage build for production deployment
+# Multi-stage build for production deployment with PostgreSQL
 FROM node:18-alpine AS base
 
 # Install dependencies only when needed
 FROM base AS deps
-RUN apk add --no-cache libc6-compat curl python3 make g++ sqlite-dev
+RUN apk add --no-cache libc6-compat curl
 WORKDIR /app
 
 # Copy package files
 COPY package.json package-lock.json* ./
 
-# Set environment variables for better-sqlite3
-ENV npm_config_build_from_source=true
-ENV npm_config_cache=/tmp/.npm
-ENV PYTHON=/usr/bin/python3
-
-# Install dependencies with better-sqlite3 compilation
+# Install dependencies (without better-sqlite3)
 RUN npm ci --omit=dev && npm cache clean --force
 
 # Rebuild the source code only when needed
 FROM base AS builder
-RUN apk add --no-cache python3 make g++ sqlite-dev
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-
-# Set environment variables for better-sqlite3 compilation
-ENV npm_config_build_from_source=true
-ENV PYTHON=/usr/bin/python3
 
 # Disable telemetry
 ENV NEXT_TELEMETRY_DISABLED=1
@@ -61,8 +51,8 @@ RUN chown nextjs:nodejs .next
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Create necessary directories
-RUN mkdir -p data public/uploads && chown -R nextjs:nodejs data public/uploads
+# Create necessary directories for PostgreSQL
+RUN mkdir -p public/uploads && chown -R nextjs:nodejs public/uploads
 
 USER nextjs
 
