@@ -53,7 +53,6 @@ const AnimatedCounter = ({ to, suffix = '' }: { to: number; suffix?: string }) =
       const node = ref.current;
       const controls = animate(0, to, {
         duration: 2,
-        ease: "easeOut",
         onUpdate(value) {
           node.textContent = Math.round(value).toString();
         },
@@ -71,10 +70,22 @@ const AnimatedCounter = ({ to, suffix = '' }: { to: number; suffix?: string }) =
 };
 
 // Animation Variants for Framer Motion
-const fadeInFromLeft = { hidden: { opacity: 0, x: -50 }, visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } }};
-const fadeInFromRight = { hidden: { opacity: 0, x: 50 }, visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } }};
-const staggerContainer = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 }}};
-const fadeInUpItem = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }};
+const fadeInFromLeft = { 
+  hidden: { opacity: 0, x: -50 }, 
+  visible: { opacity: 1, x: 0, transition: { duration: 0.7 } }
+};
+const fadeInFromRight = { 
+  hidden: { opacity: 0, x: 50 }, 
+  visible: { opacity: 1, x: 0, transition: { duration: 0.7 } }
+};
+const staggerContainer = { 
+  hidden: { opacity: 0 }, 
+  visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 }}
+};
+const fadeInUpItem = { 
+  hidden: { opacity: 0, y: 30 }, 
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+};
 
 const AboutUsClient: React.FC<AboutUsClientProps> = ({ pageData }) => {
   const heroRef = useRef(null);

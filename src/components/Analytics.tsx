@@ -67,10 +67,10 @@ export default function Analytics({
       new PerformanceObserver((entryList) => {
         const entries = entryList.getEntries();
         entries.forEach((entry) => {
-          if (window.gtag) {
+          if (window.gtag && 'processingStart' in entry) {
             window.gtag('event', 'web_vitals', {
               name: 'FID',
-              value: Math.round(entry.processingStart - entry.startTime),
+              value: Math.round((entry as { processingStart: number }).processingStart - entry.startTime),
               event_category: 'Performance',
             });
           }
@@ -82,8 +82,10 @@ export default function Analytics({
       new PerformanceObserver((entryList) => {
         const entries = entryList.getEntries();
         entries.forEach((entry) => {
-          if (!entry.hadRecentInput) {
-            clsValue += entry.value;
+          if ('hadRecentInput' in entry && !(entry as { hadRecentInput?: boolean }).hadRecentInput) {
+            if ('value' in entry) {
+              clsValue += (entry as { value: number }).value;
+            }
           }
         });
         if (window.gtag) {

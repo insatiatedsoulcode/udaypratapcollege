@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Slot } from '@radix-ui/react-slot';
 import { cn } from '@/lib/utils';
 
@@ -26,7 +25,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       leftIcon,
       rightIcon,
       fullWidth = false,
-      animated = true,
       asChild = false,
       children,
       disabled,
@@ -94,22 +92,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     );
 
     const Comp = asChild ? Slot : 'button';
-
-    if (animated && !disabled && !loading && !asChild) {
-      return (
-        <motion.button
-          ref={ref}
-          className={classes}
-          disabled={disabled || loading}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          transition={{ type: "spring", stiffness: 400, damping: 17 }}
-          {...props}
-        >
-          {buttonContent}
-        </motion.button>
-      );
-    }
 
     return (
       <Comp

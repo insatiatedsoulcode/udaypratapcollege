@@ -22,7 +22,7 @@ const PageTransition = ({ children }: { children: React.ReactNode }) => {
         initial="hidden"
         animate="enter"
         exit="exit"
-        transition={{ type: 'linear', duration: 0.3 }}
+        transition={{ duration: 0.3 }}
       >
         {children}
       </motion.div>
