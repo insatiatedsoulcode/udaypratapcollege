@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { FaUpload, FaFileAlt, FaCheck, FaTimes, FaDownload, FaEye } from 'react-icons/fa';
+import { FaUpload, FaCheck, FaTimes, FaEye } from 'react-icons/fa';
 import SEO from '@/components/SEO';
 
 interface Document {

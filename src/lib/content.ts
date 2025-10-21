@@ -397,7 +397,7 @@ export function loadContent(): ContentData {
 }
 
 // Default content fallback
-function getDefaultContent(): ContentData {
+export function getDefaultContent(): ContentData {
   return {
     college: {
       name: "Uday Pratap College",

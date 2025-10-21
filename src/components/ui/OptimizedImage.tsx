@@ -98,12 +98,12 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
         transition={{ duration: 0.5, ease: 'easeOut' }}
         className="overflow-hidden"
       >
-        <Image {...imageProps} />
+        <Image {...imageProps} alt={alt} />
       </motion.div>
     );
   }
 
-  return <Image {...imageProps} />;
+  return <Image {...imageProps} alt={alt} />;
 };
 
 export default OptimizedImage;

@@ -250,13 +250,13 @@ export const componentThemes = {
 // Utility functions for theme
 export function getThemeColor(color: string, shade: number = 500): string {
   const colorPath = color.split('.');
-  let colorValue: any = theme.colors;
+  let colorValue: Record<string, unknown> = theme.colors as Record<string, unknown>;
   
   for (const path of colorPath) {
-    colorValue = colorValue[path];
+    colorValue = colorValue[path] as Record<string, unknown>;
   }
   
-  return colorValue[shade] || colorValue;
+  return (colorValue[shade] as string) || (colorValue as unknown as string);
 }
 
 export function getSpacing(size: keyof typeof theme.spacing): string {

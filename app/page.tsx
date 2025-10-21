@@ -12,7 +12,7 @@ import InquiryForm from '../src/components/InquiryForm';
 import NotificationTicker from '../src/components/NotificationTicker';
 import FeaturedEventsCarousel from '@/components/FeaturedEventsCarousel';
 import Button from '@/components/ui/Button';
-import Card, { CardContent, CardHeader } from '@/components/ui/Card';
+import Card, { CardContent } from '@/components/ui/Card';
 import FeatureIcon from '@/components/ui/FeatureIcon';
 
 // SEO Component
@@ -25,8 +25,7 @@ import {
   getCollegeInfo, 
   getCollegeStats, 
   getPrograms, 
-  getFeatures, 
-  getNotifications,
+  getFeatures,
   getProgramColorClasses,
   getFeatureIconClasses,
   formatCurrency
@@ -52,7 +51,6 @@ const HomePage = () => {
   const stats = getCollegeStats();
   const programs = getPrograms();
   const features = getFeatures();
-  const notifications = getNotifications();
 
   // Auto-advance slideshow (pause on video)
   useEffect(() => {

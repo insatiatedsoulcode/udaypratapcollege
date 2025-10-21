@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { FaUser, FaGraduationCap, FaBriefcase, FaMapMarkerAlt, FaEnvelope, FaPhone, FaLinkedin, FaSearch, FaFilter, FaPlus, FaHeart, FaComment, FaShare } from 'react-icons/fa';
+import { FaUser, FaGraduationCap, FaBriefcase, FaMapMarkerAlt, FaEnvelope, FaLinkedin, FaSearch, FaPlus, FaHeart, FaComment, FaShare } from 'react-icons/fa';
 import SEO from '@/components/SEO';
 
 interface AlumniProfile {

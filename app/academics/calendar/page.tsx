@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { FaCalendarAlt, FaClock, FaMapMarkerAlt, FaDownload, FaFilter, FaSearch, FaBell, FaExclamationTriangle } from 'react-icons/fa';
+import { FaCalendarAlt, FaClock, FaMapMarkerAlt, FaDownload, FaBell, FaExclamationTriangle } from 'react-icons/fa';
 import SEO from '@/components/SEO';
 
 interface AcademicEvent {
