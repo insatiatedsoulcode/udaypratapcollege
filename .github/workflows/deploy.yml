@@ -128,12 +128,12 @@ jobs:
 
     - name: Health check
       run: |
-        curl -f https://${{ secrets.DOMAIN_NAME }}/ || exit 1
+        curl -f https://udaypratapcollege.com/ || exit 1
         echo "✅ Health check passed!"
 
     - name: Performance check
       run: |
-        response_time=$(curl -o /dev/null -s -w '%{time_total}' https://${{ secrets.DOMAIN_NAME }}/)
+        response_time=$(curl -o /dev/null -s -w '%{time_total}' https://udaypratapcollege.com/)
         echo "Response time: ${response_time}s"
         
         # Fail if response time is too high

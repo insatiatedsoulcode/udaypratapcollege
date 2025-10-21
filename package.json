@@ -27,6 +27,7 @@
     "docker:build:fixed": "docker build -f Dockerfile -t udaypratapcollege:fixed ."
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.2.3",
     "@types/bcrypt": "^6.0.0",
     "@types/formidable": "^3.4.6",
     "@types/jsonwebtoken": "^9.0.10",
@@ -34,8 +35,9 @@
     "@types/sqlite3": "^3.1.11",
     "bcrypt": "^6.0.0",
     "better-sqlite3": "^12.4.1",
+    "clsx": "^2.1.1",
     "formidable": "^3.5.4",
-    "framer-motion": "^12.16.0",
+    "framer-motion": "^12.23.24",
     "fuse.js": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
     "next": "15.1.8",
@@ -44,6 +46,7 @@
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
     "sqlite3": "^5.1.7",
+    "tailwind-merge": "^3.3.1",
     "yet-another-react-lightbox": "^3.23.2"
   },
   "devDependencies": {

@@ -1,0 +1,283 @@
+{
+  "college": {
+    "name": "Uday Pratap College",
+    "tagline": "Excellence in Education",
+    "description": "Premier educational institution offering BA, BBA, and BCA programs with academic excellence and modern facilities.",
+    "established": "2010",
+    "location": "Varanasi, Uttar Pradesh",
+    "contact": {
+      "phone": "+91-12345-67890",
+      "email": "info@udaypratapcollege.com",
+      "address": "123 Education Street, Varanasi, UP 221001"
+    },
+    "social": {
+      "facebook": "https://www.facebook.com/udaypratapcollege",
+      "twitter": "https://www.twitter.com/udaypratapcollege",
+      "instagram": "https://www.instagram.com/udaypratapcollege",
+      "linkedin": "https://www.linkedin.com/company/udaypratapcollege",
+      "youtube": "https://www.youtube.com/udaypratapcollege"
+    }
+  },
+  "stats": {
+    "students": 500,
+    "faculty": 15,
+    "placementRate": 95,
+    "programs": 3,
+    "alumni": 1200,
+    "yearsOfExcellence": 14
+  },
+  "programs": [
+    {
+      "id": "ba",
+      "name": "Bachelor of Arts",
+      "shortName": "BA",
+      "duration": "3 Years",
+      "description": "Explore diverse subjects and develop critical thinking skills in our comprehensive liberal arts program.",
+      "color": "blue",
+      "subjects": ["English Literature", "History", "Political Science", "Economics", "Psychology", "Sociology"],
+      "careerOptions": ["Civil Services", "Journalism", "Teaching", "Social Work", "Public Administration"],
+      "eligibility": "10+2 or equivalent from any recognized board",
+      "fees": {
+        "annual": 25000,
+        "total": 75000
+      },
+      "highlights": [
+        "Comprehensive curriculum covering humanities and social sciences",
+        "Experienced faculty with research background",
+        "Regular seminars and workshops",
+        "Library with extensive collection",
+        "Placement assistance"
+      ]
+    },
+    {
+      "id": "bba",
+      "name": "Bachelor of Business Administration",
+      "shortName": "BBA",
+      "duration": "3 Years",
+      "description": "Develop leadership skills and business acumen to excel in the corporate world.",
+      "color": "green",
+      "subjects": ["Business Management", "Marketing", "Finance", "Human Resources", "Operations", "Entrepreneurship"],
+      "careerOptions": ["Business Analyst", "Marketing Manager", "HR Specialist", "Operations Manager", "Entrepreneur"],
+      "eligibility": "10+2 or equivalent from any recognized board",
+      "fees": {
+        "annual": 35000,
+        "total": 105000
+      },
+      "highlights": [
+        "Industry-relevant curriculum",
+        "Guest lectures from industry experts",
+        "Internship opportunities",
+        "Case study methodology",
+        "Strong placement record"
+      ]
+    },
+    {
+      "id": "bca",
+      "name": "Bachelor of Computer Applications",
+      "shortName": "BCA",
+      "duration": "3 Years",
+      "description": "Master cutting-edge technology and programming skills for the digital age.",
+      "color": "purple",
+      "subjects": ["Programming", "Database Management", "Web Development", "Software Engineering", "Data Structures", "Computer Networks"],
+      "careerOptions": ["Software Developer", "Web Developer", "Database Administrator", "System Analyst", "IT Consultant"],
+      "eligibility": "10+2 or equivalent with Mathematics",
+      "fees": {
+        "annual": 40000,
+        "total": 120000
+      },
+      "highlights": [
+        "Modern computer labs with latest technology",
+        "Industry-standard software and tools",
+        "Project-based learning",
+        "Industry partnerships",
+        "Excellent placement opportunities"
+      ]
+    }
+  ],
+  "faculty": [
+    {
+      "id": "faculty-1",
+      "name": "Dr. Rajesh Kumar",
+      "designation": "Principal",
+      "department": "Administration",
+      "qualification": "Ph.D. in Education",
+      "experience": "20+ years",
+      "specialization": "Educational Leadership",
+      "email": "principal@udaypratapcollege.com",
+      "image": "/images/faculty/principal.jpg",
+      "bio": "Dr. Rajesh Kumar has been leading the institution with vision and dedication for over 15 years.",
+      "achievements": [
+        "Published 25+ research papers",
+        "Awarded Best Principal 2023",
+        "Member of UGC Committee"
+      ]
+    },
+    {
+      "id": "faculty-2",
+      "name": "Prof. Sunita Sharma",
+      "designation": "Head of Department",
+      "department": "Computer Science",
+      "qualification": "M.Tech in Computer Science",
+      "experience": "15+ years",
+      "specialization": "Software Engineering",
+      "email": "sunita.sharma@udaypratapcollege.com",
+      "image": "/images/faculty/sunita-sharma.jpg",
+      "bio": "Prof. Sunita Sharma is an expert in software engineering with extensive industry experience.",
+      "achievements": [
+        "Industry experience with TCS",
+        "Certified in multiple technologies",
+        "Mentored 100+ students"
+      ]
+    },
+    {
+      "id": "faculty-3",
+      "name": "Dr. Amit Verma",
+      "designation": "Associate Professor",
+      "department": "Business Administration",
+      "qualification": "Ph.D. in Management",
+      "experience": "12+ years",
+      "specialization": "Marketing Management",
+      "email": "amit.verma@udaypratapcollege.com",
+      "image": "/images/faculty/amit-verma.jpg",
+      "bio": "Dr. Amit Verma specializes in marketing strategies and consumer behavior.",
+      "achievements": [
+        "Consultant for 10+ companies",
+        "Published in top journals",
+        "Guest speaker at conferences"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "event-1",
+      "title": "Annual Sports Meet",
+      "date": "2024-12-15",
+      "type": "sports",
+      "description": "Annual sports meet featuring various athletic competitions and cultural events.",
+      "image": "/images/events/sports-meet.jpg",
+      "location": "College Ground",
+      "time": "9:00 AM - 5:00 PM",
+      "featured": true
+    },
+    {
+      "id": "event-2",
+      "title": "Tech Fest 2024",
+      "date": "2024-12-20",
+      "type": "academic",
+      "description": "Annual technology festival showcasing student projects and innovations.",
+      "image": "/images/events/tech-fest.jpg",
+      "location": "Computer Lab",
+      "time": "10:00 AM - 4:00 PM",
+      "featured": true
+    },
+    {
+      "id": "event-3",
+      "title": "Cultural Night",
+      "date": "2024-12-25",
+      "type": "cultural",
+      "description": "Annual cultural night featuring music, dance, and drama performances.",
+      "image": "/images/events/cultural-night.jpg",
+      "location": "Auditorium",
+      "time": "6:00 PM - 10:00 PM",
+      "featured": false
+    }
+  ],
+  "notifications": [
+    {
+      "id": "notif-1",
+      "text": "Admissions for 2025-26 are now open!",
+      "link": "/admissions",
+      "type": "admission",
+      "active": true
+    },
+    {
+      "id": "notif-2",
+      "text": "Annual Sports Meet on Dec 15th.",
+      "link": "/events/sports-meet",
+      "type": "event",
+      "active": true
+    },
+    {
+      "id": "notif-3",
+      "text": "Results for the 3rd Semester have been declared.",
+      "link": "/results",
+      "type": "academic",
+      "active": true
+    }
+  ],
+  "features": [
+    {
+      "id": "feature-1",
+      "title": "Quality Education",
+      "description": "Comprehensive curriculum designed by industry experts and experienced faculty.",
+      "icon": "book",
+      "color": "blue"
+    },
+    {
+      "id": "feature-2",
+      "title": "Experienced Faculty",
+      "description": "Learn from qualified professors with years of teaching and industry experience.",
+      "icon": "users",
+      "color": "green"
+    },
+    {
+      "id": "feature-3",
+      "title": "Modern Facilities",
+      "description": "State-of-the-art infrastructure with modern classrooms, labs, and library.",
+      "icon": "building",
+      "color": "purple"
+    },
+    {
+      "id": "feature-4",
+      "title": "Placement Support",
+      "description": "Dedicated placement cell to help students secure promising career opportunities.",
+      "icon": "briefcase",
+      "color": "yellow"
+    },
+    {
+      "id": "feature-5",
+      "title": "Student Support",
+      "description": "Comprehensive support services including counseling, mentoring, and career guidance.",
+      "icon": "heart",
+      "color": "red"
+    },
+    {
+      "id": "feature-6",
+      "title": "Innovation",
+      "description": "Embracing modern teaching methods and technology-enhanced learning experiences.",
+      "icon": "lightning",
+      "color": "indigo"
+    }
+  ],
+  "gallery": {
+    "categories": [
+      {
+        "id": "campus",
+        "name": "Campus Life",
+        "images": [
+          "/images/gallery/campus-1.jpg",
+          "/images/gallery/campus-2.jpg",
+          "/images/gallery/campus-3.jpg"
+        ]
+      },
+      {
+        "id": "events",
+        "name": "Events",
+        "images": [
+          "/images/gallery/event-1.jpg",
+          "/images/gallery/event-2.jpg",
+          "/images/gallery/event-3.jpg"
+        ]
+      },
+      {
+        "id": "facilities",
+        "name": "Facilities",
+        "images": [
+          "/images/gallery/facility-1.jpg",
+          "/images/gallery/facility-2.jpg",
+          "/images/gallery/facility-3.jpg"
+        ]
+      }
+    ]
+  }
+}

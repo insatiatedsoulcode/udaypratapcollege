@@ -3,60 +3,211 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Your custom global styles from the previous style.css, adapted */
-body {
-  font-family: 'Inter', sans-serif; /* Or your chosen default sans-serif from tailwind.config.js */
-  overflow-x: hidden;
-  color: #333; /* Default text color */
-  line-height: 1.6;
+:root {
+  --foreground-rgb: 15, 23, 42;
+  --background-start-rgb: 248, 250, 252;
+  --background-end-rgb: 241, 245, 249;
+  --primary-rgb: 245, 158, 11;
+  --secondary-rgb: 30, 64, 175;
+  --accent-rgb: 99, 102, 241;
 }
 
-body.modal-open-react { /* For when modal is open */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 248, 250, 252;
+    --background-start-rgb: 15, 23, 42;
+    --background-end-rgb: 30, 41, 59;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      135deg,
+      transparent 0%,
+      rgba(var(--background-end-rgb), 0.1) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      rgb(var(--background-start-rgb)),
+      rgb(var(--background-end-rgb))
+    );
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+body.modal-open-react {
   overflow: hidden;
 }
 
-/* General container (use Tailwind's `container` class with `mx-auto px-4` etc. in JSX,
-   or define your custom .container if needed beyond Tailwind) */
-.container {
-  width: 100%;
-  padding-left: 1rem; /* equivalent to px-4 */
-  padding-right: 1rem;
-  margin-left: auto;
-  margin-right: auto;
-}
-@media (min-width: 640px) { /* sm */
-  .container {
-    max-width: 640px;
-    padding-left: 1.5rem; /* px-6 */
-    padding-right: 1.5rem;
+/* Enterprise-level component styles */
+@layer components {
+  .enterprise-card {
+    @apply bg-white/90 backdrop-blur-sm border border-slate-200/60 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] hover:border-blue-200;
   }
-}
-@media (min-width: 768px) { /* md */
-  .container {
-    max-width: 768px;
+  
+  .enterprise-button {
+    @apply bg-gradient-to-r from-blue-400 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 border border-blue-300/20;
   }
-}
-@media (min-width: 1024px) { /* lg */
-  .container {
-    max-width: 1024px;
+  
+  .enterprise-button-secondary {
+    @apply bg-transparent border-2 border-blue-300 text-blue-200 hover:bg-blue-300 hover:text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200;
   }
-}
-@media (min-width: 1280px) { /* xl */
-  .container {
-    max-width: 1280px;
+  
+  .enterprise-section {
+    @apply py-16 px-4 sm:px-6 lg:px-8;
+  }
+  
+  .enterprise-heading {
+    @apply text-4xl md:text-5xl font-bold text-slate-900 mb-6 text-center;
+  }
+  
+  .enterprise-subheading {
+    @apply text-xl text-slate-600 mb-8 text-center max-w-3xl mx-auto leading-relaxed;
+  }
+  
+  .glass-effect {
+    @apply bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl;
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-to-r from-amber-500 via-amber-600 to-orange-500 bg-clip-text text-transparent;
+  }
+  
+  .enterprise-input {
+    @apply w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 bg-white/80 backdrop-blur-sm;
+  }
+  
+  .enterprise-select {
+    @apply w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 bg-white/80 backdrop-blur-sm appearance-none;
   }
 }
 
+/* Animation utilities */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .animate-fadeIn {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  .animate-slideUp {
+    animation: slideUp 0.6s ease-out;
+  }
+  
+  .animate-scaleIn {
+    animation: scaleIn 0.4s ease-out;
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
+
+/* Keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #f59e0b, #d97706);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #d97706, #b45309);
+}
+
+/* Focus styles */
+*:focus {
+  outline: 2px solid #f59e0b;
+  outline-offset: 2px;
+}
+
+/* Selection styles */
+::selection {
+  background-color: #f59e0b;
+  color: white;
+}
+
+/* Loading states */
+.loading-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
 
 /* --- Notification Ticker Styles --- */
 .notification-ticker-container {
-  background-color: #fff8e1; /* Example color */
-  color: #333;
-  padding: 8px 0;
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  color: #92400e;
+  padding: 12px 0;
   width: 100%;
   overflow: hidden;
-  border-bottom: 1px solid #e0e0e0;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  border-bottom: 2px solid #f59e0b;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .notification-ticker {
@@ -69,16 +220,18 @@ body.modal-open-react { /* For when modal is open */
 .notification-ticker span {
   display: inline-block;
   padding: 0 20px;
-  font-size: 0.85rem;
-  font-weight: 500;
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
 .notification-ticker span a {
-  color: #0779e4; /* Example link color */
+  color: #92400e;
   text-decoration: none;
+  font-weight: 700;
 }
 .notification-ticker span a:hover {
   text-decoration: underline;
+  color: #78350f;
 }
 
 @keyframes ticker-scroll {
@@ -89,111 +242,120 @@ body.modal-open-react { /* For when modal is open */
 /* --- College Branding Section Styles --- */
 .college-branding-section {
   width: 100%;
-  padding: 15px 0;
-  background-color: #f8f9fa; /* Light grey background */
+  padding: 20px 0;
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
   text-align: center;
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 3px solid #f59e0b;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-.college-branding-content h1 { /* For English Name */
-  font-size: clamp(1.6rem, 4vw, 2rem); /* Responsive font size */
-  color: #003366; /* Dark blue */
-  font-weight: 700; /* Tailwind: font-bold */
-  margin-bottom: 0;
+.college-branding-content h1 {
+  font-size: clamp(1.8rem, 4vw, 2.2rem);
+  color: #ffffff;
+  font-weight: 800;
+  margin-bottom: 8px;
   display: inline-block;
   vertical-align: baseline;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.college-branding-content h2 { /* For Hindi Name */
-  font-size: clamp(1.4rem, 3.5vw, 1.8rem);
-  color: #003366;
+.college-branding-content h2 {
+  font-size: clamp(1.5rem, 3.5vw, 1.9rem);
+  color: #f59e0b;
   margin-bottom: 0;
-  font-weight: 500; /* Tailwind: font-medium */
+  font-weight: 600;
   display: inline-block;
   vertical-align: baseline;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-.college-branding-content p { /* For affiliation */
-  font-size: clamp(0.85rem, 2.5vw, 1rem);
-  color: #495057; /* Dark gray */
-  margin-top: 5px;
+.college-branding-content p {
+  font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+  color: #cbd5e1;
+  margin-top: 8px;
   padding: 0 10px;
+  font-weight: 500;
 }
 
 .college-social-media-links {
-  margin-top: 12px;
+  margin-top: 15px;
 }
 
 .college-social-media-links a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin: 0 6px;
-  color: #003366;
-  font-size: 1.3rem; /* Base icon size */
+  margin: 0 8px;
+  color: #f59e0b;
+  font-size: 1.4rem;
   text-decoration: none;
-  transition: color 0.3s ease, transform 0.2s ease;
-  width: 30px;
-  height: 30px;
+  transition: all 0.3s ease;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: rgba(245, 158, 11, 0.1);
 }
-@media (min-width: 640px) { /* sm screens */
+@media (min-width: 640px) {
   .college-social-media-links a {
-    font-size: 1.5rem;
-    margin: 0 8px;
-    width: 34px;
-    height: 34px;
+    font-size: 1.6rem;
+    margin: 0 10px;
+    width: 40px;
+    height: 40px;
   }
 }
 
 .college-social-media-links a:hover {
-  color: #0779e4;
-  transform: scale(1.15);
+  color: #ffffff;
+  background: #f59e0b;
+  transform: scale(1.2);
+  box-shadow: 0 4px 8px rgba(245, 158, 11, 0.3);
 }
 
-
-/* --- Single Full-Width Hero Slideshow Styles --- */
+/* --- Hero Slideshow Styles --- */
 .hero-slideshow-full {
   width: 100%;
-  height: 55vh;
-  min-height: 300px;
-  max-height: 550px;
+  height: 60vh;
+  min-height: 350px;
+  max-height: 600px;
   position: relative;
   background-size: cover;
   background-position: center center;
   transition: background-image 0.8s ease-in-out;
-  border-top: 2px solid black;
-  border-bottom: 2px solid black;
+  border-top: 3px solid #f59e0b;
+  border-bottom: 3px solid #f59e0b;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
 }
-@media (min-width: 768px) { /* md screens */
+@media (min-width: 768px) {
   .hero-slideshow-full {
-    height: 65vh;
-    min-height: 400px;
-    max-height: 650px;
+    height: 70vh;
+    min-height: 450px;
+    max-height: 700px;
   }
 }
 
-
-.slideshow-college-name { /* Overlay on hero slideshow */
+.slideshow-college-name {
   position: absolute;
-  top: 15px;
+  top: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: rgba(0, 0, 0, 0.6);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 100%);
   color: white;
-  padding: 5px 12px;
-  border-radius: 4px;
-  font-size: clamp(0.9rem, 3vw, 1.3rem);
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-size: clamp(1rem, 3vw, 1.4rem);
   font-weight: bold;
   text-align: center;
   z-index: 5;
   max-width: 85%;
-  text-shadow: 1px 1px 1px rgba(0,0,0,0.6);
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+  border: 2px solid rgba(245, 158, 11, 0.5);
+  backdrop-filter: blur(10px);
 }
 @media (min-width: 768px) {
   .slideshow-college-name {
-    font-size: clamp(1.6rem, 3.5vw, 2rem);
-    padding: 10px 20px;
-    top: 25px;
+    font-size: clamp(1.8rem, 3.5vw, 2.2rem);
+    padding: 12px 24px;
+    top: 30px;
     white-space: nowrap;
   }
 }
@@ -202,49 +364,68 @@ body.modal-open-react { /* For when modal is open */
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.9) 0%, rgba(217, 119, 6, 0.9) 100%);
   color: white;
   border: none;
-  font-size: clamp(18px, 4vw, 22px);
+  font-size: clamp(20px, 4vw, 24px);
   font-weight: bold;
   cursor: pointer;
   z-index: 10;
   border-radius: 50%;
-  width: clamp(30px, 8vw, 38px);
-  height: clamp(30px, 8vw, 38px);
+  width: clamp(35px, 8vw, 45px);
+  height: clamp(35px, 8vw, 45px);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
   line-height: 1;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 .slideshow-arrow:hover {
-  background-color: rgba(0, 0, 0, 0.55);
+  background: linear-gradient(135deg, rgba(217, 119, 6, 0.9) 0%, rgba(180, 83, 9, 0.9) 100%);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
-.slideshow-arrow.prev { left: 8px; }
-.slideshow-arrow.next { right: 8px; }
+.slideshow-arrow.prev { left: 12px; }
+.slideshow-arrow.next { right: 12px; }
 
 @media (min-width: 768px) {
   .slideshow-arrow {
-    font-size: clamp(24px, 4vw, 28px);
-    width: clamp(40px, 6vw, 48px);
-    height: clamp(40px, 6vw, 48px);
+    font-size: clamp(26px, 4vw, 30px);
+    width: clamp(45px, 6vw, 55px);
+    height: clamp(45px, 6vw, 55px);
   }
-  .slideshow-arrow.prev { left: 20px; }
-  .slideshow-arrow.next { right: 20px; }
+  .slideshow-arrow.prev { left: 25px; }
+  .slideshow-arrow.next { right: 25px; }
 }
 
-/* Basic CTA button styles if not fully relying on Tailwind utilities in JSX */
+/* Enhanced CTA button styles */
 .cta-btn {
-    background: #0779e4;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: 500;
-    display: inline-block;
-    transition: background-color 0.3s ease;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: #ffffff;
+  padding: 12px 24px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-block;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(245, 158, 11, 0.2);
+  box-shadow: 0 4px 8px rgba(245, 158, 11, 0.2);
 }
 .cta-btn:hover {
-    background: #045aab;
+  background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(245, 158, 11, 0.3);
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
 }

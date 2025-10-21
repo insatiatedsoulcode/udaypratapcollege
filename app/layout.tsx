@@ -4,11 +4,12 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 
 // import AuthProvider from '@/components/AuthProvider'; // <<< REMOVED for now
-import TopBar from '@/components/TopBar';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import PageTransition from '@/components/PageTransition'; // Import for page transitions
+import { ThemeProvider } from '@/components/ThemeProvider';
+import Analytics from '@/components/Analytics';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -31,7 +32,20 @@ export const metadata: Metadata = {
     'academic excellence',
     'undergraduate programs',
     'college admissions',
-    'educational institution'
+    'educational institution',
+    'Varanasi college',
+    'Uttar Pradesh education',
+    'best college Varanasi',
+    'college in UP',
+    'BA admission 2025',
+    'BBA admission 2025',
+    'BCA admission 2025',
+    'college placement',
+    'student portal',
+    'online admission',
+    'college facilities',
+    'expert faculty',
+    'modern education'
   ],
   authors: [{ name: 'Uday Pratap College' }],
   creator: 'Uday Pratap College',
@@ -96,24 +110,89 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "Uday Pratap College",
+    "description": "Premier educational institution offering BA, BBA, and BCA programs with academic excellence and modern facilities.",
+    "url": "https://udaypratapcollege.com",
+    "logo": "https://udaypratapcollege.com/images/logo.png",
+    "image": "https://udaypratapcollege.com/images/campus-slide-1.JPG",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Varanasi",
+      "addressRegion": "Uttar Pradesh",
+      "addressCountry": "IN"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+91-12345-67890",
+      "contactType": "Admissions",
+      "email": "info@udaypratapcollege.com"
+    },
+    "sameAs": [
+      "https://www.facebook.com/udaypratapcollege",
+      "https://www.twitter.com/udaypratapcollege",
+      "https://www.instagram.com/udaypratapcollege"
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Academic Programs",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Course",
+            "name": "Bachelor of Arts (BA)",
+            "description": "Comprehensive program covering humanities, social sciences, and languages"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Course",
+            "name": "Bachelor of Business Administration (BBA)",
+            "description": "Prepare for a career in business management with strong foundation in business principles"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Course",
+            "name": "Bachelor of Computer Applications (BCA)",
+            "description": "Master the fundamentals of computer science and software development"
+          }
+        }
+      ]
+    }
+  };
+
   return (
     <html lang="en" className="h-full">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+      </head>
       <body className={`${inter.className} antialiased flex flex-col min-h-full`}>
-        {/* AuthProvider wrapper has been removed. */}
+        <ThemeProvider defaultTheme="system" storageKey="uday-pratap-college-theme">
+          <Analytics 
+            googleAnalyticsId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID}
+            enableAnalytics={process.env.NEXT_PUBLIC_ENABLE_ANALYTICS === 'true'}
+          />
+          <Header />
+          <Breadcrumbs />
 
-        <TopBar />
-        <Header />
-        <Breadcrumbs />
+          <main className="flex-grow">
+            {/* The PageTransition component wraps the page content for animation */}
+            <PageTransition>
+              {children}
+            </PageTransition>
+          </main>
 
-        <main className="flex-grow">
-          {/* The PageTransition component wraps the page content for animation */}
-          <PageTransition>
-            {children}
-          </PageTransition>
-        </main>
-
-        <Footer />
-
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

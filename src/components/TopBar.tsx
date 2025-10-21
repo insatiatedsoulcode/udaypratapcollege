@@ -18,7 +18,6 @@ const TopBar = () => {
 
         {/* Left Side: Links */}
         <div className="flex flex-wrap justify-center lg:justify-start items-center space-x-3 sm:space-x-4 rtl:sm:space-x-reverse mb-2 lg:mb-0">
-          <Link href="/campus-visit" className={commonLinkClasses}>Campus Visit</Link>
           <Link href="/career-services" className={commonLinkClasses}>Career Services</Link>
           <Link href="/" className={commonLinkClasses}>Uday Pratap College</Link>
           <Link href="/contact-us" className={commonLinkClasses}>Contact</Link>

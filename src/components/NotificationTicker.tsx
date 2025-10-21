@@ -12,9 +12,9 @@ const announcements = [
 
 const NotificationTicker = () => {
   return (
-    <div className="bg-amber-100 border-b border-amber-200">
+    <div className="bg-blue-100 border-b border-blue-200">
       <div className="container mx-auto px-4 py-1.5 flex items-center overflow-hidden">
-        <FaBullhorn className="text-amber-700 mr-3 flex-shrink-0" />
+        <FaBullhorn className="text-blue-700 mr-3 flex-shrink-0" />
         <div className="marquee-container relative flex-auto h-5">
           <div className="marquee absolute whitespace-nowrap">
             {/* Repeat the content multiple times to ensure a seamless loop */}
@@ -22,8 +22,8 @@ const NotificationTicker = () => {
               <span key={index} className="mx-4 text-sm font-medium">
                 <Link
                   href={announcement.link}
-                  // Use a darker text color for better contrast on the yellow background
-                  className="text-amber-800 hover:text-amber-900 hover:underline"
+                  // Use a darker text color for better contrast on the blue background
+                  className="text-blue-800 hover:text-blue-900 hover:underline"
                 >
                   {announcement.text}
                 </Link>

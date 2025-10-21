@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  app-com:
-    image: ghcr.io/insatiatedsoulcode/udaypratapcollege:com-latest
-    container_name: udaypratapcollege-com-app
+  app:
+    image: ghcr.io/insatiatedsoulcode/udaypratapcollege:latest
+    container_name: udaypratapcollege-app
     ports:
       - "3000:3000"
     environment:
@@ -14,12 +14,10 @@ services:
       - SMTP_PASS=${SMTP_PASS}
       - ADMIN_EMAIL=${ADMIN_EMAIL}
       - JWT_SECRET=${JWT_SECRET:-your-secret-key-change-in-production}
-      - DOMAIN_NAME=udaypratapcollege.com
-      - DATABASE_URL=sqlite:./data/college-com.db
     volumes:
-      - ./data-com:/app/data
-      - ./public/uploads-com:/app/public/uploads
-      - ./logs-com:/app/logs
+      - ./data:/app/data
+      - ./public/uploads:/app/public/uploads
+      - ./logs:/app/logs
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
@@ -28,29 +26,29 @@ services:
       retries: 3
       start_period: 40s
     networks:
-      - app-com-network
+      - app-network
 
-  nginx-com:
+  nginx:
     image: nginx:alpine
-    container_name: udaypratapcollege-com-nginx
+    container_name: udaypratapcollege-nginx
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx.com.conf:/etc/nginx/nginx.conf:ro
-      - ./ssl-com:/etc/nginx/ssl:ro
-      - ./logs-com/nginx:/var/log/nginx
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+      - ./logs/nginx:/var/log/nginx
     depends_on:
-      - app-com
+      - app
     restart: unless-stopped
     networks:
-      - app-com-network
+      - app-network
 
 networks:
-  app-com-network:
+  app-network:
     driver: bridge
 
 volumes:
-  data-com:
-  uploads-com:
-  logs-com:
+  data:
+  uploads:
+  logs:
