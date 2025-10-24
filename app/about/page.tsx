@@ -69,7 +69,35 @@ const pageData = {
     { icon: "FaUsers", title: "Expert Faculty", description: "Benefit from our partnerships for internships and placements." },
     { icon: "FaLightbulb", title: "Innovation Focus", description: "We encourage a culture of research, discovery, and entrepreneurship." },
     { icon: "FaIndustry", title: "Strong Industry Links", description: "Learn from experienced academics and researchers dedicated to mentorship." },
-  ]
+  ],
+  videos: {
+    title: "Experience Our Campus Life",
+    subtitle: "Watch our latest videos showcasing campus activities, events, and student life",
+    youtubeVideos: [
+      {
+        id: "dQw4w9WgXcQ", // Replace with actual YouTube video ID
+        title: "Campus Tour 2024",
+        description: "Take a virtual tour of our beautiful campus and modern facilities"
+      },
+      {
+        id: "jNQXAC9IVRw", // Replace with actual YouTube video ID
+        title: "Student Life at UPC",
+        description: "Experience the vibrant student life and extracurricular activities"
+      }
+    ],
+    instagramReels: [
+      {
+        id: "C1234567890", // Replace with actual Instagram reel ID
+        title: "College Events",
+        description: "Highlights from our recent cultural and academic events"
+      },
+      {
+        id: "C0987654321", // Replace with actual Instagram reel ID
+        title: "Student Achievements",
+        description: "Celebrating our students' academic and extracurricular achievements"
+      }
+    ]
+  }
 };
 // --- End of Data ---
 

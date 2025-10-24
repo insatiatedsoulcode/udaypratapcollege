@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useInView, animate, useScroll, useTransform } from 'framer-motion';
-import { FaBook, FaUsers, FaLightbulb, FaIndustry } from 'react-icons/fa';
+import { FaBook, FaUsers, FaLightbulb, FaIndustry, FaPlay, FaInstagram, FaYoutube } from 'react-icons/fa';
 
 // Define types for pageData prop
 interface AboutUsClientProps {
@@ -40,6 +40,20 @@ interface AboutUsClientProps {
       title: string;
       description: string;
     }>;
+    videos: {
+      title: string;
+      subtitle: string;
+      youtubeVideos: Array<{
+        id: string;
+        title: string;
+        description: string;
+      }>;
+      instagramReels: Array<{
+        id: string;
+        title: string;
+        description: string;
+      }>;
+    };
   };
 }
 
@@ -254,7 +268,155 @@ const AboutUsClient: React.FC<AboutUsClientProps> = ({ pageData }) => {
         </motion.div>
       </section>
 
-      {/* 7. Call to Action Section */}
+      {/* 7. Video Gallery Section */}
+      <section className="bg-white py-16 md:py-24">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-4">
+              {pageData.videos.title}
+            </h2>
+            <p className="text-lg text-slate-600 max-w-3xl mx-auto">
+              {pageData.videos.subtitle}
+            </p>
+          </motion.div>
+
+          {/* YouTube Videos Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            className="mb-16"
+          >
+            <div className="flex items-center justify-center mb-8">
+              <FaYoutube className="text-red-600 text-3xl mr-3" />
+              <h3 className="text-2xl font-bold text-slate-800">YouTube Videos</h3>
+            </div>
+            <div className="grid md:grid-cols-2 gap-8">
+              {pageData.videos.youtubeVideos.map((video, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ delay: index * 0.2 }}
+                  className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+                >
+                  <div className="relative aspect-video bg-gray-200">
+                    <iframe
+                      src={`https://www.youtube.com/embed/${video.id}`}
+                      title={video.title}
+                      className="w-full h-full"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-10 transition-all duration-300 flex items-center justify-center">
+                      <FaPlay className="text-white text-4xl opacity-0 hover:opacity-100 transition-opacity duration-300" />
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <h4 className="text-xl font-semibold text-slate-800 mb-2">{video.title}</h4>
+                    <p className="text-slate-600">{video.description}</p>
+                    <a
+                      href={`https://www.youtube.com/watch?v=${video.id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center mt-4 text-red-600 hover:text-red-700 font-medium transition-colors"
+                    >
+                      <FaYoutube className="mr-2" />
+                      Watch on YouTube
+                    </a>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Instagram Reels Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+          >
+            <div className="flex items-center justify-center mb-8">
+              <FaInstagram className="text-pink-600 text-3xl mr-3" />
+              <h3 className="text-2xl font-bold text-slate-800">Instagram Reels</h3>
+            </div>
+            <div className="grid md:grid-cols-2 gap-8">
+              {pageData.videos.instagramReels.map((reel, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ delay: index * 0.2 }}
+                  className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+                >
+                  <div className="relative aspect-[9/16] bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 flex items-center justify-center">
+                    <div className="text-center text-white">
+                      <FaInstagram className="text-6xl mb-4 mx-auto" />
+                      <p className="text-lg font-semibold">Instagram Reel</p>
+                      <p className="text-sm opacity-90">Click to view on Instagram</p>
+                    </div>
+                    <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+                      <FaPlay className="text-white text-4xl opacity-0 hover:opacity-100 transition-opacity duration-300" />
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <h4 className="text-xl font-semibold text-slate-800 mb-2">{reel.title}</h4>
+                    <p className="text-slate-600">{reel.description}</p>
+                    <a
+                      href={`https://www.instagram.com/reel/${reel.id}/`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center mt-4 text-pink-600 hover:text-pink-700 font-medium transition-colors"
+                    >
+                      <FaInstagram className="mr-2" />
+                      View on Instagram
+                    </a>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Social Media Links */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            className="text-center mt-12"
+          >
+            <p className="text-slate-600 mb-6">Follow us for more updates and content</p>
+            <div className="flex justify-center space-x-6">
+              <a
+                href="https://www.youtube.com/@udaypratapcollege"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center space-x-2 bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition-colors"
+              >
+                <FaYoutube />
+                <span>YouTube</span>
+              </a>
+              <a
+                href="https://www.instagram.com/udaypratapcollege"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center space-x-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all"
+              >
+                <FaInstagram />
+                <span>Instagram</span>
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 8. Call to Action Section */}
       <section className="bg-sky-700">
         <div className="container mx-auto px-4 py-16 text-center">
             <h2 className="text-3xl font-bold text-white">Ready to Start Your Journey?</h2>

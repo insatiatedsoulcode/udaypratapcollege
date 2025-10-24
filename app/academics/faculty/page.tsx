@@ -1,66 +1,28 @@
 // app/academics/faculty/page.tsx
 'use client';
 
-import React from 'react';
-import Image from 'next/image';
+import React, { useState } from 'react';
 import Link from 'next/link';
 // --- CORRECTED IMPORT LINE ---
 // FaGraduationCap and FaMicroscope have been removed as they were not used in the component.
 //import { FaUserTie, FaChevronRight, FaUsers, FaBook, FaFlask, FaLaptopCode, FaLightbulb, FaBalanceScale, FaHandshake, FaLeaf, FaInfinity, FaBrain, FaChartLine } from 'react-icons/fa';
 //import { FaUserTie, FaChevronRight, FaUsers } from 'react-icons/fa';
 
-// --- Updated Faculty Data with 4 Members per Department ---
-// Using faculty1.png for all images as requested.
+// --- Updated Faculty Data with Real Faculty Names (1-7) ---
+// Clean design without images - using initials avatars
 const facultyData = [
   {
     department: 'Department of Computer Applications',
     members: [
       {
-        name: 'Dr. Rakesh Sharma',
-        designation: 'Professor & Head of Department',
-        qualifications: 'Ph.D. (Computer Science), M.Tech (CSE)',
-        imageUrl: '/images/faculty/faculty1.png',
-        expertise: ['Artificial Intelligence', 'Machine Learning', 'Data Mining'],
-        profileLink: '/faculty/rakesh-sharma',
-        hoverInfo: {
-          researchFocus: 'Developing novel algorithms for predictive modeling in large-scale datasets.',
-          recentPublication: '"A Framework for Unsupervised Anomaly Detection", IEEE Transactions, 2023.',
-        }
-      },
-      {
-        name: 'Prof. Sunita Singh',
-        designation: 'Associate Professor',
-        qualifications: 'M.Tech (IT), B.E.',
-        imageUrl: '/images/faculty/faculty1.png',
-        expertise: ['Web Technologies', 'Database Management', 'Cloud Computing'],
-        profileLink: '/faculty/sunita-singh',
-        hoverInfo: {
-          researchFocus: 'Architecting scalable cloud-native applications and microservice security.',
-          recentPublication: '"Security Protocols for Distributed Systems", ACM Communications, 2024.',
-        }
-      },
-      {
-        name: 'Mr. Vivek Kumar',
-        designation: 'Assistant Professor',
+        name: 'Mr. Rahul Maurya',
+        designation: 'Assistant Professor (B.C.A)',
         qualifications: 'MCA, B.Sc. (Computer Science)',
-        imageUrl: '/images/faculty/faculty1.png',
-        expertise: ['Mobile App Development', 'Data Structures', 'Algorithms'],
-        profileLink: '/faculty/vivek-kumar',
+        expertise: ['Computer Applications', 'Programming', 'Database Management'],
+        profileLink: '/faculty/rahul-maurya',
         hoverInfo: {
-          researchFocus: 'Performance optimization for native Android and iOS applications.',
-          recentPublication: '"Efficient State Management in Mobile Applications", Tech Conference, 2023.',
-        }
-      },
-      {
-        name: 'Ms. Aarti Gupta',
-        designation: 'Assistant Professor',
-        qualifications: 'M.Sc. (Data Science)',
-        imageUrl: '/images/faculty/faculty1.png',
-        expertise: ['Data Visualization', 'Python Programming', 'Big Data Technologies'],
-        profileLink: '/faculty/aarti-gupta',
-        hoverInfo: {
-          researchFocus: 'Interactive data visualization techniques for complex social networks.',
-          recentPublication: '"Visualizing Big Data: Challenges and Opportunities", Data Journal, 2024.',
+          researchFocus: 'Modern computer applications and software development methodologies.',
+          recentPublication: '"Efficient Database Design for Educational Institutions", Tech Journal, 2023.',
         }
       },
     ],
@@ -69,51 +31,14 @@ const facultyData = [
     department: 'Department of Business Administration',
     members: [
       {
-        name: 'Dr. Alok Mishra',
-        designation: 'Professor & Head of Department',
-        qualifications: 'Ph.D. (Management), MBA (Finance)',
-        imageUrl: '/images/faculty/faculty1.png',
-        expertise: ['Financial Modeling', 'Corporate Strategy', 'Market Analytics'],
-        profileLink: '/faculty/alok-mishra',
+        name: 'Mr. Anil Kumar Patel',
+        designation: 'Assistant Professor (Economics)',
+        qualifications: 'M.A. (Economics), B.Com',
+        expertise: ['Economics', 'Business Analysis', 'Financial Management'],
+        profileLink: '/faculty/anil-kumar-patel',
         hoverInfo: {
-          researchFocus: 'Analysis of market volatility and its impact on emerging economies.',
-          recentPublication: '"Behavioral Finance in the Post-Pandemic Era", Journal of Finance, 2023.',
-        }
-      },
-      {
-        name: 'Dr. Neha Jaiswal',
-        designation: 'Associate Professor',
-        qualifications: 'Ph.D. (Marketing), MBA',
-        imageUrl: '/images/faculty/faculty1.png',
-        expertise: ['Digital Marketing', 'Consumer Behavior', 'Brand Management'],
-        profileLink: '/faculty/neha-jaiswal',
-        hoverInfo: {
-          researchFocus: 'The impact of social media influencers on consumer purchasing decisions.',
-          recentPublication: '"The Authenticity Paradox in Influencer Marketing", Journal of Marketing, 2024.',
-        }
-      },
-      {
-        name: 'Mr. Rohan Desai',
-        designation: 'Assistant Professor',
-        qualifications: 'MBA (HRM), BBA',
-        imageUrl: '/images/faculty/faculty1.png',
-        expertise: ['Human Resource Management', 'Organizational Behavior', 'Talent Acquisition'],
-        profileLink: '/faculty/rohan-desai',
-        hoverInfo: {
-          researchFocus: 'Modern trends in employee engagement and retention strategies.',
-          recentPublication: '"Gamification in the Workplace", HR Review, 2023.',
-        }
-      },
-      {
-        name: 'Ms. Fatima Khan',
-        designation: 'Assistant Professor',
-        qualifications: 'M.Com, B.Com (Hons)',
-        imageUrl: '/images/faculty/faculty1.png',
-        expertise: ['International Business', 'Supply Chain Management', 'Operations'],
-        profileLink: '/faculty/fatima-khan',
-        hoverInfo: {
-          researchFocus: 'Resilience and sustainability in global supply chains.',
-          recentPublication: '"A Study on Post-Pandemic Supply Chain Models", Int. Journal of Logistics, 2024.',
+          researchFocus: 'Economic policies and their impact on business development.',
+          recentPublication: '"Economic Growth and Business Sustainability", Business Review, 2023.',
         }
       },
     ],
@@ -121,52 +46,59 @@ const facultyData = [
   {
     department: 'Department of Arts',
     members: [
-       {
-        name: 'Dr. Priya Mehta',
-        designation: 'Professor & Head of Department (English)',
-        qualifications: 'Ph.D. (English Literature)',
-        imageUrl: '/images/faculty/faculty1.png',
-        expertise: ['Postcolonial Literature', 'Critical Theory', 'Digital Humanities'],
-        profileLink: '/faculty/priya-mehta',
-        hoverInfo: {
-          researchFocus: 'Exploring post-human narratives in contemporary South Asian literature.',
-          recentPublication: '"Narratives Beyond the Human", Literary Review, 2023.',
-        }
-      },
       {
-        name: 'Dr. Sameer Ahmed',
-        designation: 'Associate Professor (Political Science)',
-        qualifications: 'Ph.D. (Political Science)',
-        imageUrl: '/images/faculty/faculty1.png',
-        expertise: ['International Relations', 'Public Policy', 'South Asian Politics'],
-        profileLink: '/faculty/sameer-ahmed',
-        hoverInfo: {
-          researchFocus: 'Analyzing foreign policy shifts in a multipolar world order.',
-          recentPublication: '"India\'s Foreign Policy: A New Trajectory?", World Affairs Journal, 2024.',
-        }
-      },
-      {
-        name: 'Prof. Anusha Reddy',
-        designation: 'Assistant Professor (Economics)',
-        qualifications: 'M.Phil (Economics), M.A.',
-        imageUrl: '/images/faculty/faculty1.png',
-        expertise: ['Development Economics', 'Econometrics', 'Labor Economics'],
-        profileLink: '/faculty/anusha-reddy',
-        hoverInfo: {
-          researchFocus: 'The impact of microfinance on rural development and women empowerment.',
-          recentPublication: '"Microfinance and Social Change: A Case Study", Journal of Development, 2023.',
-        }
-      },
-      {
-        name: 'Mr. Harish Tiwari',
+        name: 'Ms. Saroja Devi',
         designation: 'Assistant Professor (Hindi)',
         qualifications: 'M.A. (Hindi Literature), B.Ed.',
-        imageUrl: '/images/faculty/faculty1.png',
-        expertise: ['Modern Hindi Poetry', 'Linguistics', 'Folk Literature'],
-        profileLink: '/faculty/harish-tiwari',
+        expertise: ['Hindi Literature', 'Language Teaching', 'Indian Literature'],
+        profileLink: '/faculty/saroja-devi',
         hoverInfo: {
-          researchFocus: 'The evolution of language and identity in contemporary Hindi poetry.',
-          recentPublication: '"Voices of the Vernacular", Sahitya Journal, 2024.',
+          researchFocus: 'Modern Hindi literature and language development.',
+          recentPublication: '"Contemporary Hindi Poetry: A Study", Sahitya Journal, 2023.',
+        }
+      },
+      {
+        name: 'Mrs. Sushma Charel',
+        designation: 'Assistant Professor (Home Science)',
+        qualifications: 'M.Sc. (Home Science), B.Sc.',
+        expertise: ['Home Science', 'Nutrition', 'Family Studies'],
+        profileLink: '/faculty/sushma-charel',
+        hoverInfo: {
+          researchFocus: 'Nutrition and family welfare in modern society.',
+          recentPublication: '"Nutritional Education for Rural Families", Home Science Journal, 2023.',
+        }
+      },
+      {
+        name: 'Mr. G. Apoorva Shankar Lipani',
+        designation: 'Assistant Professor (English)',
+        qualifications: 'M.A. (English Literature), B.Ed.',
+        expertise: ['English Literature', 'Language Skills', 'Communication'],
+        profileLink: '/faculty/apoorva-shankar-lipani',
+        hoverInfo: {
+          researchFocus: 'English language teaching methodologies and literature analysis.',
+          recentPublication: '"Effective English Communication Skills", Language Journal, 2023.',
+        }
+      },
+      {
+        name: 'Dr. Shashiwala Gupta',
+        designation: 'Assistant Professor (Ancient History)',
+        qualifications: 'Ph.D. (Ancient History), M.A.',
+        expertise: ['Ancient History', 'Archaeology', 'Indian History'],
+        profileLink: '/faculty/shashiwala-gupta',
+        hoverInfo: {
+          researchFocus: 'Ancient Indian history and archaeological studies.',
+          recentPublication: '"Ancient Civilizations of India", History Journal, 2023.',
+        }
+      },
+      {
+        name: 'Mr. Kanhaiya Lal',
+        designation: 'Assistant Professor (Political Science)',
+        qualifications: 'M.A. (Political Science), B.A.',
+        expertise: ['Political Science', 'Public Administration', 'Indian Politics'],
+        profileLink: '/faculty/kanhaiya-lal',
+        hoverInfo: {
+          researchFocus: 'Indian political system and democratic governance.',
+          recentPublication: '"Democracy and Development in India", Political Science Review, 2023.',
         }
       },
     ],
@@ -174,7 +106,99 @@ const facultyData = [
 ];
 
 
+// Modal Component
+const FacultyModal = ({ member, isOpen, onClose }: { member: any; isOpen: boolean; onClose: () => void }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="p-6">
+          {/* Header */}
+          <div className="flex justify-between items-start mb-6">
+            <div className="flex items-center space-x-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                <span className="text-white font-bold text-xl">
+                  {member.name.split(' ').map((n: string) => n[0]).join('')}
+                </span>
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-sky-700">{member.name}</h2>
+                <p className="text-gray-500">{member.designation}</p>
+                <p className="text-sm text-gray-400 italic">{member.qualifications}</p>
+              </div>
+            </div>
+            <button
+              onClick={onClose}
+              className="text-gray-400 hover:text-gray-600 text-2xl font-bold"
+            >
+              ×
+            </button>
+          </div>
+
+          {/* Expertise Tags */}
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold text-gray-700 mb-3">Areas of Expertise</h3>
+            <div className="flex flex-wrap gap-2">
+              {member.expertise.map((skill: string, index: number) => (
+                <span key={index} className="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Research Focus */}
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold text-gray-700 mb-3">Research Focus</h3>
+            <p className="text-gray-600 leading-relaxed">{member.hoverInfo.researchFocus}</p>
+          </div>
+
+          {/* Recent Publication */}
+          {member.hoverInfo.recentPublication && (
+            <div className="mb-6">
+              <h3 className="text-lg font-semibold text-gray-700 mb-3">Recent Publication</h3>
+              <p className="text-gray-600 italic leading-relaxed">
+                &quot;{member.hoverInfo.recentPublication}&quot;
+              </p>
+            </div>
+          )}
+
+          {/* Action Buttons */}
+          <div className="flex justify-end space-x-3 pt-4 border-t border-gray-200">
+            <button
+              onClick={onClose}
+              className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
+            >
+              Close
+            </button>
+            <Link
+              href={member.profileLink}
+              className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              View Full Profile
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const FacultyPage = () => {
+  const [selectedMember, setSelectedMember] = useState<any>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = (member: any) => {
+    setSelectedMember(member);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedMember(null);
+  };
+
   return (
     <main>
       <section className="bg-slate-100 border-b border-slate-200">
@@ -195,59 +219,59 @@ const FacultyPage = () => {
             <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 border-b-2 border-orange-500 pb-2 mb-8">
               {department.department}
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-20">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
               {department.members.map((member, memberIndex) => (
-                <Link
-                  href={member.profileLink}
+                <div
                   key={memberIndex}
-                  className="group relative block overflow-hidden rounded-lg shadow-md transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
+                  className="group cursor-pointer"
+                  onClick={() => openModal(member)}
                 >
-                  <div className="transition-transform duration-500 group-hover:scale-105">
-                    <div className="relative w-full h-56">
-                      <Image
-                        src={member.imageUrl}
-                        alt={`Photo of ${member.name}`}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
-                      />
+                  <div className="p-4 text-center bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-200 hover:border-blue-300 h-64 flex flex-col">
+                    <div className="mb-3">
+                      <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <span className="text-white font-bold text-sm">
+                          {member.name.split(' ').map(n => n[0]).join('')}
+                        </span>
+                      </div>
                     </div>
-                    <div className="p-5 text-center bg-white">
-                      <h3 className="text-lg font-bold text-sky-700">{member.name}</h3>
-                      <p className="text-sm text-gray-500 mt-1">{member.designation}</p>
-                    </div>
-                  </div>
-
-                  <div className="absolute inset-0 bg-sky-800/95 p-6 flex flex-col justify-center items-center text-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm rounded-lg">
-                    <div>
-                      <h3 className="text-md font-semibold text-white mb-1">{member.name}</h3>
-                      <p className="text-xs text-sky-200 mb-2 italic">{member.qualifications}</p>
-
-                      <h4 className="text-sm font-bold uppercase tracking-wider text-sky-300 mt-3">Research Focus</h4>
-                      <p className="mt-1 text-xs font-light leading-snug">
-                        {member.hoverInfo.researchFocus}
-                      </p>
-
-                      {member.hoverInfo.recentPublication && (
-                        <>
-                          <div className="w-12 h-px bg-sky-400 my-3 mx-auto"></div>
-                          <h4 className="text-sm font-bold uppercase tracking-wider text-sky-300">Recent Publication</h4>
-                          <p className="mt-1 text-xs italic opacity-80">
-                            &quot;{member.hoverInfo.recentPublication}&quot;
-                          </p>
-                        </>
-                      )}
-                       <div className="mt-4 text-xs text-orange-300 group-hover:text-orange-200">
-                          View Full Profile &rarr;
+                    
+                    <div className="flex-grow flex flex-col justify-between">
+                      <div>
+                        <h3 className="text-sm font-bold text-sky-700 mb-1 leading-tight line-clamp-1">{member.name}</h3>
+                        <p className="text-xs text-gray-500 mb-1 line-clamp-1">{member.designation}</p>
+                        <p className="text-xs text-gray-400 italic mb-3 line-clamp-2">{member.qualifications}</p>
+                        
+                        <div className="flex flex-wrap justify-center gap-1 mb-3">
+                          {member.expertise.slice(0, 2).map((skill, index) => (
+                            <span key={index} className="px-1.5 py-0.5 bg-blue-100 text-blue-800 text-xs rounded-full">
+                              {skill.length > 10 ? skill.substring(0, 10) + '...' : skill}
+                            </span>
+                          ))}
                         </div>
+                      </div>
+
+                      <div className="group-hover:opacity-100 opacity-0 transition-opacity duration-300">
+                        <div className="border-t border-gray-200 pt-3">
+                          <div className="text-xs text-blue-600 font-medium">
+                            Click to View Details →
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
           </section>
         ))}
       </div>
+      
+      {/* Modal */}
+      <FacultyModal 
+        member={selectedMember} 
+        isOpen={isModalOpen} 
+        onClose={closeModal} 
+      />
     </main>
   );
 };
