@@ -10,7 +10,26 @@ import Link from 'next/link';
 
 // --- Updated Faculty Data with Real Faculty Names (1-7) ---
 // Clean design without images - using initials avatars
-const facultyData = [
+
+// Type definitions
+type FacultyMember = {
+  name: string;
+  designation: string;
+  qualifications: string;
+  expertise: string[];
+  profileLink: string;
+  hoverInfo: {
+    researchFocus: string;
+    recentPublication: string;
+  };
+};
+
+type Department = {
+  department: string;
+  members: FacultyMember[];
+};
+
+const facultyData: Department[] = [
   {
     department: 'Department of Computer Applications',
     members: [
@@ -107,8 +126,8 @@ const facultyData = [
 
 
 // Modal Component
-const FacultyModal = ({ member, isOpen, onClose }: { member: any; isOpen: boolean; onClose: () => void }) => {
-  if (!isOpen) return null;
+const FacultyModal = ({ member, isOpen, onClose }: { member: FacultyMember | null; isOpen: boolean; onClose: () => void }) => {
+  if (!isOpen || !member) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
@@ -186,10 +205,10 @@ const FacultyModal = ({ member, isOpen, onClose }: { member: any; isOpen: boolea
 };
 
 const FacultyPage = () => {
-  const [selectedMember, setSelectedMember] = useState<any>(null);
+  const [selectedMember, setSelectedMember] = useState<FacultyMember | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const openModal = (member: any) => {
+  const openModal = (member: FacultyMember) => {
     setSelectedMember(member);
     setIsModalOpen(true);
   };

@@ -193,7 +193,7 @@ function Header() {
   const currentQuote = currentQuotes[currentQuoteIndex];
 
   return (
-    <header className="bg-gradient-to-r from-slate-800 via-blue-800 to-indigo-800 text-white shadow-2xl sticky top-0 z-40 relative border-b-4 border-blue-400">
+    <header className="bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900 text-white shadow-2xl sticky top-0 z-40 relative border-b-4 border-blue-400">
       {/* Top Navigation Bar */}
       <div className="container mx-auto px-6 flex justify-between items-center py-4 min-h-[80px]">
         {showSearch ? (
