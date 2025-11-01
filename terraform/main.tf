@@ -19,13 +19,14 @@ terraform {
   # Terraform State Backend Configuration
   # Storing state remotely in S3 prevents conflicts when multiple developers work
   # This S3 bucket must be created manually first!
-  backend "s3" {
-    bucket         = "udaypratapcollege-terraform-state"
-    key            = "state/${terraform.workspace}/terraform.tfstate"
-    region         = "ap-south-1"
-    encrypt        = true
-    dynamodb_table = "terraform-state-lock"
-  }
+  # Uncomment this after creating S3 bucket:
+  # backend "s3" {
+  #   bucket         = "udaypratapcollege-terraform-state"
+  #   key            = "state/dev/terraform.tfstate"
+  #   region         = "ap-south-1"
+  #   encrypt        = true
+  #   dynamodb_table = "terraform-state-lock"
+  # }
 }
 
 # =============================================================================
