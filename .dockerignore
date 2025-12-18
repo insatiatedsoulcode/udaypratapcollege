@@ -7,7 +7,7 @@ yarn-error.log*
 .git
 .gitignore
 README.md
-Dockerfile
+
 .dockerignore
 *.md
 scripts/
