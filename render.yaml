@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: udaypratapcollege
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    branch: main
+    envVars:
+      - key: NODE_VERSION
+        value: 20.9.0

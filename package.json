@@ -10,21 +10,10 @@
     "lint:fix": "next lint --fix",
     "type-check": "tsc --noEmit",
     "test": "echo \"No tests specified\" && exit 0",
-    "docker:build": "docker build -t udaypratapcollege .",
-    "docker:run": "docker run -p 3000:3000 udaypratapcollege",
-    "docker:dev": "docker-compose -f docker-compose.dev.yml up",
-    "docker:prod": "docker-compose up -d",
-    "docker:down": "docker-compose down",
-    "docker:logs": "docker-compose logs -f",
-    "deploy:staging": "npm run build && npm run docker:build && npm run docker:prod",
-    "deploy:production": "npm run build && npm run type-check && npm run lint",
     "clean": "rm -rf .next && rm -rf node_modules/.cache",
     "postinstall": "npm run clean",
     "generate:og-image": "node scripts/generate-og-image.js",
-    "test:og-image": "open scripts/generate-og-image.html",
-    "docker:build:simple": "docker build -f Dockerfile.simple -t udaypratapcollege:simple .",
-    "docker:build:postgres": "docker build -f Dockerfile.postgres -t udaypratapcollege:postgres .",
-    "docker:build:fixed": "docker build -f Dockerfile -t udaypratapcollege:fixed ."
+    "test:og-image": "open scripts/generate-og-image.html"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
