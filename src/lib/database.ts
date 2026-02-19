@@ -32,6 +32,14 @@ export const db = new Pool({
   ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : undefined,
 });
 
+// Debug connection parameters
+if (process.env.NODE_ENV === 'production' && !process.env.DATABASE_URL) {
+  console.error('❌ CRITICAL: DATABASE_URL is not set in production environment!');
+  console.error('Falling back to default localhost connection which will likely fail inside Docker.');
+}
+
+console.log(`🔌 Initializing DB with: ${connectionString.includes('@') ? connectionString.split('@')[1] : 'Unknown Host'}`);
+
 // Lazy initialization tracker
 let isInitialized = false;
 
