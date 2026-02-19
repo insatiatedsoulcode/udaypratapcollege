@@ -32,6 +32,16 @@ export const db = new Pool({
   ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : undefined,
 });
 
+// Lazy initialization tracker
+let isInitialized = false;
+
+async function ensureInitialized() {
+  if (!isInitialized) {
+    await initDatabase();
+    isInitialized = true;
+  }
+}
+
 // Initialize tables
 export const initDatabase = async () => {
   try {
@@ -121,11 +131,13 @@ export const initDatabase = async () => {
 // Helper functions (Promisified for Postgres)
 
 export const getEnquiries = async () => {
+  await ensureInitialized();
   const result = await db.query('SELECT * FROM enquiries ORDER BY submitted_at DESC');
   return result.rows;
 };
 
 export const addEnquiry = async (enquiry: EnquiryData) => {
+  await ensureInitialized();
   const result = await db.query(`
     INSERT INTO enquiries (name, email, subject, message)
     VALUES ($1, $2, $3, $4)
@@ -135,11 +147,13 @@ export const addEnquiry = async (enquiry: EnquiryData) => {
 };
 
 export const getApplications = async () => {
+  await ensureInitialized();
   const result = await db.query('SELECT * FROM applications ORDER BY submitted_at DESC');
   return result.rows;
 };
 
 export const addApplication = async (application: ApplicationData) => {
+  await ensureInitialized();
   const result = await db.query(`
     INSERT INTO applications (name, email, phone, program, qualification, address, dob, gender, father_name, mother_name, guardian_phone)
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
@@ -153,11 +167,13 @@ export const addApplication = async (application: ApplicationData) => {
 };
 
 export const getVisitorCount = async () => {
+  await ensureInitialized();
   const result = await db.query('SELECT SUM(count) as total FROM visitor_stats');
   return parseInt(result.rows[0].total || '0');
 };
 
 export const incrementVisitorCount = async () => {
+  await ensureInitialized();
   const today = new Date().toISOString().split('T')[0];
 
   try {
@@ -172,6 +188,7 @@ export const incrementVisitorCount = async () => {
 };
 
 export const authenticateUser = async (username: string, password: string): Promise<{ id: number; username: string; email: string; role: string; password_hash: string } | null> => {
+  await ensureInitialized();
   const result = await db.query('SELECT * FROM users WHERE username = $1', [username]);
   const user = result.rows[0] as { id: number; username: string; email: string; role: string; password_hash: string } | undefined;
 
@@ -187,5 +204,5 @@ export const authenticateUser = async (username: string, password: string): Prom
 };
 
 // Initialize database on import is tricky with async, usually better to call it explicitly in app setup
-// But to keep API consistent for now:
-initDatabase().catch(err => console.error('Init failed', err));
+// We removed the auto-call to prevent build-time errors on Render
+// initDatabase().catch(err => console.error('Init failed', err));
