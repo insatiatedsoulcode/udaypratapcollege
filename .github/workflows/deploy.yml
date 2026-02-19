@@ -41,8 +41,8 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -f Dockerfile.simple -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} .
-        docker build -f Dockerfile.simple -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest .
+        docker build -f Dockerfile -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} .
+        docker build -f Dockerfile -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest .
 
     - name: Login to GitHub Container Registry
       if: github.event_name != 'pull_request'
