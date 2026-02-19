@@ -1,12 +1,13 @@
 // app/api/health/route.ts
 import { NextResponse } from 'next/server';
-import { db } from '../../../lib/database';
+import { db } from '@/lib/database';
 
 export async function GET() {
   try {
     // Check database connection
-    const healthCheck = db.prepare('SELECT 1 as health').get() as { health: number };
-    
+    const result = await db.query('SELECT 1 as health');
+    const healthCheck = result.rows[0] as { health: number };
+
     if (healthCheck.health !== 1) {
       return NextResponse.json(
         { status: 'error', message: 'Database connection failed' },
@@ -32,8 +33,8 @@ export async function GET() {
   } catch (error) {
     console.error('Health check failed:', error);
     return NextResponse.json(
-      { 
-        status: 'error', 
+      {
+        status: 'error',
         message: 'Health check failed',
         timestamp: new Date().toISOString()
       },

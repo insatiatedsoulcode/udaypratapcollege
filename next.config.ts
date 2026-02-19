@@ -3,20 +3,21 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // Enable standalone output for Docker deployment
   output: 'standalone',
-  
+
   // Optimize for production
   compress: true,
-  
+
   // External packages for server components
-  serverExternalPackages: ['better-sqlite3'],
-  
+  // External packages for server components
+  serverExternalPackages: [],
+
   // Image optimization
   images: {
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
-  
+
   // Security headers
   async headers() {
     return [
@@ -43,7 +44,7 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  
+
   // Redirects for SEO
   async redirects() {
     return [
@@ -54,7 +55,7 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  
+
   // Rewrites for API routes
   async rewrites() {
     return [
@@ -64,18 +65,14 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  
+
   // Environment variables
   env: {
     CUSTOM_KEY: process.env.CUSTOM_KEY,
   },
-  
+
   // Webpack configuration
-  webpack: (config, { isServer }) => {
-    if (isServer) {
-      // Exclude better-sqlite3 from client-side bundle
-      config.externals.push('better-sqlite3');
-    }
+  webpack: (config) => {
     return config;
   },
 };

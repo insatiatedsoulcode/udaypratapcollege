@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
-import { getVisitorCount, incrementVisitorCount } from '../../../lib/database';
+import { getVisitorCount, incrementVisitorCount } from '@/lib/database';
 
 export async function GET() {
   try {
-    const count = getVisitorCount();
+    const count = await getVisitorCount();
     return NextResponse.json({
       success: true,
       visits: count
@@ -19,7 +19,7 @@ export async function GET() {
 
 export async function POST() {
   try {
-    const count = incrementVisitorCount();
+    const count = await incrementVisitorCount();
     return NextResponse.json({
       success: true,
       visits: count
