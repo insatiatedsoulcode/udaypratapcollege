@@ -14,17 +14,27 @@ const VisitorCounter = () => {
     const fetchAndTrack = async () => {
       try {
         const alreadyTracked = sessionStorage.getItem('visit_tracked_2025');
+        let res;
 
         if (!alreadyTracked) {
-          const res = await fetch('/api/visits', { method: 'POST' });
-          const data = await res.json();
-          setVisitCount(data.visits);
+          res = await fetch('/api/visits', { method: 'POST' });
           sessionStorage.setItem('visit_tracked_2025', 'true');
         } else {
-          const res = await fetch('/api/visits');
-          const data = await res.json();
-          setVisitCount(data.visits);
+          res = await fetch('/api/visits');
         }
+
+        if (!res.ok) {
+          throw new Error(`Error: ${res.status}`);
+        }
+
+        const data = await res.json();
+
+        if (typeof data.visits === 'number') {
+          setVisitCount(data.visits);
+        } else {
+          throw new Error('Invalid data format');
+        }
+
       } catch (err) {
         console.error(err);
         setError('Could not load visitor count.');
