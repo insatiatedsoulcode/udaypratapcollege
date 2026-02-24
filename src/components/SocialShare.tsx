@@ -1,5 +1,7 @@
 // src/components/SocialShare.tsx
-import React from 'react';
+'use client';
+
+import React, { useState, useEffect } from 'react';
 import { FaFacebook, FaTwitter, FaWhatsapp, FaLinkedin, FaTelegram, FaCopy } from 'react-icons/fa';
 
 interface SocialShareProps {
@@ -10,10 +12,18 @@ interface SocialShareProps {
 }
 
 const SocialShare: React.FC<SocialShareProps> = ({
-  url = typeof window !== 'undefined' ? window.location.href : '',
+  url: urlProp,
   title = 'Uday Pratap College - Premier Educational Institution',
   className = ''
 }) => {
+  const [url, setUrl] = useState(urlProp ?? '');
+
+  useEffect(() => {
+    if (!urlProp) {
+      setUrl(window.location.href);
+    }
+  }, [urlProp]);
+
   const encodedUrl = encodeURIComponent(url);
   const encodedTitle = encodeURIComponent(title);
 
