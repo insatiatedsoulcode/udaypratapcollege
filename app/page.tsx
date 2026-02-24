@@ -21,10 +21,10 @@ import SocialShare from '@/components/SocialShare';
 import { organizationSchema, breadcrumbSchema } from '@/utils/structuredData';
 
 // Content and Theme
-import { 
-  getCollegeInfo, 
-  getCollegeStats, 
-  getPrograms, 
+import {
+  getCollegeInfo,
+  getCollegeStats,
+  getPrograms,
   getFeatures,
   getProgramColorClasses,
   getFeatureIconClasses,
@@ -34,9 +34,9 @@ import {
 // Social Media Icons
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaYoutube } from 'react-icons/fa';
 
-// Define video and image paths for slideshow
+// Define image paths for slideshow
 const slideshowMedia = [
-  { type: 'video', src: '/videos/campus-tour.mp4', poster: '/images/campus-slide-1.JPG' },
+  { type: 'image', src: '/images/campus-slide-1.JPG' },
   { type: 'image', src: '/images/campus-slide-2.JPG' },
   { type: 'image', src: '/images/campus-slide-3.JPG' },
 ];
@@ -56,12 +56,12 @@ const HomePage = () => {
   useEffect(() => {
     setHasMounted(true);
     const currentMedia = slideshowMedia[currentSlide];
-    
+
     // If current slide is a video, don't auto-advance
     if (currentMedia.type === 'video') {
       return;
     }
-    
+
     const interval = setInterval(() => {
       setCurrentSlide((prevSlide) => (prevSlide + 1) % slideshowMedia.length);
     }, 5000); // Change slide every 5 seconds
@@ -117,7 +117,7 @@ const HomePage = () => {
                 }
               },
               {
-                "@type": "Question", 
+                "@type": "Question",
                 "name": "How can I apply for admission?",
                 "acceptedAnswer": {
                   "@type": "Answer",
@@ -136,7 +136,7 @@ const HomePage = () => {
           }
         ]}
       />
-      
+
       <main className="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen">
         {/* 1. Notification Ticker */}
         <NotificationTicker />
@@ -148,33 +148,16 @@ const HomePage = () => {
             {slideshowMedia.map((media, index) => (
               <div
                 key={index}
-                className={`absolute inset-0 transition-opacity duration-1000 ${
-                  index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                }`}
+                className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                  }`}
               >
-                {media.type === 'video' ? (
-                  <video
-                    src={media.src}
-                    poster={media.poster}
-                    autoPlay={index === currentSlide}
-                    muted
-                    loop
-                    playsInline
-                    className="w-full h-full object-cover"
-                    onEnded={() => {
-                      // Move to next slide when video ends
-                      setCurrentSlide((prev) => (prev + 1) % slideshowMedia.length);
-                    }}
-                  />
-                ) : (
-                  <Image
-                    src={media.src}
-                    alt={`Campus View ${index + 1}`}
-                    fill
-                    className="object-cover"
-                    priority={index === 0}
-                  />
-                )}
+                <Image
+                  src={media.src}
+                  alt={`Campus View ${index + 1}`}
+                  fill
+                  className="object-cover"
+                  priority={index === 0}
+                />
               </div>
             ))}
           </div>
@@ -187,27 +170,24 @@ const HomePage = () => {
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
-                  className={`relative group transition-all duration-300 ${
-                    index === currentSlide ? 'scale-125' : 'scale-100 hover:scale-110'
-                  }`}
+                  className={`relative group transition-all duration-300 ${index === currentSlide ? 'scale-125' : 'scale-100 hover:scale-110'
+                    }`}
                   aria-label={`Go to slide ${index + 1}`}
                 >
                   {media.type === 'video' ? (
-                    <div className={`w-6 h-6 rounded-lg transition-all duration-300 shadow-lg flex items-center justify-center ${
-                      index === currentSlide
-                        ? 'bg-yellow-500 shadow-yellow-500/50'
-                        : 'bg-white/60 hover:bg-white/80'
-                    }`}>
+                    <div className={`w-6 h-6 rounded-lg transition-all duration-300 shadow-lg flex items-center justify-center ${index === currentSlide
+                      ? 'bg-yellow-500 shadow-yellow-500/50'
+                      : 'bg-white/60 hover:bg-white/80'
+                      }`}>
                       <svg className={`w-3 h-3 ${index === currentSlide ? 'text-gray-900' : 'text-gray-600'}`} fill="currentColor" viewBox="0 0 20 20">
                         <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
                       </svg>
                     </div>
                   ) : (
-                    <div className={`w-4 h-4 rounded-full transition-all duration-300 shadow-lg ${
-                      index === currentSlide
-                        ? 'bg-gradient-to-r from-blue-300 to-indigo-400 shadow-blue-300/50'
-                        : 'bg-white/60 hover:bg-white/80'
-                    }`} />
+                    <div className={`w-4 h-4 rounded-full transition-all duration-300 shadow-lg ${index === currentSlide
+                      ? 'bg-gradient-to-r from-blue-300 to-indigo-400 shadow-blue-300/50'
+                      : 'bg-white/60 hover:bg-white/80'
+                      }`} />
                   )}
                 </button>
               ))}
@@ -248,12 +228,12 @@ const HomePage = () => {
               >
                 🎓 Admissions Open
               </Link>
-        <button
+              <button
                 onClick={() => setIsModalOpen(true)}
                 className="enterprise-button-secondary text-lg px-8 py-4"
-        >
+              >
                 💬 Inquire Now
-        </button>
+              </button>
             </motion.div>
           </div>
         </section>
@@ -392,7 +372,7 @@ const HomePage = () => {
                 Stay updated with our latest events and activities
               </p>
             </div>
-      <FeaturedEventsCarousel />
+            <FeaturedEventsCarousel />
           </div>
         </section>
 
@@ -460,13 +440,13 @@ const HomePage = () => {
               >
                 Apply Now
               </Link>
-          <button
+              <button
                 onClick={() => setIsModalOpen(true)}
                 className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-3 rounded-lg text-lg font-semibold transition-colors duration-200"
-          >
+              >
                 Get Information
-          </button>
-        </div>
+              </button>
+            </div>
           </div>
         </section>
 
@@ -503,7 +483,7 @@ const HomePage = () => {
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-gray-900 mb-4">Share Our College</h2>
               <p className="text-lg text-gray-600">Help others discover Uday Pratap College by sharing this page</p>
-      </div>
+            </div>
 
             <div className="max-w-2xl mx-auto">
               <SocialShare />
@@ -514,7 +494,7 @@ const HomePage = () => {
         {/* Modal for Inquiry Form */}
         <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
           <InquiryForm onSuccess={handleInquirySuccess} />
-      </Modal>
+        </Modal>
       </main>
     </>
   );

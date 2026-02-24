@@ -184,13 +184,12 @@ export const incrementVisitorCount = async () => {
   await ensureInitialized();
   const today = new Date().toISOString().split('T')[0];
 
-  try {
-    await db.query('INSERT INTO visitor_stats (date, count) VALUES ($1, 1)', [today]);
-  } catch {
-    // If date already exists, increment count (ON CONFLICT in Postgres)
-    // Using simple update here as retry logic for simplicity
-    await db.query('UPDATE visitor_stats SET count = count + 1 WHERE date = $1', [today]);
-  }
+  // Atomic upsert — no race condition
+  await db.query(`
+    INSERT INTO visitor_stats (date, count)
+    VALUES ($1, 1)
+    ON CONFLICT (date) DO UPDATE SET count = visitor_stats.count + 1
+  `, [today]);
 
   return getVisitorCount();
 };
