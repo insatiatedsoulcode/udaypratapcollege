@@ -2,7 +2,6 @@
 import React from 'react';
 import Link from 'next/link';
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaYoutube } from 'react-icons/fa';
-import VisitorCounter from './VisitorCounter'; // <<< Import the new component
 
 const Footer = () => {
   return (
@@ -21,21 +20,13 @@ const Footer = () => {
           &copy; {new Date().getFullYear()} Uday Pratap College, Varanasi. All Rights Reserved.
         </p>
 
-        <div className="mt-4 border-t border-gray-700 pt-4 flex flex-col sm:flex-row justify-center items-center gap-4">
-          {/* Admin Login Link */}
+        <div className="mt-4 border-t border-gray-700 pt-4 flex justify-center">
           <Link
-            href="/admin"
+            href="/contact-us"
             className="text-xs text-gray-500 hover:text-white hover:underline transition-colors"
           >
-            Admin Login
+            Contact Us
           </Link>
-
-          {/* Separator */}
-          <span className="hidden sm:inline text-gray-600">|</span>
-
-          {/* --- VVV VISITOR COUNTER ADDED HERE VVV --- */}
-          <VisitorCounter />
-          {/* --- ^^^ END OF VISITOR COUNTER ^^^ --- */}
         </div>
 
       </div>

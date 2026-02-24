@@ -54,14 +54,14 @@ const mainNavLinks = [
     href: "/about",
     label: "About",
     hasDropdown: true,
-    dropdownLinks: [ { href: "/about/mission-vision", label: "Mission & Vision" } ]
+    dropdownLinks: [{ href: "/about/mission-vision", label: "Mission & Vision" }]
   },
   {
     href: "/academics",
     label: "Academics",
     hasDropdown: true,
     dropdownLinks: [
-      { href: "/academics/programs", label: "Programs"},
+      { href: "/academics/programs", label: "Programs" },
       { href: "/academics/faculty", label: "Faculty" },
       { href: "/academics/calendar", label: "Calendar" }
     ]
@@ -71,7 +71,7 @@ const mainNavLinks = [
     label: "Admissions",
     hasDropdown: true,
     dropdownLinks: [
-      { href: "/admissions/how-to-apply", label: "How to Apply"},
+      { href: "/admissions/how-to-apply", label: "How to Apply" },
       { href: "/admissions/fee-structure", label: "Fee Structure" },
       { href: "/admissions/online", label: "Apply Online" }
     ]
@@ -80,9 +80,8 @@ const mainNavLinks = [
     href: "/student-life",
     label: "Student Life",
     hasDropdown: true,
-    dropdownLinks: [ 
-      { href: "/student-life/facilities", label: "Facilities" },
-      { href: "/student/dashboard", label: "Portal" }
+    dropdownLinks: [
+      { href: "/student-life/facilities", label: "Facilities" }
     ]
   },
   { href: "/gallery", label: "Gallery" },
@@ -156,7 +155,7 @@ function Header() {
           <Link
             href={href}
             onClick={() => { setIsMobileMenuOpen(false); setOpenMobileSubmenus({}); }}
-                className={`text-sm font-semibold transition-all duration-200 ${isActive ? 'text-blue-300' : 'text-white hover:text-blue-200'}`}
+            className={`text-sm font-semibold transition-all duration-200 ${isActive ? 'text-blue-300' : 'text-white hover:text-blue-200'}`}
           >
             {label}
           </Link>
@@ -175,7 +174,7 @@ function Header() {
       <Link
         href={href}
         onClick={() => { if (isMobile) setIsMobileMenuOpen(false); }}
-            className={`px-3 py-2.5 text-xs font-semibold transition-all duration-200 ease-in-out relative flex items-center ${isMobile ? 'justify-between w-full' : 'group'} ${isActive ? 'text-blue-300 bg-white/10' : 'text-white/90 hover:text-blue-200 hover:bg-white/5'} focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-50 rounded-lg backdrop-blur-sm`}
+        className={`px-3 py-2.5 text-xs font-semibold transition-all duration-200 ease-in-out relative flex items-center ${isMobile ? 'justify-between w-full' : 'group'} ${isActive ? 'text-blue-300 bg-white/10' : 'text-white/90 hover:text-blue-200 hover:bg-white/5'} focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-50 rounded-lg backdrop-blur-sm`}
         aria-current={isActive ? 'page' : undefined}
       >
         <span>{label}</span>
@@ -235,10 +234,10 @@ function Header() {
             {/* College Logo/Name */}
             <div className="flex-shrink-0 flex items-center space-x-3">
               <div className="w-12 h-12 rounded-lg flex items-center justify-center shadow-lg overflow-hidden bg-white">
-                <Image 
-                  src="/icon.png" 
-                  alt="UPC Logo" 
-                  width={48} 
+                <Image
+                  src="/icon.png"
+                  alt="UPC Logo"
+                  width={48}
                   height={48}
                   className="object-contain"
                 />
@@ -272,17 +271,10 @@ function Header() {
                 </ul>
               </nav>
               <div className="flex items-center space-x-1.5 border-l border-white/20 pl-3">
-                <Link 
-                  href="/admin"
-                  className="text-white/80 hover:text-blue-300 p-2 rounded-lg hover:bg-white/10 transition-all duration-200 text-xs font-semibold"
-                  title="Admin Login"
-                >
-                  Admin
-                </Link>
                 <ThemeToggle />
-                <button 
-                  onClick={() => setShowSearch(true)} 
-                  aria-label="Open Search" 
+                <button
+                  onClick={() => setShowSearch(true)}
+                  aria-label="Open Search"
                   className="text-white/80 hover:text-blue-300 p-2 rounded-lg hover:bg-white/10 transition-all duration-200"
                 >
                   <FaSearch className="h-4 w-4" />
@@ -305,76 +297,72 @@ function Header() {
         )}
       </div>
 
-          {/* Quotes Section - Below Navigation */}
-          {!showSearch && hasMounted && (
-            <div className="bg-gradient-to-r from-slate-800/50 via-blue-800/50 to-indigo-800/50 backdrop-blur-sm border-t border-white/10">
-              <div className="container mx-auto px-6 py-4">
-                {/* Category Selector */}
-                <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 mb-3">
-                  <button
-                    onClick={() => { setQuoteCategory('all'); setCurrentQuoteIndex(0); }}
-                    className={`px-2.5 sm:px-4 py-1 sm:py-1.5 text-[10px] sm:text-xs font-semibold rounded-full transition-all duration-200 ${
-                      quoteCategory === 'all'
-                        ? 'bg-blue-500 text-white shadow-lg'
-                        : 'bg-white/10 text-white/80 hover:bg-white/20'
-                    }`}
-                  >
-                    <span className="hidden sm:inline">All Quotes</span>
-                    <span className="sm:hidden">All</span>
-                  </button>
-                  <button
-                    onClick={() => { setQuoteCategory('indian'); setCurrentQuoteIndex(0); }}
-                    className={`px-2.5 sm:px-4 py-1 sm:py-1.5 text-[10px] sm:text-xs font-semibold rounded-full transition-all duration-200 ${
-                      quoteCategory === 'indian'
-                        ? 'bg-orange-500 text-white shadow-lg'
-                        : 'bg-white/10 text-white/80 hover:bg-white/20'
-                    }`}
-                  >
-                    <span className="hidden sm:inline">🇮🇳 Indian Personalities</span>
-                    <span className="sm:hidden">🇮🇳 Indian</span>
-                  </button>
-                  <button
-                    onClick={() => { setQuoteCategory('hindiWriters'); setCurrentQuoteIndex(0); }}
-                    className={`px-2.5 sm:px-4 py-1 sm:py-1.5 text-[10px] sm:text-xs font-semibold rounded-full transition-all duration-200 ${
-                      quoteCategory === 'hindiWriters'
-                        ? 'bg-green-500 text-white shadow-lg'
-                        : 'bg-white/10 text-white/80 hover:bg-white/20'
-                    }`}
-                  >
-                    <span className="hidden sm:inline">📖 Hindi Writers</span>
-                    <span className="sm:hidden">📖 Hindi</span>
-                  </button>
-                </div>
-
-                {/* Quote Display */}
-                <div className="max-w-5xl mx-auto">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={`${quoteCategory}-${currentQuoteIndex}`}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: 0.6 }}
-                      className="text-center"
-                    >
-                      {currentQuote && (
-                        <blockquote className="text-base">
-                          <p className={`font-medium italic leading-relaxed drop-shadow-lg ${
-                            quoteCategory === 'hindiWriters' ? 'text-yellow-200 text-lg' : 'text-white'
-                          }`}>
-                            &quot;{currentQuote.text}&quot;
-                          </p>
-                          <cite className="block mt-3 text-blue-200 text-sm font-semibold tracking-wide">
-                            - {currentQuote.author}
-                          </cite>
-                        </blockquote>
-                      )}
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-              </div>
+      {/* Quotes Section - Below Navigation */}
+      {!showSearch && hasMounted && (
+        <div className="bg-gradient-to-r from-slate-800/50 via-blue-800/50 to-indigo-800/50 backdrop-blur-sm border-t border-white/10">
+          <div className="container mx-auto px-6 py-4">
+            {/* Category Selector */}
+            <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 mb-3">
+              <button
+                onClick={() => { setQuoteCategory('all'); setCurrentQuoteIndex(0); }}
+                className={`px-2.5 sm:px-4 py-1 sm:py-1.5 text-[10px] sm:text-xs font-semibold rounded-full transition-all duration-200 ${quoteCategory === 'all'
+                    ? 'bg-blue-500 text-white shadow-lg'
+                    : 'bg-white/10 text-white/80 hover:bg-white/20'
+                  }`}
+              >
+                <span className="hidden sm:inline">All Quotes</span>
+                <span className="sm:hidden">All</span>
+              </button>
+              <button
+                onClick={() => { setQuoteCategory('indian'); setCurrentQuoteIndex(0); }}
+                className={`px-2.5 sm:px-4 py-1 sm:py-1.5 text-[10px] sm:text-xs font-semibold rounded-full transition-all duration-200 ${quoteCategory === 'indian'
+                    ? 'bg-orange-500 text-white shadow-lg'
+                    : 'bg-white/10 text-white/80 hover:bg-white/20'
+                  }`}
+              >
+                <span className="hidden sm:inline">🇮🇳 Indian Personalities</span>
+                <span className="sm:hidden">🇮🇳 Indian</span>
+              </button>
+              <button
+                onClick={() => { setQuoteCategory('hindiWriters'); setCurrentQuoteIndex(0); }}
+                className={`px-2.5 sm:px-4 py-1 sm:py-1.5 text-[10px] sm:text-xs font-semibold rounded-full transition-all duration-200 ${quoteCategory === 'hindiWriters'
+                    ? 'bg-green-500 text-white shadow-lg'
+                    : 'bg-white/10 text-white/80 hover:bg-white/20'
+                  }`}
+              >
+                <span className="hidden sm:inline">📖 Hindi Writers</span>
+                <span className="sm:hidden">📖 Hindi</span>
+              </button>
             </div>
-          )}
+
+            {/* Quote Display */}
+            <div className="max-w-5xl mx-auto">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={`${quoteCategory}-${currentQuoteIndex}`}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.6 }}
+                  className="text-center"
+                >
+                  {currentQuote && (
+                    <blockquote className="text-base">
+                      <p className={`font-medium italic leading-relaxed drop-shadow-lg ${quoteCategory === 'hindiWriters' ? 'text-yellow-200 text-lg' : 'text-white'
+                        }`}>
+                        &quot;{currentQuote.text}&quot;
+                      </p>
+                      <cite className="block mt-3 text-blue-200 text-sm font-semibold tracking-wide">
+                        - {currentQuote.author}
+                      </cite>
+                    </blockquote>
+                  )}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* --- MOBILE MENU OVERLAY --- */}
       <AnimatePresence>
@@ -392,7 +380,7 @@ function Header() {
                   <li key={linkItem.href}>
                     <NavLinkItem {...linkItem} isMobile={true} />
                     {linkItem.hasDropdown && linkItem.dropdownLinks && openMobileSubmenus[linkItem.href] && (
-                        <ul className="pl-6 mt-2 mb-3 space-y-2 border-l-2 border-blue-300/30 ml-4 py-2">
+                      <ul className="pl-6 mt-2 mb-3 space-y-2 border-l-2 border-blue-300/30 ml-4 py-2">
                         {linkItem.dropdownLinks.map(subLink => (
                           <li key={subLink.href}>
                             <Link
@@ -411,16 +399,6 @@ function Header() {
                     )}
                   </li>
                 ))}
-                {/* Admin Link in Mobile Menu */}
-                <li className="border-t border-white/10 pt-2">
-                  <Link
-                    href="/admin"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="px-3 py-3 text-sm font-semibold text-white/90 hover:text-blue-200 hover:bg-white/5 rounded-lg backdrop-blur-sm flex items-center"
-                  >
-                    <span>Admin Login</span>
-                  </Link>
-                </li>
               </ul>
             </nav>
           </motion.div>

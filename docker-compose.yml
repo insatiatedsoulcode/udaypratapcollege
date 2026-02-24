@@ -1,17 +1,5 @@
 version: '3.8'
-services:
-  postgres:
-    image: postgres:15-alpine
-    container_name: college_postgres
-    environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: password123
-      POSTGRES_DB: college
-    ports:
-      - "5433:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    restart: always
-
-volumes:
-  postgres_data:
+# Docker Compose for local development only
+# The Postgres service has been removed — DB is deferred to a cloud service.
+# Run: npm run dev
+services: {}

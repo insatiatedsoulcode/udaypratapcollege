@@ -17,26 +17,14 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
-    "@types/bcrypt": "^6.0.0",
-    "@types/formidable": "^3.4.6",
-    "@types/jsonwebtoken": "^9.0.10",
-    "@types/nodemailer": "^7.0.2",
-    "@types/pg": "^8.16.0",
-    "@types/sqlite3": "^3.1.11",
-    "bcrypt": "^6.0.0",
     "clsx": "^2.1.1",
-    "formidable": "^3.5.4",
     "framer-motion": "^12.23.24",
-    "jsonwebtoken": "^9.0.2",
     "next": "15.1.8",
-    "nodemailer": "^7.0.9",
-    "pg": "^8.18.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.5.0",
     "tailwind-merge": "^3.3.1",
-    "yet-another-react-lightbox": "^3.23.2",
-    "zod": "^4.3.6"
+    "yet-another-react-lightbox": "^3.23.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
