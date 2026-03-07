@@ -1,9 +1,8 @@
 import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
 
-// Utility function to merge Tailwind CSS classes
+// Utility function to combine CSS classes
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+  return clsx(inputs);
 }
 
 // Format currency for Indian Rupees
@@ -205,11 +204,11 @@ export function downloadFile(url: string, filename: string): void {
 // Format file size
 export function formatFileSize(bytes: number): string {
   if (bytes === 0) return '0 Bytes';
-  
+
   const k = 1024;
   const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
-  
+
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
 
@@ -226,24 +225,24 @@ export function generateSlug(text: string): string {
 export function parseQueryString(queryString: string): Record<string, string> {
   const params = new URLSearchParams(queryString);
   const result: Record<string, string> = {};
-  
-  params.forEach((value, key) => { 
+
+  params.forEach((value, key) => {
     result[key] = value;
   });
-  
+
   return result;
 }
 
 // Build query string
 export function buildQueryString(params: Record<string, string | number | boolean>): string {
   const searchParams = new URLSearchParams();
-  
+
   Object.entries(params).forEach(([key, value]) => {
     if (value !== undefined && value !== null && value !== '') {
       searchParams.append(key, String(value));
     }
   });
-  
+
   return searchParams.toString();
 }
 
@@ -283,14 +282,14 @@ export function isExternalUrl(url: string): boolean {
 export function getContrastColor(hexColor: string): string {
   // Remove # if present
   const color = hexColor.replace('#', '');
-  
+
   // Convert to RGB
   const r = parseInt(color.substr(0, 2), 16);
   const g = parseInt(color.substr(2, 2), 16);
   const b = parseInt(color.substr(4, 2), 16);
-  
+
   // Calculate luminance
   const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-  
+
   return luminance > 0.5 ? '#000000' : '#ffffff';
 }

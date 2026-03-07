@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { FaCalendarAlt, FaMapMarkerAlt, FaClock, FaUser, FaEye, FaDownload, FaFilter, FaSearch } from 'react-icons/fa';
-import SEO from '@/components/SEO';
 
 interface Event {
   id: string;
@@ -197,12 +196,6 @@ const EventsPage: React.FC = () => {
 
   return (
     <>
-      <SEO
-        title="Events & News"
-        description="Stay updated with the latest events, workshops, and news from Uday Pratap College"
-        canonical="/events"
-      />
-      
       <div className="min-h-screen bg-gray-50">
         {/* Header */}
         <div className="bg-white shadow-sm border-b">

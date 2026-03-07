@@ -1,5 +1,0 @@
-version: '3.8'
-# Docker Compose for local development only
-# The Postgres service has been removed — DB is deferred to a cloud service.
-# Run: npm run dev
-services: {}

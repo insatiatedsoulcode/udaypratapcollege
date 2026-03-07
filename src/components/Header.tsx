@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { FaSearch, FaChevronDown, FaBars, FaTimes } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ThemeToggle } from './ThemeProvider';
+
 
 const quoteCategories = {
   all: [
@@ -271,7 +271,6 @@ function Header() {
                 </ul>
               </nav>
               <div className="flex items-center space-x-1.5 border-l border-white/20 pl-3">
-                <ThemeToggle />
                 <button
                   onClick={() => setShowSearch(true)}
                   aria-label="Open Search"
@@ -306,8 +305,8 @@ function Header() {
               <button
                 onClick={() => { setQuoteCategory('all'); setCurrentQuoteIndex(0); }}
                 className={`px-2.5 sm:px-4 py-1 sm:py-1.5 text-[10px] sm:text-xs font-semibold rounded-full transition-all duration-200 ${quoteCategory === 'all'
-                    ? 'bg-blue-500 text-white shadow-lg'
-                    : 'bg-white/10 text-white/80 hover:bg-white/20'
+                  ? 'bg-blue-500 text-white shadow-lg'
+                  : 'bg-white/10 text-white/80 hover:bg-white/20'
                   }`}
               >
                 <span className="hidden sm:inline">All Quotes</span>
@@ -316,8 +315,8 @@ function Header() {
               <button
                 onClick={() => { setQuoteCategory('indian'); setCurrentQuoteIndex(0); }}
                 className={`px-2.5 sm:px-4 py-1 sm:py-1.5 text-[10px] sm:text-xs font-semibold rounded-full transition-all duration-200 ${quoteCategory === 'indian'
-                    ? 'bg-orange-500 text-white shadow-lg'
-                    : 'bg-white/10 text-white/80 hover:bg-white/20'
+                  ? 'bg-orange-500 text-white shadow-lg'
+                  : 'bg-white/10 text-white/80 hover:bg-white/20'
                   }`}
               >
                 <span className="hidden sm:inline">🇮🇳 Indian Personalities</span>
@@ -326,8 +325,8 @@ function Header() {
               <button
                 onClick={() => { setQuoteCategory('hindiWriters'); setCurrentQuoteIndex(0); }}
                 className={`px-2.5 sm:px-4 py-1 sm:py-1.5 text-[10px] sm:text-xs font-semibold rounded-full transition-all duration-200 ${quoteCategory === 'hindiWriters'
-                    ? 'bg-green-500 text-white shadow-lg'
-                    : 'bg-white/10 text-white/80 hover:bg-white/20'
+                  ? 'bg-green-500 text-white shadow-lg'
+                  : 'bg-white/10 text-white/80 hover:bg-white/20'
                   }`}
               >
                 <span className="hidden sm:inline">📖 Hindi Writers</span>

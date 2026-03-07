@@ -35,6 +35,8 @@ const InquiryForm: React.FC<InquiryFormProps> = ({ onSuccess }) => {
 
   const [errors, setErrors] = useState<Errors>({});
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -59,19 +61,41 @@ const InquiryForm: React.FC<InquiryFormProps> = ({ onSuccess }) => {
     return isValid;
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    // Build a mailto link with form data and open it
-    const mailtoLink = `mailto:info@udaypratapcollege.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\n\n${formData.message}`
-    )}`;
-    window.location.href = mailtoLink;
+    setIsSubmitting(true);
+    setApiError(null);
 
-    setSubmitted(true);
-    setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
-    if (onSuccess) setTimeout(onSuccess, 2500);
+    try {
+      const response = await fetch('/api/inquiries', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to submit inquiry.');
+      }
+
+      setSubmitted(true);
+      setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+      if (onSuccess) setTimeout(onSuccess, 3000);
+
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setApiError(error.message);
+      } else {
+        setApiError('An unexpected error occurred. Please try again later.');
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const inputBaseClass = "block w-full border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-1 sm:focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out";
@@ -83,8 +107,8 @@ const InquiryForm: React.FC<InquiryFormProps> = ({ onSuccess }) => {
     return (
       <div className="text-center py-8">
         <div className="text-green-600 text-4xl mb-4">✅</div>
-        <h2 className="text-lg font-bold text-indigo-700 mb-2">Thank You!</h2>
-        <p className="text-slate-600 text-sm">Your email client should open shortly. If it did not, please email us directly at <a href="mailto:info@udaypratapcollege.com" className="text-indigo-600 underline">info@udaypratapcollege.com</a>.</p>
+        <h2 className="text-lg font-bold text-indigo-700 mb-2">Inquiry Submitted!</h2>
+        <p className="text-slate-600 text-sm">Thank you for reaching out. Our administration office will get back to you shortly.</p>
       </div>
     );
   }
@@ -140,10 +164,18 @@ const InquiryForm: React.FC<InquiryFormProps> = ({ onSuccess }) => {
             placeholder="Please type your inquiry here..." required />
           {errors.message && <p className={errorTextClass}>{errors.message}</p>}
         </div>
+        {apiError && (
+          <div className="p-3 bg-red-50 text-red-700 text-xs sm:text-sm rounded-md border border-red-200">
+            {apiError}
+          </div>
+        )}
         <div>
-          <button type="submit"
-            className="w-full flex justify-center py-1.5 sm:py-2 px-3 sm:px-4 border border-transparent rounded-md shadow-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out text-xs sm:text-sm">
-            Send Inquiry
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className={`w-full flex justify-center py-1.5 sm:py-2 px-3 sm:px-4 border border-transparent rounded-md shadow-sm font-medium text-white transition duration-150 ease-in-out text-xs sm:text-sm ${isSubmitting ? 'bg-indigo-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+              }`}>
+            {isSubmitting ? 'Submitting...' : 'Send Inquiry'}
           </button>
         </div>
       </form>

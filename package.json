@@ -16,14 +16,13 @@
     "test:og-image": "open scripts/generate-og-image.html"
   },
   "dependencies": {
-    "@radix-ui/react-slot": "^1.2.3",
     "clsx": "^2.1.1",
-    "framer-motion": "^12.23.24",
+    "framer-motion": "^12.35.1",
+    "mongoose": "^9.2.4",
     "next": "15.1.8",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.5.0",
-    "tailwind-merge": "^3.3.1",
     "yet-another-react-lightbox": "^3.23.2"
   },
   "devDependencies": {

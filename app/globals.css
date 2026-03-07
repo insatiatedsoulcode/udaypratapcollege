@@ -155,6 +155,11 @@ body.modal-open-react {
   .animate-pulse-slow {
     animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
+
+  /* Page transition — replaces framer-motion AnimatePresence */
+  .page-enter {
+    animation: fadeIn 0.3s ease-out both;
+  }
 }
 
 /* Keyframes */

@@ -1,8 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Slot } from '@radix-ui/react-slot';
-import { cn } from '@/lib/utils';
+import { clsx } from 'clsx';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'ghost' | 'outline' | 'destructive';
@@ -11,8 +10,6 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   fullWidth?: boolean;
-  animated?: boolean;
-  asChild?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -25,14 +22,14 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       leftIcon,
       rightIcon,
       fullWidth = false,
-      asChild = false,
       children,
       disabled,
       ...props
     },
     ref
   ) => {
-    const baseClasses = 'inline-flex items-center justify-center font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
+    const baseClasses =
+      'inline-flex items-center justify-center font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
 
     const variants = {
       primary: 'bg-blue-600 hover:bg-blue-700 text-white focus:ring-blue-500 shadow-lg hover:shadow-xl',
@@ -49,13 +46,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       xl: 'px-8 py-4 text-xl rounded-xl',
     };
 
-    const widthClasses = fullWidth ? 'w-full' : '';
-
-    const classes = cn(
+    const classes = clsx(
       baseClasses,
       variants[variant],
       sizes[size],
-      widthClasses,
+      fullWidth && 'w-full',
       className
     );
 
@@ -66,14 +61,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         fill="none"
         viewBox="0 0 24 24"
       >
-        <circle
-          className="opacity-25"
-          cx="12"
-          cy="12"
-          r="10"
-          stroke="currentColor"
-          strokeWidth="4"
-        />
+        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
         <path
           className="opacity-75"
           fill="currentColor"
@@ -82,30 +70,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       </svg>
     );
 
-
-
-    const Comp = asChild ? Slot : 'button';
-
-    // When asChild=true, Radix Slot must receive a single element as its child.
-    // A React.Fragment cannot accept className, so we must pass children directly.
-    const content = asChild ? children : (
-      <>
+    return (
+      <button ref={ref} className={classes} disabled={disabled || loading} {...props}>
         {loading && <LoadingSpinner />}
         {!loading && leftIcon && <span className="mr-2">{leftIcon}</span>}
         {children}
         {!loading && rightIcon && <span className="ml-2">{rightIcon}</span>}
-      </>
-    );
-
-    return (
-      <Comp
-        ref={ref}
-        className={classes}
-        disabled={disabled || loading}
-        {...props}
-      >
-        {content}
-      </Comp>
+      </button>
     );
   }
 );
