@@ -77,11 +77,11 @@ const mainNavLinks = [
     ]
   },
   {
-    href: "/student-life",
-    label: "Student Life",
+    href: "/campus-life",
+    label: "Campus Life",
     hasDropdown: true,
     dropdownLinks: [
-      { href: "/student-life/facilities", label: "Facilities" }
+      { href: "/campus-life/facilities", label: "Facilities" }
     ]
   },
   { href: "/gallery", label: "Gallery" },

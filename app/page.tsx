@@ -16,8 +16,7 @@ import AnimatedCounter from '@/components/AnimatedCounter';
 import Card, { CardContent } from '@/components/ui/Card';
 import FeatureIcon from '@/components/ui/FeatureIcon';
 
-// SEO Component
-import SocialShare from '@/components/SocialShare';
+
 
 
 // Content and Theme
@@ -31,8 +30,7 @@ import {
   formatCurrency
 } from '@/lib/content';
 
-// Social Media Icons
-import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaYoutube } from 'react-icons/fa';
+// Social Media Icons removed from this page (now handled exclusively by Footer)
 
 // Define image paths for slideshow
 const slideshowMedia = [
@@ -333,46 +331,7 @@ const HomePage = () => {
           </div>
         </section>
 
-        {/* 8. Social Media Section */}
-        <section className="py-12 bg-gray-800 text-white">
-          <div className="max-w-4xl mx-auto text-center px-4">
-            <h2 className="text-2xl font-bold mb-6">Connect With Us</h2>
-            <p className="text-gray-300 mb-8">
-              Follow us on social media for updates, news, and insights.
-            </p>
-            <div className="flex justify-center space-x-6">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">
-                <FaFacebookF size={24} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">
-                <FaTwitter size={24} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">
-                <FaInstagram size={24} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">
-                <FaLinkedinIn size={24} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">
-                <FaYoutube size={24} />
-              </a>
-            </div>
-          </div>
-        </section>
 
-        {/* Social Share Section */}
-        <section className="py-16 bg-gray-100">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Share Our College</h2>
-              <p className="text-lg text-gray-600">Help others discover Uday Pratap College by sharing this page</p>
-            </div>
-
-            <div className="max-w-2xl mx-auto">
-              <SocialShare />
-            </div>
-          </div>
-        </section>
 
         {/* Modal for Inquiry Form */}
         <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>

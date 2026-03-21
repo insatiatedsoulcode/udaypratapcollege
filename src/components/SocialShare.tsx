@@ -44,28 +44,28 @@ const SocialShare: React.FC<SocialShareProps> = ({
   };
 
   return (
-    <div className={`social-share ${className}`}>
-      <h3 className="text-lg font-semibold text-gray-800 mb-4">Share this page:</h3>
+    <div className={`social-share flex flex-col items-center max-w-sm mx-auto ${className}`}>
+      <h3 className="text-lg font-semibold text-gray-800 mb-3 hidden">Share this page:</h3>
       <div className="flex items-center gap-3">
         {/* WhatsApp */}
         <a
           href={whatsappLink}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 px-4 py-2 bg-[#25D366] text-white rounded-full hover:bg-[#22C55E] transition-colors duration-200 text-sm font-medium"
+          className="flex items-center gap-2 px-6 py-2.5 bg-[#25D366] text-white rounded-full hover:bg-[#22C55E] transition-colors duration-200 text-sm font-semibold shadow-md"
           aria-label="Share on WhatsApp"
         >
-          <FaWhatsapp size={16} />
+          <FaWhatsapp size={18} />
           WhatsApp
         </a>
 
         {/* Copy Link */}
         <button
           onClick={copyToClipboard}
-          className="flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-full hover:bg-gray-700 transition-colors duration-200 text-sm font-medium"
+          className="flex items-center gap-2 px-6 py-2.5 bg-gray-700 text-white rounded-full hover:bg-gray-800 transition-colors duration-200 text-sm font-semibold shadow-md"
           aria-label="Copy link"
         >
-          {copied ? <FaCheck size={14} /> : <FaCopy size={14} />}
+          {copied ? <FaCheck size={16} /> : <FaCopy size={16} />}
           {copied ? 'Copied!' : 'Copy Link'}
         </button>
       </div>
