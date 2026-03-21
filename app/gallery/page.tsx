@@ -59,8 +59,8 @@ const GalleryPage = () => {
       <main className="container mx-auto px-4 py-12 md:py-16">
         {/* Page header — CSS fade-in via globals.css */}
         <div className="page-enter text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-slate-800">Our Gallery</h1>
-          <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold text-slate-800 dark:text-white">Our Gallery</h1>
+          <p className="mt-4 text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
             A glimpse into the vibrant life, events, and culture at Uday Pratap College.
           </p>
         </div>
@@ -80,7 +80,7 @@ const GalleryPage = () => {
 
             return (
               <section key={category.title}>
-                <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 border-b-2 border-orange-500 pb-2 mb-8">
+                <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 dark:text-white border-b-2 border-orange-500 pb-2 mb-8">
                   {category.title}
                 </h2>
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
