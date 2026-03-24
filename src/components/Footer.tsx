@@ -12,7 +12,7 @@ const Footer = () => {
         <div className="flex justify-center space-x-6 mb-4">
           <a href="#" aria-label="Facebook" className="hover:text-white transition-colors"><FaFacebookF size="1.2em" /></a>
           <a href="#" aria-label="Twitter" className="hover:text-white transition-colors"><FaTwitter size="1.2em" /></a>
-          <a href="#" aria-label="Instagram" className="hover:text-white transition-colors"><FaInstagram size="1.2em" /></a>
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:text-white transition-colors"><FaInstagram size="1.2em" /></a>
           <a href="#" aria-label="LinkedIn" className="hover:text-white transition-colors"><FaLinkedinIn size="1.2em" /></a>
           <a href="#" aria-label="YouTube" className="hover:text-white transition-colors"><FaYoutube size="1.2em" /></a>
         </div>
