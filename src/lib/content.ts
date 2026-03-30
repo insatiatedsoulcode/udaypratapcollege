@@ -16,6 +16,7 @@ export interface CollegeInfo {
     instagram: string;
     linkedin: string;
     youtube: string;
+    whatsapp: string;
   };
 }
 
@@ -120,11 +121,12 @@ const staticContent: ContentData = {
       address: "123 Education Street, Varanasi, UP 221001"
     },
     social: {
-      facebook: "https://www.facebook.com/udaypratapcollege",
-      twitter: "https://www.twitter.com/udaypratapcollege",
-      instagram: "https://www.instagram.com/udaypratapcollege",
-      linkedin: "https://www.linkedin.com/company/udaypratapcollege",
-      youtube: "https://www.youtube.com/udaypratapcollege"
+      "facebook": "https://www.facebook.com/profile.php?id=61577380963932",
+      "twitter": "https://www.twitter.com/udaypratapcollege",
+      "instagram": "https://www.instagram.com/uday.pratapcollege",
+      "linkedin": "https://www.linkedin.com/company/udaypratapcollege",
+      "youtube": "https://www.youtube.com/udaypratapcollege",
+      "whatsapp": "https://wa.me/919208596868?text=I%20have%20an%20inquiry%20regarding%20Uday%20Pratap%20College"
     }
   },
   stats: {
@@ -415,7 +417,8 @@ export function getDefaultContent(): ContentData {
         twitter: "#",
         instagram: "#",
         linkedin: "#",
-        youtube: "#"
+        youtube: "#",
+        whatsapp: "#"
       }
     },
     stats: {

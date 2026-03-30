@@ -8,6 +8,7 @@ import Footer from '@/components/Footer';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import PageTransition from '@/components/PageTransition';
 import Analytics from '@/components/Analytics';
+import WhatsAppCTA from '@/components/WhatsAppCTA';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -98,9 +99,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       email: 'info@udaypratapcollege.com',
     },
     sameAs: [
-      'https://www.facebook.com/udaypratapcollege',
+      'https://www.facebook.com/profile.php?id=61577380963932',
       'https://www.twitter.com/udaypratapcollege',
-      'https://www.instagram.com/udaypratapcollege',
+      'https://www.instagram.com/uday.pratapcollege',
     ],
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
@@ -155,6 +156,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </PageTransition>
         </main>
         <Footer />
+        <WhatsAppCTA />
       </body>
     </html>
   );
