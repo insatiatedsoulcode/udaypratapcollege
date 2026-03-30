@@ -98,9 +98,11 @@ const FeaturedEventsCarousel = () => {
     );
   };
 
-  // Optional: Auto-play
+  // Optional: Auto-play (use functional state update to avoid stale closure)
   useEffect(() => {
-    const timer = setInterval(goToNextSlide, 8000); // Change slide every 8 seconds
+    const timer = setInterval(() => {
+      setCurrentSlideIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+    }, 8000);
     return () => clearInterval(timer);
   }, []);
 
@@ -139,8 +141,8 @@ const FeaturedEventsCarousel = () => {
                 <Image
                   src={currentSlide.leftContent.imageUrl}
                   alt={currentSlide.leftContent.imageAlt || 'Event image'}
-                  layout="fill"
-                  objectFit="cover"
+                  fill
+                  className="object-cover"
                 />
                 {currentSlide.leftContent.topOverlay && (
                   <div className="absolute top-0 left-0 w-full p-4 md:p-6 bg-gradient-to-b from-black/60 to-transparent">
@@ -157,7 +159,7 @@ const FeaturedEventsCarousel = () => {
                   </div>
                 )}
                 {currentSlide.leftContent.bottomOverlay && (
-                   <div className="absolute bottom-0 left-0 w-full p-3 md:p-4 bg-gradient-to-t from-black/70 to-transparent">
+                  <div className="absolute bottom-0 left-0 w-full p-3 md:p-4 bg-gradient-to-t from-black/70 to-transparent">
                     <p className={`text-xs sm:text-sm text-gray-100 p-2 rounded inline-block ${currentSlide.leftContent.bottomOverlay.textHighlightBg || ''}`}>
                       {currentSlide.leftContent.bottomOverlay.text}
                     </p>
@@ -165,7 +167,7 @@ const FeaturedEventsCarousel = () => {
                 )}
               </div>
             )}
-             {/* Navigation Arrows - Common for all slides */}
+            {/* Navigation Arrows - Common for all slides */}
             <div className="mt-6 flex justify-center md:justify-start space-x-3 animate-fadeInUp [animation-delay:0.5s]">
               <button
                 onClick={goToPreviousSlide}
@@ -200,11 +202,12 @@ const FeaturedEventsCarousel = () => {
               {currentSlide.rightBox.description}
             </p>
             <div className="animate-fadeInUp [animation-delay:0.8s]">
-              <Link href={currentSlide.rightBox.buttonLink} legacyBehavior>
-                <a className="inline-flex items-center bg-slate-800 hover:bg-slate-700 text-white font-semibold py-2.5 px-6 rounded-md transition-colors text-sm group">
-                  {currentSlide.rightBox.buttonText}
-                  <FaLongArrowAltRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </a>
+              <Link
+                href={currentSlide.rightBox.buttonLink}
+                className="inline-flex items-center bg-slate-800 hover:bg-slate-700 text-white font-semibold py-2.5 px-6 rounded-md transition-colors text-sm group"
+              >
+                {currentSlide.rightBox.buttonText}
+                <FaLongArrowAltRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
           </div>
@@ -216,9 +219,8 @@ const FeaturedEventsCarousel = () => {
           <button
             key={index}
             onClick={() => setCurrentSlideIndex(index)}
-            className={`w-3 h-3 rounded-full transition-colors ${
-              currentSlideIndex === index ? 'bg-white' : 'bg-white/50 hover:bg-white/75'
-            }`}
+            className={`w-3 h-3 rounded-full transition-colors ${currentSlideIndex === index ? 'bg-white' : 'bg-white/50 hover:bg-white/75'
+              }`}
             aria-label={`Go to slide ${index + 1}`}
           />
         ))}

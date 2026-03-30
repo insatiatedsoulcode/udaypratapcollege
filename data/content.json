@@ -11,11 +11,12 @@
       "address": "123 Education Street, Varanasi, UP 221001"
     },
     "social": {
-      "facebook": "https://www.facebook.com/udaypratapcollege",
+      "facebook": "https://www.facebook.com/profile.php?id=61577380963932",
       "twitter": "https://www.twitter.com/udaypratapcollege",
-      "instagram": "https://www.instagram.com/udaypratapcollege",
+      "instagram": "https://www.instagram.com/uday.pratapcollege",
       "linkedin": "https://www.linkedin.com/company/udaypratapcollege",
-      "youtube": "https://www.youtube.com/udaypratapcollege"
+      "youtube": "https://www.youtube.com/udaypratapcollege",
+      "whatsapp": "https://wa.me/919208596868?text=I%20have%20an%20inquiry%20regarding%20Uday%20Pratap%20College"
     }
   },
   "stats": {
@@ -34,8 +35,21 @@
       "duration": "3 Years",
       "description": "Explore diverse subjects and develop critical thinking skills in our comprehensive liberal arts program.",
       "color": "blue",
-      "subjects": ["English Literature", "History", "Political Science", "Economics", "Psychology", "Sociology"],
-      "careerOptions": ["Civil Services", "Journalism", "Teaching", "Social Work", "Public Administration"],
+      "subjects": [
+        "English Literature",
+        "History",
+        "Political Science",
+        "Economics",
+        "Psychology",
+        "Sociology"
+      ],
+      "careerOptions": [
+        "Civil Services",
+        "Journalism",
+        "Teaching",
+        "Social Work",
+        "Public Administration"
+      ],
       "eligibility": "10+2 or equivalent from any recognized board",
       "fees": {
         "annual": 25000,
@@ -56,8 +70,21 @@
       "duration": "3 Years",
       "description": "Develop leadership skills and business acumen to excel in the corporate world.",
       "color": "green",
-      "subjects": ["Business Management", "Marketing", "Finance", "Human Resources", "Operations", "Entrepreneurship"],
-      "careerOptions": ["Business Analyst", "Marketing Manager", "HR Specialist", "Operations Manager", "Entrepreneur"],
+      "subjects": [
+        "Business Management",
+        "Marketing",
+        "Finance",
+        "Human Resources",
+        "Operations",
+        "Entrepreneurship"
+      ],
+      "careerOptions": [
+        "Business Analyst",
+        "Marketing Manager",
+        "HR Specialist",
+        "Operations Manager",
+        "Entrepreneur"
+      ],
       "eligibility": "10+2 or equivalent from any recognized board",
       "fees": {
         "annual": 35000,
@@ -78,8 +105,21 @@
       "duration": "3 Years",
       "description": "Master cutting-edge technology and programming skills for the digital age.",
       "color": "purple",
-      "subjects": ["Programming", "Database Management", "Web Development", "Software Engineering", "Data Structures", "Computer Networks"],
-      "careerOptions": ["Software Developer", "Web Developer", "Database Administrator", "System Analyst", "IT Consultant"],
+      "subjects": [
+        "Programming",
+        "Database Management",
+        "Web Development",
+        "Software Engineering",
+        "Data Structures",
+        "Computer Networks"
+      ],
+      "careerOptions": [
+        "Software Developer",
+        "Web Developer",
+        "Database Administrator",
+        "System Analyst",
+        "IT Consultant"
+      ],
       "eligibility": "10+2 or equivalent with Mathematics",
       "fees": {
         "annual": 40000,

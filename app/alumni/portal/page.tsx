@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { FaUser, FaGraduationCap, FaBriefcase, FaMapMarkerAlt, FaEnvelope, FaLinkedin, FaSearch, FaPlus, FaHeart, FaComment, FaShare } from 'react-icons/fa';
-import SEO from '@/components/SEO';
 
 interface AlumniProfile {
   id: string;
@@ -222,12 +221,6 @@ const AlumniPortal: React.FC = () => {
 
   return (
     <>
-      <SEO
-        title="Alumni Portal"
-        description="Connect with fellow alumni, share achievements, and explore career opportunities"
-        canonical="/alumni/portal"
-      />
-      
       <div className="min-h-screen bg-gray-50">
         {/* Header */}
         <div className="bg-white shadow-sm border-b">

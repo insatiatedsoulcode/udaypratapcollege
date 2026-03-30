@@ -7,12 +7,3 @@ services:
     envVars:
       - key: NODE_VERSION
         value: 20.9.0
-      - key: DATABASE_URL
-        fromDatabase:
-          name: college_db
-          property: connectionString
-
-databases:
-  - name: college_db
-    databaseName: college
-    user: admin

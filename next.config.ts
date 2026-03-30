@@ -1,4 +1,4 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   // Enable standalone output for Docker deployment
@@ -7,7 +7,6 @@ const nextConfig: NextConfig = {
   // Optimize for production
   compress: true,
 
-  // External packages for server components
   // External packages for server components
   serverExternalPackages: [],
 
@@ -24,56 +23,25 @@ const nextConfig: NextConfig = {
       {
         source: '/(.*)',
         headers: [
-          {
-            key: 'X-Frame-Options',
-            value: 'DENY',
-          },
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
-          },
-          {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block',
-          },
-          {
-            key: 'Referrer-Policy',
-            value: 'strict-origin-when-cross-origin',
-          },
+          { key: 'X-Frame-Options', value: 'DENY' },
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          { key: 'X-XSS-Protection', value: '1; mode=block' },
+          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
         ],
       },
     ];
   },
 
-  // Redirects for SEO
+  // SEO redirect
   async redirects() {
     return [
-      {
-        source: '/home',
-        destination: '/',
-        permanent: true,
-      },
-    ];
-  },
-
-  // Rewrites for API routes
-  async rewrites() {
-    return [
-      {
-        source: '/api/health',
-        destination: '/api/health',
-      },
+      { source: '/home', destination: '/', permanent: true },
     ];
   },
 
   // Environment variables
   env: {
     CUSTOM_KEY: process.env.CUSTOM_KEY,
-  },
-
-  // Webpack configuration
-  webpack: (config) => {
-    return config;
   },
 };
 
