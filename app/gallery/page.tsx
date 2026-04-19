@@ -20,15 +20,6 @@ type GalleryCategory = {
 
 const galleryCategories: GalleryCategory[] = [
   {
-    title: 'Campus Life',
-    items: [
-      { type: 'image', src: '/images/gallery/campus-1.jpg', alt: 'Students collaborating on campus grounds' },
-      { type: 'image', src: '/images/gallery/campus-2.jpg', alt: 'University library main hall' },
-      { type: 'image', src: '/images/gallery/campus-3.jpg', alt: 'A sunny day at the main college building' },
-      { type: 'image', src: '/images/gallery/campus-4.jpg', alt: 'Students in a modern computer lab' },
-    ],
-  },
-  {
     title: 'Events & Festivals',
     items: [
       { type: 'image', src: '/images/gallery/event-1.jpg', alt: 'Annual sports day event' },

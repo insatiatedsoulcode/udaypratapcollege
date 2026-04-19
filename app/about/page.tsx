@@ -58,7 +58,7 @@ export default function AboutPage() {
                     <div className="flex flex-col md:flex-row items-center gap-16">
                         <div className="w-full md:w-1/2 relative">
                             <div className="absolute -top-4 -left-4 w-full h-full border-2 border-secondary/20 rounded-xl"></div>
-                            <img alt="Founder" className="relative z-10 w-full rounded-xl grayscale hover:grayscale-0 transition-all duration-500 shadow-xl" data-alt="Dignified portrait of a visionary academic founder" src="/founder.png" />
+                            <img alt="Our Visionary Founder" className="relative z-10 w-full rounded-xl grayscale hover:grayscale-0 transition-all duration-500 shadow-xl" data-alt="College founder addressing an audience from a podium" src="/founder.png" />
                         </div>
                         <div className="w-full md:w-1/2">
                             <span className="text-secondary font-bold tracking-widest uppercase text-sm block mb-4">Legacy of Wisdom</span>
