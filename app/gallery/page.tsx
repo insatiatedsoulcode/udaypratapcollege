@@ -33,6 +33,10 @@ const galleryCategories: GalleryCategory[] = [
     items: [
       { type: 'image', src: '/images/gallery/event-1.jpg', alt: 'Annual sports day event' },
       { type: 'image', src: '/images/gallery/event-2.jpg', alt: 'Cultural fest performance on stage' },
+      { type: 'image', src: '/images/gallery/event-3.jpg', alt: 'Students and faculty members planting saplings at the college campus' },
+      { type: 'image', src: '/images/gallery/event-4.jpg', alt: 'Faculty members gathering during a college event' },
+      { type: 'image', src: '/images/gallery/event-5.jpg', alt: 'Group photo of students and faculty members in front of the college building' },
+      { type: 'image', src: '/images/gallery/event-6.jpg', alt: 'Flag hoisting ceremony at the college campus' },
       {
         type: 'video',
         poster: '/images/gallery/video-poster.jpg',
