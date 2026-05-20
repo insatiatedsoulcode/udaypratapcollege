@@ -69,30 +69,34 @@ const InquiryForm: React.FC<InquiryFormProps> = ({ onSuccess }) => {
     setApiError(null);
 
     try {
-      const response = await fetch('/api/inquiries', {
+      const webhookUrl = process.env.NEXT_PUBLIC_GOOGLE_SHEET_WEBHOOK_URL;
+
+      if (!webhookUrl) {
+        console.log('Testing Mode: Captured Inquiry Form Data:', formData);
+        setSubmitted(true);
+        setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+        if (onSuccess) setTimeout(onSuccess, 3000);
+        setIsSubmitting(false);
+        return;
+      }
+
+      await fetch(webhookUrl, {
         method: 'POST',
+        mode: 'no-cors', // Bypasses CORS for Google Apps Script
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'text/plain', // Prevents preflight request
         },
         body: JSON.stringify(formData),
       });
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Failed to submit inquiry.');
-      }
-
+      // With no-cors, response is opaque. We assume success if fetch doesn't throw.
       setSubmitted(true);
       setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
       if (onSuccess) setTimeout(onSuccess, 3000);
 
     } catch (error: unknown) {
-      if (error instanceof Error) {
-        setApiError(error.message);
-      } else {
-        setApiError('An unexpected error occurred. Please try again later.');
-      }
+      console.error('Inquiry Form Submission Error:', error);
+      setApiError('An unexpected error occurred. Please check your connection and try again.');
     } finally {
       setIsSubmitting(false);
     }

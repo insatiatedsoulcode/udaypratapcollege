@@ -16,7 +16,7 @@ const programsData = [
     shortName: 'BA',
     duration: '3 Years',
     description: 'Explore diverse subjects and develop critical thinking skills in our comprehensive liberal arts program.',
-    annualFee: '25,000',
+    annualFee: '5,000',
     detailsLink: '/academics/programs/ba',
     theme: {
       border: 'border-blue-500',
@@ -34,7 +34,7 @@ const programsData = [
     shortName: 'BBA',
     duration: '3 Years',
     description: 'Develop leadership skills and business acumen to excel in the corporate world.',
-    annualFee: '35,000',
+    annualFee: '25,000',
     detailsLink: '/academics/programs/bba',
     theme: {
       border: 'border-emerald-500',
@@ -52,7 +52,7 @@ const programsData = [
     shortName: 'BCA',
     duration: '3 Years',
     description: 'Master cutting-edge technology and programming skills for the digital age.',
-    annualFee: '40,000',
+    annualFee: '25,000',
     detailsLink: '/academics/programs/bca',
     theme: {
       border: 'border-purple-500',

@@ -48,7 +48,8 @@ const contactData = {
   location: {
     addressLine1: "Gaur, Mirzamurad",
     addressLine2: "Varanasi, Uttar Pradesh, India - 221307",
-    googleMapsEmbedUrl: "https://maps.google.com/maps?q=25.285371,82.788534&hl=en&z=15&output=embed",
+    googleMapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3607.5626585015657!2d82.7886954!3d25.2852934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x398fcf7dbb885b41%3A0x38943975674fa2fb!2sUday%20Pratap%20Singh%20Mahavidyalaya%20(UPSM)!5e0!3m2!1sen!2sin!4v1778259899323!5m2!1sen!2sin",
+    mapLink: "https://maps.app.goo.gl/FMvdg1CsZVPJ9XRm7",
   },
   faqs: [
     {
@@ -212,13 +213,21 @@ const ContactUsPage = () => {
                 />
               </div>
               <div className="text-center md:text-left">
-                <h3 className="text-xl font-semibold text-gray-800 flex items-center">
+                <h3 className="text-xl font-semibold text-gray-800 flex items-center justify-center md:justify-start">
                   <FaMapMarkerAlt className="mr-2 text-orange-500" /> Our Campus
                 </h3>
                 <p className="mt-2 text-gray-600">
                   {contactData.location.addressLine1}, <br />
                   {contactData.location.addressLine2}
                 </p>
+                <a 
+                  href={contactData.location.mapLink} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="inline-block mt-3 text-sky-600 hover:text-sky-700 font-medium hover:underline"
+                >
+                  Get Directions on Google Maps →
+                </a>
               </div>
             </div>
           </div>

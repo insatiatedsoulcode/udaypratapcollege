@@ -1,9 +1,0 @@
-services:
-  - type: web
-    name: udaypratapcollege
-    env: docker
-    plan: free
-    branch: main
-    envVars:
-      - key: NODE_VERSION
-        value: 20.9.0

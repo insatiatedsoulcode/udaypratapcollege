@@ -149,8 +149,8 @@ const staticContent: ContentData = {
       careerOptions: ["Civil Services", "Journalism", "Teaching", "Social Work", "Public Administration"],
       eligibility: "10+2 or equivalent from any recognized board",
       fees: {
-        annual: 25000,
-        total: 75000
+        annual: 5000,
+        total: 15000
       },
       highlights: [
         "Comprehensive curriculum covering humanities and social sciences",
@@ -171,8 +171,8 @@ const staticContent: ContentData = {
       careerOptions: ["Business Analyst", "Marketing Manager", "HR Specialist", "Operations Manager", "Entrepreneur"],
       eligibility: "10+2 or equivalent from any recognized board",
       fees: {
-        annual: 35000,
-        total: 105000
+        annual: 25000,
+        total: 75000
       },
       highlights: [
         "Industry-relevant curriculum",
@@ -193,8 +193,8 @@ const staticContent: ContentData = {
       careerOptions: ["Software Developer", "Web Developer", "Database Administrator", "System Analyst", "IT Consultant"],
       eligibility: "10+2 or equivalent with Mathematics",
       fees: {
-        annual: 40000,
-        total: 120000
+        annual: 25000,
+        total: 75000
       },
       highlights: [
         "Modern computer labs with latest technology",

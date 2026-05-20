@@ -68,7 +68,7 @@ export default function AcademicsPage() {
                 <div className="mt-10 pt-6 border-t border-gray-200">
                   <div className="flex justify-between items-end mb-6">
                     <span className="text-xs font-bold text-gray-400 uppercase tracking-widest leading-none pb-1">Annual Fee</span>
-                    <span className="text-[2rem] font-black text-gray-900 leading-none">₹25,000</span>
+                    <span className="text-[2rem] font-black text-gray-900 leading-none">₹5,000</span>
                   </div>
 
                   <Link
@@ -109,7 +109,7 @@ export default function AcademicsPage() {
                 <div className="mt-10 pt-6 border-t border-gray-200">
                   <div className="flex justify-between items-end mb-6">
                     <span className="text-xs font-bold text-gray-400 uppercase tracking-widest leading-none pb-1">Annual Fee</span>
-                    <span className="text-[2rem] font-black text-gray-900 leading-none">₹35,000</span>
+                    <span className="text-[2rem] font-black text-gray-900 leading-none">₹25,000</span>
                   </div>
 
                   <Link
@@ -150,7 +150,7 @@ export default function AcademicsPage() {
                 <div className="mt-10 pt-6 border-t border-gray-200">
                   <div className="flex justify-between items-end mb-6">
                     <span className="text-xs font-bold text-gray-400 uppercase tracking-widest leading-none pb-1">Annual Fee</span>
-                    <span className="text-[2rem] font-black text-gray-900 leading-none">₹40,000</span>
+                    <span className="text-[2rem] font-black text-gray-900 leading-none">₹25,000</span>
                   </div>
 
                   <Link

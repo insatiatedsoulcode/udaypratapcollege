@@ -1,42 +1,12 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  // Enable standalone output for Docker deployment
-  output: 'standalone',
+  // Enable static HTML export
+  output: 'export',
 
-  // Optimize for production
-  compress: true,
-
-  // External packages for server components
-  serverExternalPackages: [],
-
-  // Image optimization
+  // Image optimization (must be unoptimized for static export unless using a custom loader)
   images: {
-    formats: ['image/webp', 'image/avif'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-  },
-
-  // Security headers
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: [
-          { key: 'X-Frame-Options', value: 'DENY' },
-          { key: 'X-Content-Type-Options', value: 'nosniff' },
-          { key: 'X-XSS-Protection', value: '1; mode=block' },
-          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
-        ],
-      },
-    ];
-  },
-
-  // SEO redirect
-  async redirects() {
-    return [
-      { source: '/home', destination: '/', permanent: true },
-    ];
+    unoptimized: true,
   },
 
   // Environment variables
