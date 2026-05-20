@@ -1,7 +1,7 @@
 // app/academics/page.tsx
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { FaGraduationCap, FaUsers, FaBook, FaLaptop, FaChartLine } from 'react-icons/fa';
+import { FaGraduationCap, FaUsers, FaBook, FaLaptop } from 'react-icons/fa';
 
 export const metadata: Metadata = {
   title: 'Academic Programs - BA, BBA, BCA Courses',
@@ -43,93 +43,126 @@ export default function AcademicsPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             {/* BA Program */}
-            <div className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <div className="text-center mb-6">
-                <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <FaBook className="text-3xl text-blue-600" />
+            <div className="group relative bg-blue-50/50 rounded-[2rem] p-8 md:p-10 shadow-sm border border-gray-100 border-t-[6px] border-t-blue-500 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 overflow-hidden flex flex-col">
+              <div className="relative z-10 flex-grow flex flex-col">
+
+                {/* Header Row: Badge & Duration */}
+                <div className="flex justify-between items-start mb-10 text-center">
+                  <div className="w-20 h-20 bg-blue-600 text-white rounded-[1.25rem] flex items-center justify-center shadow-md transform group-hover:scale-105 group-hover:-rotate-3 transition-transform duration-300">
+                    <span className="text-[1.75rem] font-black tracking-tight">BA</span>
+                  </div>
+                  <span className="text-[13px] font-bold text-blue-600 bg-white border border-blue-100 px-4 py-1.5 rounded-full shadow-sm">
+                    3 Years
+                  </span>
                 </div>
-                <h3 className="text-2xl font-semibold text-gray-800 mb-2">
-                  Bachelor of Arts (BA)
+
+                {/* Title & Description */}
+                <h3 className="text-3xl font-bold text-gray-900 mb-4 tracking-tight leading-tight pr-4">
+                  Bachelor of Arts
                 </h3>
-                <p className="text-gray-600">
-                  Duration: 3 Years | Full-time
+                <p className="text-gray-600 leading-relaxed font-medium text-[1.05rem] mb-auto">
+                  Explore diverse subjects and develop critical thinking skills in our comprehensive liberal arts program.
                 </p>
+
+                {/* Pricing Block & Button */}
+                <div className="mt-10 pt-6 border-t border-gray-200">
+                  <div className="flex justify-between items-end mb-6">
+                    <span className="text-xs font-bold text-gray-400 uppercase tracking-widest leading-none pb-1">Annual Fee</span>
+                    <span className="text-[2rem] font-black text-gray-900 leading-none">₹5,000</span>
+                  </div>
+
+                  <Link
+                    href="/academics/programs/ba"
+                    className="flex justify-center items-center w-full bg-blue-600 hover:bg-blue-700 text-white text-[1.05rem] font-bold py-4 rounded-xl transition-colors duration-200 shadow-md group-hover:shadow-lg"
+                  >
+                    Explore Program
+                    <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                  </Link>
+                </div>
+
               </div>
-              <p className="text-gray-700 mb-6">
-                A comprehensive liberal arts program that provides a broad foundation in humanities, social sciences, and languages, fostering critical thinking and analytical skills.
-              </p>
-              <ul className="text-gray-600 mb-6 space-y-2">
-                <li>• Literature and Language Studies</li>
-                <li>• History and Political Science</li>
-                <li>• Psychology and Sociology</li>
-                <li>• Economics and Philosophy</li>
-              </ul>
-              <Link
-                href="/academics/programs/ba"
-                className="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center py-3 rounded-lg transition-colors duration-200"
-              >
-                Learn More
-              </Link>
             </div>
 
             {/* BBA Program */}
-            <div className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <div className="text-center mb-6">
-                <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <FaChartLine className="text-3xl text-green-600" />
+            <div className="group relative bg-emerald-50/50 rounded-[2rem] p-8 md:p-10 shadow-sm border border-gray-100 border-t-[6px] border-t-emerald-500 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 overflow-hidden flex flex-col">
+              <div className="relative z-10 flex-grow flex flex-col">
+
+                {/* Header Row: Badge & Duration */}
+                <div className="flex justify-between items-start mb-10 text-center">
+                  <div className="w-20 h-20 bg-emerald-600 text-white rounded-[1.25rem] flex items-center justify-center shadow-md transform group-hover:scale-105 group-hover:-rotate-3 transition-transform duration-300">
+                    <span className="text-[1.75rem] font-black tracking-tight">BBA</span>
+                  </div>
+                  <span className="text-[13px] font-bold text-emerald-600 bg-white border border-emerald-100 px-4 py-1.5 rounded-full shadow-sm">
+                    3 Years
+                  </span>
                 </div>
-                <h3 className="text-2xl font-semibold text-gray-800 mb-2">
-                  Bachelor of Business Administration (BBA)
+
+                {/* Title & Description */}
+                <h3 className="text-3xl font-bold text-gray-900 mb-4 tracking-tight leading-tight pr-4">
+                  Bachelor of Business Administration
                 </h3>
-                <p className="text-gray-600">
-                  Duration: 3 Years | Full-time
+                <p className="text-gray-600 leading-relaxed font-medium text-[1.05rem] mb-auto">
+                  Develop leadership skills and business acumen to excel in the corporate world.
                 </p>
+
+                {/* Pricing Block & Button */}
+                <div className="mt-10 pt-6 border-t border-gray-200">
+                  <div className="flex justify-between items-end mb-6">
+                    <span className="text-xs font-bold text-gray-400 uppercase tracking-widest leading-none pb-1">Annual Fee</span>
+                    <span className="text-[2rem] font-black text-gray-900 leading-none">₹25,000</span>
+                  </div>
+
+                  <Link
+                    href="/academics/programs/bba"
+                    className="flex justify-center items-center w-full bg-emerald-600 hover:bg-emerald-700 text-white text-[1.05rem] font-bold py-4 rounded-xl transition-colors duration-200 shadow-md group-hover:shadow-lg"
+                  >
+                    Explore Program
+                    <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                  </Link>
+                </div>
+
               </div>
-              <p className="text-gray-700 mb-6">
-                A professional program designed to develop business acumen, leadership skills, and management expertise for the corporate world.
-              </p>
-              <ul className="text-gray-600 mb-6 space-y-2">
-                <li>• Business Management</li>
-                <li>• Marketing and Sales</li>
-                <li>• Finance and Accounting</li>
-                <li>• Human Resources</li>
-              </ul>
-              <Link
-                href="/academics/programs/bba"
-                className="block w-full bg-green-600 hover:bg-green-700 text-white text-center py-3 rounded-lg transition-colors duration-200"
-              >
-                Learn More
-              </Link>
             </div>
 
             {/* BCA Program */}
-            <div className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <div className="text-center mb-6">
-                <div className="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <FaLaptop className="text-3xl text-purple-600" />
+            <div className="group relative bg-purple-50/50 rounded-[2rem] p-8 md:p-10 shadow-sm border border-gray-100 border-t-[6px] border-t-purple-500 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 overflow-hidden flex flex-col">
+              <div className="relative z-10 flex-grow flex flex-col">
+
+                {/* Header Row: Badge & Duration */}
+                <div className="flex justify-between items-start mb-10 text-center">
+                  <div className="w-20 h-20 bg-purple-600 text-white rounded-[1.25rem] flex items-center justify-center shadow-md transform group-hover:scale-105 group-hover:-rotate-3 transition-transform duration-300">
+                    <span className="text-[1.75rem] font-black tracking-tight">BCA</span>
+                  </div>
+                  <span className="text-[13px] font-bold text-purple-600 bg-white border border-purple-100 px-4 py-1.5 rounded-full shadow-sm">
+                    3 Years
+                  </span>
                 </div>
-                <h3 className="text-2xl font-semibold text-gray-800 mb-2">
-                  Bachelor of Computer Applications (BCA)
+
+                {/* Title & Description */}
+                <h3 className="text-3xl font-bold text-gray-900 mb-4 tracking-tight leading-tight pr-4">
+                  Bachelor of Computer Applications
                 </h3>
-                <p className="text-gray-600">
-                  Duration: 3 Years | Full-time
+                <p className="text-gray-600 leading-relaxed font-medium text-[1.05rem] mb-auto">
+                  Master cutting-edge technology and programming skills for the digital age.
                 </p>
+
+                {/* Pricing Block & Button */}
+                <div className="mt-10 pt-6 border-t border-gray-200">
+                  <div className="flex justify-between items-end mb-6">
+                    <span className="text-xs font-bold text-gray-400 uppercase tracking-widest leading-none pb-1">Annual Fee</span>
+                    <span className="text-[2rem] font-black text-gray-900 leading-none">₹25,000</span>
+                  </div>
+
+                  <Link
+                    href="/academics/programs/bca"
+                    className="flex justify-center items-center w-full bg-purple-600 hover:bg-purple-700 text-white text-[1.05rem] font-bold py-4 rounded-xl transition-colors duration-200 shadow-md group-hover:shadow-lg"
+                  >
+                    Explore Program
+                    <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                  </Link>
+                </div>
+
               </div>
-              <p className="text-gray-700 mb-6">
-                A technology-focused program that provides comprehensive knowledge of computer applications, programming, and software development.
-              </p>
-              <ul className="text-gray-600 mb-6 space-y-2">
-                <li>• Programming Languages</li>
-                <li>• Database Management</li>
-                <li>• Web Development</li>
-                <li>• Software Engineering</li>
-              </ul>
-              <Link
-                href="/academics/programs/bca"
-                className="block w-full bg-purple-600 hover:bg-purple-700 text-white text-center py-3 rounded-lg transition-colors duration-200"
-              >
-                Learn More
-              </Link>
             </div>
           </div>
         </div>
@@ -148,26 +181,32 @@ export default function AcademicsPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <FaUsers className="text-4xl text-blue-600 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">Expert Faculty</h3>
-              <p className="text-gray-600">
+            <div className="group bg-white p-8 rounded-[2rem] shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center border border-gray-100">
+              <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+                <FaUsers className="text-3xl" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">Expert Faculty</h3>
+              <p className="text-gray-600 font-medium leading-relaxed">
                 Our faculty members hold advanced degrees and bring real-world experience to the classroom.
               </p>
             </div>
 
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <FaGraduationCap className="text-4xl text-green-600 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">Student-Centered Learning</h3>
-              <p className="text-gray-600">
+            <div className="group bg-white p-8 rounded-[2rem] shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center border border-gray-100">
+              <div className="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300">
+                <FaGraduationCap className="text-3xl" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-emerald-600 transition-colors">Student-Centered Learning</h3>
+              <p className="text-gray-600 font-medium leading-relaxed">
                 We focus on interactive learning methods that encourage critical thinking and practical application.
               </p>
             </div>
 
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <FaLaptop className="text-4xl text-purple-600 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">Modern Teaching Methods</h3>
-              <p className="text-gray-600">
+            <div className="group bg-white p-8 rounded-[2rem] shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center border border-gray-100">
+              <div className="w-16 h-16 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:bg-purple-600 group-hover:text-white transition-all duration-300">
+                <FaLaptop className="text-3xl" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-purple-600 transition-colors">Modern Teaching Methods</h3>
+              <p className="text-gray-600 font-medium leading-relaxed">
                 We use the latest technology and teaching methodologies to enhance the learning experience.
               </p>
             </div>
@@ -199,44 +238,52 @@ export default function AcademicsPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <Link
               href="/academics/programs"
-              className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 text-center"
+              className="group bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center border border-gray-100 flex flex-col items-center"
             >
-              <FaBook className="text-3xl text-blue-600 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">Program Details</h3>
-              <p className="text-gray-600 text-sm">
+              <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                <FaBook className="text-2xl" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">Program Details</h3>
+              <p className="text-gray-500 text-sm font-medium">
                 Detailed information about each program&apos;s curriculum and requirements.
               </p>
             </Link>
 
             <Link
               href="/admissions"
-              className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 text-center"
+              className="group bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center border border-gray-100 flex flex-col items-center"
             >
-              <FaGraduationCap className="text-3xl text-green-600 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">Admissions</h3>
-              <p className="text-gray-600 text-sm">
+              <div className="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                <FaGraduationCap className="text-2xl" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-emerald-600 transition-colors">Admissions</h3>
+              <p className="text-gray-500 text-sm font-medium">
                 Learn about admission requirements, deadlines, and application process.
               </p>
             </Link>
 
             <Link
               href="/student-life/facilities"
-              className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 text-center"
+              className="group bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center border border-gray-100 flex flex-col items-center"
             >
-              <FaLaptop className="text-3xl text-purple-600 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">Campus Facilities</h3>
-              <p className="text-gray-600 text-sm">
+              <div className="w-14 h-14 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                <FaLaptop className="text-2xl" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">Campus Facilities</h3>
+              <p className="text-gray-500 text-sm font-medium">
                 Explore our modern classrooms, labs, and learning resources.
               </p>
             </Link>
 
             <Link
               href="/contact-us"
-              className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 text-center"
+              className="group bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center border border-gray-100 flex flex-col items-center"
             >
-              <FaUsers className="text-3xl text-indigo-600 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">Academic Support</h3>
-              <p className="text-gray-600 text-sm">
+              <div className="w-14 h-14 bg-rose-50 text-rose-600 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                <FaUsers className="text-2xl" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-rose-600 transition-colors">Academic Support</h3>
+              <p className="text-gray-500 text-sm font-medium">
                 Get academic guidance and support from our dedicated team.
               </p>
             </Link>

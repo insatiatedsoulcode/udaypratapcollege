@@ -1,18 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { FaUpload, FaCheck, FaTimes, FaEye } from 'react-icons/fa';
-import SEO from '@/components/SEO';
-
-interface Document {
-  id: string;
-  name: string;
-  type: 'required' | 'optional';
-  uploaded: boolean;
-  file?: File;
-  url?: string;
-  status: 'pending' | 'approved' | 'rejected';
-}
+import { FaCheck, FaSpinner } from 'react-icons/fa';
 
 interface ApplicationStep {
   id: number;
@@ -47,68 +36,12 @@ const OnlineAdmission: React.FC = () => {
       previousInstitute: '',
       previousPercentage: '',
       entranceExamScore: ''
-    },
-    documents: []
+    }
   });
 
-  const [documents, setDocuments] = useState<Document[]>([
-    {
-      id: '1',
-      name: '10th Mark Sheet',
-      type: 'required',
-      uploaded: false,
-      status: 'pending'
-    },
-    {
-      id: '2',
-      name: '12th Mark Sheet',
-      type: 'required',
-      uploaded: false,
-      status: 'pending'
-    },
-    {
-      id: '3',
-      name: 'Transfer Certificate',
-      type: 'required',
-      uploaded: false,
-      status: 'pending'
-    },
-    {
-      id: '4',
-      name: 'Character Certificate',
-      type: 'required',
-      uploaded: false,
-      status: 'pending'
-    },
-    {
-      id: '5',
-      name: 'Photograph',
-      type: 'required',
-      uploaded: false,
-      status: 'pending'
-    },
-    {
-      id: '6',
-      name: 'Identity Proof',
-      type: 'required',
-      uploaded: false,
-      status: 'pending'
-    },
-    {
-      id: '7',
-      name: 'Income Certificate',
-      type: 'optional',
-      uploaded: false,
-      status: 'pending'
-    },
-    {
-      id: '8',
-      name: 'Caste Certificate',
-      type: 'optional',
-      uploaded: false,
-      status: 'pending'
-    }
-  ]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
 
   const steps: ApplicationStep[] = [
     {
@@ -127,17 +60,10 @@ const OnlineAdmission: React.FC = () => {
     },
     {
       id: 3,
-      title: 'Document Upload',
-      description: 'Upload required documents',
-      completed: currentStep > 3,
-      active: currentStep === 3
-    },
-    {
-      id: 4,
       title: 'Review & Submit',
       description: 'Review and submit your application',
-      completed: currentStep > 4,
-      active: currentStep === 4
+      completed: currentStep > 3,
+      active: currentStep === 3
     }
   ];
 
@@ -151,16 +77,8 @@ const OnlineAdmission: React.FC = () => {
     }));
   };
 
-  const handleFileUpload = (documentId: string, file: File) => {
-    setDocuments(prev => prev.map(doc => 
-      doc.id === documentId 
-        ? { ...doc, uploaded: true, file, status: 'pending' as const }
-        : doc
-    ));
-  };
-
   const nextStep = () => {
-    if (currentStep < 4) {
+    if (currentStep < 3) {
       setCurrentStep(currentStep + 1);
     }
   };
@@ -171,15 +89,83 @@ const OnlineAdmission: React.FC = () => {
     }
   };
 
-  const submitApplication = () => {
-    // Submit application logic
-    alert('Application submitted successfully! You will receive a confirmation email shortly.');
+  const submitApplication = async () => {
+    setIsSubmitting(true);
+    setApiError(null);
+
+    const combinedPayload = {
+      // Basic Info
+      name: `${formData.personalInfo.firstName} ${formData.personalInfo.lastName}`,
+      email: formData.personalInfo.email,
+      phone: formData.personalInfo.phone,
+      subject: `Admission Application: ${formData.academicInfo.program}`,
+
+      // Expanded Info (for the new columns)
+      program: formData.academicInfo.program,
+      dob: formData.personalInfo.dateOfBirth,
+      gender: formData.personalInfo.gender,
+      fatherName: formData.personalInfo.fatherName,
+      motherName: formData.personalInfo.motherName,
+      address: formData.personalInfo.address,
+      prevQualification: formData.academicInfo.previousQualification,
+      prevInstitute: formData.academicInfo.previousInstitute,
+      prevPercentage: formData.academicInfo.previousPercentage,
+      entranceScore: formData.academicInfo.entranceExamScore || 'N/A'
+    };
+
+    try {
+      const response = await fetch('/api/inquiries', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(combinedPayload),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to submit application.');
+      }
+
+      setSubmitSuccess(true);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setApiError(error.message);
+      } else {
+        setApiError('An unexpected error occurred. Please try again later.');
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+  if (submitSuccess) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-md w-full text-center bg-white p-8 rounded-xl shadow-md border border-gray-100">
+          <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-6">
+            <FaCheck className="h-8 w-8 text-green-600" />
+          </div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Application Submitted!</h2>
+          <p className="text-gray-600 mb-8">
+            Thank you for applying to Uday Pratap College. Your application details have been saved, and our admission counseling team will contact you shortly.
+          </p>
+          <button
+            onClick={() => window.location.href = '/'}
+            className="w-full inline-flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700"
+          >
+            Return to Homepage
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   const renderPersonalInfo = () => (
     <div className="space-y-6">
       <h3 className="text-lg font-semibold text-gray-900">Personal Information</h3>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
@@ -191,7 +177,7 @@ const OnlineAdmission: React.FC = () => {
             required
           />
         </div>
-        
+
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
           <input
@@ -202,7 +188,7 @@ const OnlineAdmission: React.FC = () => {
             required
           />
         </div>
-        
+
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Email *</label>
           <input
@@ -213,7 +199,7 @@ const OnlineAdmission: React.FC = () => {
             required
           />
         </div>
-        
+
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Phone *</label>
           <input
@@ -224,7 +210,7 @@ const OnlineAdmission: React.FC = () => {
             required
           />
         </div>
-        
+
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Date of Birth *</label>
           <input
@@ -235,7 +221,7 @@ const OnlineAdmission: React.FC = () => {
             required
           />
         </div>
-        
+
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Gender *</label>
           <select
@@ -251,7 +237,7 @@ const OnlineAdmission: React.FC = () => {
           </select>
         </div>
       </div>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Father&apos;s Name *</label>
@@ -263,7 +249,7 @@ const OnlineAdmission: React.FC = () => {
             required
           />
         </div>
-        
+
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Mother&apos;s Name *</label>
           <input
@@ -275,7 +261,7 @@ const OnlineAdmission: React.FC = () => {
           />
         </div>
       </div>
-      
+
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">Address *</label>
         <textarea
@@ -292,7 +278,7 @@ const OnlineAdmission: React.FC = () => {
   const renderAcademicInfo = () => (
     <div className="space-y-6">
       <h3 className="text-lg font-semibold text-gray-900">Academic Information</h3>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Program *</label>
@@ -308,7 +294,7 @@ const OnlineAdmission: React.FC = () => {
             <option value="bca">Bachelor of Computer Applications (BCA)</option>
           </select>
         </div>
-        
+
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Specialization</label>
           <input
@@ -318,7 +304,7 @@ const OnlineAdmission: React.FC = () => {
             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
-        
+
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Previous Qualification *</label>
           <select
@@ -333,7 +319,7 @@ const OnlineAdmission: React.FC = () => {
             <option value="other">Other</option>
           </select>
         </div>
-        
+
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Previous Institute *</label>
           <input
@@ -344,7 +330,7 @@ const OnlineAdmission: React.FC = () => {
             required
           />
         </div>
-        
+
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Percentage/CGPA *</label>
           <input
@@ -355,7 +341,7 @@ const OnlineAdmission: React.FC = () => {
             required
           />
         </div>
-        
+
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Entrance Exam Score</label>
           <input
@@ -369,68 +355,12 @@ const OnlineAdmission: React.FC = () => {
     </div>
   );
 
-  const renderDocumentUpload = () => (
-    <div className="space-y-6">
-      <h3 className="text-lg font-semibold text-gray-900">Document Upload</h3>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {documents.map((doc) => (
-          <div key={doc.id} className="border rounded-lg p-4">
-            <div className="flex items-center justify-between mb-3">
-              <div>
-                <h4 className="font-medium text-gray-900">{doc.name}</h4>
-                <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-                  doc.type === 'required' ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-800'
-                }`}>
-                  {doc.type === 'required' ? 'Required' : 'Optional'}
-                </span>
-              </div>
-              <div className="flex items-center space-x-2">
-                {doc.uploaded ? (
-                  <>
-                    <FaCheck className="text-green-500" />
-                    <span className="text-sm text-green-600">Uploaded</span>
-                  </>
-                ) : (
-                  <>
-                    <FaTimes className="text-red-500" />
-                    <span className="text-sm text-red-600">Not Uploaded</span>
-                  </>
-                )}
-              </div>
-            </div>
-            
-            <div className="flex items-center space-x-2">
-              <label className="flex items-center px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 cursor-pointer">
-                <FaUpload className="mr-2" />
-                Upload
-                <input
-                  type="file"
-                  className="hidden"
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    if (file) handleFileUpload(doc.id, file);
-                  }}
-                />
-              </label>
-              
-              {doc.uploaded && (
-                <button className="flex items-center px-3 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700">
-                  <FaEye className="mr-2" />
-                  View
-                </button>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+
 
   const renderReview = () => (
     <div className="space-y-6">
       <h3 className="text-lg font-semibold text-gray-900">Review Your Application</h3>
-      
+
       <div className="bg-gray-50 rounded-lg p-6">
         <h4 className="font-medium text-gray-900 mb-4">Personal Information</h4>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
@@ -448,7 +378,7 @@ const OnlineAdmission: React.FC = () => {
           </div>
         </div>
       </div>
-      
+
       <div className="bg-gray-50 rounded-lg p-6">
         <h4 className="font-medium text-gray-900 mb-4">Academic Information</h4>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
@@ -466,39 +396,18 @@ const OnlineAdmission: React.FC = () => {
           </div>
         </div>
       </div>
-      
-      <div className="bg-gray-50 rounded-lg p-6">
-        <h4 className="font-medium text-gray-900 mb-4">Documents</h4>
-        <div className="space-y-2 text-sm">
-          {documents.map((doc) => (
-            <div key={doc.id} className="flex items-center justify-between">
-              <span>{doc.name}</span>
-              <span className={`px-2 py-1 rounded-full text-xs ${
-                doc.uploaded ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-              }`}>
-                {doc.uploaded ? 'Uploaded' : 'Not Uploaded'}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
+
     </div>
   );
 
   return (
     <>
-      <SEO
-        title="Online Admission Application"
-        description="Apply for admission to Uday Pratap College online"
-        canonical="/admissions/online"
-      />
-      
       <div className="min-h-screen bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Header */}
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-gray-900 mb-2">Online Admission Application</h1>
-            <p className="text-gray-600">Complete your application in 4 simple steps</p>
+            <p className="text-gray-600">Complete your application in 3 simple steps</p>
           </div>
 
           {/* Progress Steps */}
@@ -506,39 +415,40 @@ const OnlineAdmission: React.FC = () => {
             <div className="flex items-center justify-between">
               {steps.map((step, index) => (
                 <div key={step.id} className="flex items-center">
-                  <div className={`flex items-center justify-center w-10 h-10 rounded-full border-2 ${
-                    step.completed 
-                      ? 'bg-green-600 border-green-600 text-white'
-                      : step.active
+                  <div className={`flex items-center justify-center w-10 h-10 rounded-full border-2 ${step.completed
+                    ? 'bg-green-600 border-green-600 text-white'
+                    : step.active
                       ? 'bg-blue-600 border-blue-600 text-white'
                       : 'bg-white border-gray-300 text-gray-500'
-                  }`}>
+                    }`}>
                     {step.completed ? <FaCheck /> : step.id}
                   </div>
                   <div className="ml-3">
-                    <p className={`text-sm font-medium ${
-                      step.active ? 'text-blue-600' : 'text-gray-500'
-                    }`}>
+                    <p className={`text-sm font-medium ${step.active ? 'text-blue-600' : 'text-gray-500'
+                      }`}>
                       {step.title}
                     </p>
                     <p className="text-xs text-gray-500">{step.description}</p>
                   </div>
                   {index < steps.length - 1 && (
-                    <div className={`flex-1 h-0.5 mx-4 ${
-                      step.completed ? 'bg-green-600' : 'bg-gray-300'
-                    }`} />
+                    <div className={`flex-1 h-0.5 mx-4 ${step.completed ? 'bg-green-600' : 'bg-gray-300'
+                      }`} />
                   )}
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Form Content */}
           <div className="bg-white rounded-lg shadow-sm border p-8">
             {currentStep === 1 && renderPersonalInfo()}
             {currentStep === 2 && renderAcademicInfo()}
-            {currentStep === 3 && renderDocumentUpload()}
-            {currentStep === 4 && renderReview()}
+            {currentStep === 3 && renderReview()}
+
+            {apiError && (
+              <div className="mt-6 p-4 bg-red-50 text-red-700 text-sm rounded-md border border-red-200">
+                {apiError}
+              </div>
+            )}
 
             {/* Navigation Buttons */}
             <div className="flex justify-between mt-8">
@@ -549,8 +459,8 @@ const OnlineAdmission: React.FC = () => {
               >
                 Previous
               </button>
-              
-              {currentStep < 4 ? (
+
+              {currentStep < 3 ? (
                 <button
                   onClick={nextStep}
                   className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
@@ -560,9 +470,12 @@ const OnlineAdmission: React.FC = () => {
               ) : (
                 <button
                   onClick={submitApplication}
-                  className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+                  disabled={isSubmitting}
+                  className={`inline-flex items-center px-6 py-2 text-white rounded-lg ${isSubmitting ? 'bg-green-400 cursor-not-allowed' : 'bg-green-600 hover:bg-green-700'
+                    }`}
                 >
-                  Submit Application
+                  {isSubmitting && <FaSpinner className="animate-spin mr-2" />}
+                  {isSubmitting ? 'Submitting...' : 'Submit Application'}
                 </button>
               )}
             </div>

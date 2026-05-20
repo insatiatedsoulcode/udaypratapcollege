@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { FaCalendarAlt, FaClock, FaMapMarkerAlt, FaDownload, FaBell, FaExclamationTriangle } from 'react-icons/fa';
-import SEO from '@/components/SEO';
 
 interface AcademicEvent {
   id: string;
@@ -219,12 +218,6 @@ const AcademicCalendar: React.FC = () => {
 
   return (
     <>
-      <SEO
-        title="Academic Calendar & Exam Schedule"
-        description="View academic calendar, exam schedules, and important dates"
-        canonical="/academics/calendar"
-      />
-      
       <div className="min-h-screen bg-gray-50">
         {/* Header */}
         <div className="bg-white shadow-sm border-b">

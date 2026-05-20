@@ -8,24 +8,24 @@ import { FaGraduationCap, FaHandHoldingUsd, FaMoneyCheckAlt, FaInfoCircle } from
 const feeData = [
   {
     program: 'Bachelor of Business Administration (BBA)',
-    tuition: '₹60,000',
-    exam: '₹5,000',
-    other: '₹5,000',
-    total: '₹70,000'
+    tuition: '₹25,000',
+    exam: '-',
+    other: '-',
+    total: '₹25,000'
   },
   {
     program: 'Bachelor of Computer Applications (BCA)',
-    tuition: '₹65,000',
-    exam: '₹5,000',
-    other: '₹7,500',
-    total: '₹77,500'
+    tuition: '₹25,000',
+    exam: '-',
+    other: '-',
+    total: '₹25,000'
   },
   {
     program: 'Bachelor of Arts (BA)',
-    tuition: '₹30,000',
-    exam: '₹5,000',
-    other: '₹2,500',
-    total: '₹37,500'
+    tuition: '₹5,000',
+    exam: '-',
+    other: '-',
+    total: '₹5,000'
   },
 ];
 

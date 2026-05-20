@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { FaChalkboardTeacher, FaUsers, FaBookOpen, FaChartBar, FaCalendarAlt, FaFileAlt, FaBell, FaPlus } from 'react-icons/fa';
-import SEO from '@/components/SEO';
 
 interface Faculty {
   id: string;
@@ -107,12 +106,6 @@ const FacultyDashboard: React.FC = () => {
 
   return (
     <>
-      <SEO
-        title="Faculty Dashboard"
-        description="Manage your courses, students, and academic activities"
-        canonical="/faculty/dashboard"
-      />
-      
       <div className="min-h-screen bg-gray-50">
         {/* Header */}
         <div className="bg-white shadow-sm border-b">

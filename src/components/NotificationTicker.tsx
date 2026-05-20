@@ -6,8 +6,8 @@ import { FaBullhorn } from 'react-icons/fa';
 // Define your announcements here for easy editing
 const announcements = [
   { text: 'Admissions for 2025-26 are now open!', link: '/admissions' },
-  { text: 'Annual Sports Meet on Dec 15th.', link: '/events/sports-meet' },
-  { text: 'Results for the 3rd Semester have been declared.', link: '/results' },
+  { text: 'Annual Sports Meet on Dec 15th.', link: '/events' },
+  { text: 'Results for the 3rd Semester have been declared.', link: '/academics' },
 ];
 
 const NotificationTicker = () => {

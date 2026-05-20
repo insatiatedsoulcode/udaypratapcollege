@@ -11,32 +11,30 @@ import Modal from '../src/components/Modal';
 import InquiryForm from '../src/components/InquiryForm';
 import NotificationTicker from '../src/components/NotificationTicker';
 import FeaturedEventsCarousel from '@/components/FeaturedEventsCarousel';
-import Button from '@/components/ui/Button';
+import AnimatedCounter from '@/components/AnimatedCounter';
+
 import Card, { CardContent } from '@/components/ui/Card';
 import FeatureIcon from '@/components/ui/FeatureIcon';
 
-// SEO Component
-import SEO from '@/components/SEO';
-import SocialShare from '@/components/SocialShare';
-import { organizationSchema, breadcrumbSchema } from '@/utils/structuredData';
+
+
 
 // Content and Theme
-import { 
-  getCollegeInfo, 
-  getCollegeStats, 
-  getPrograms, 
+import {
+  getCollegeInfo,
+  getCollegeStats,
+  getPrograms,
   getFeatures,
   getProgramColorClasses,
   getFeatureIconClasses,
   formatCurrency
 } from '@/lib/content';
 
-// Social Media Icons
-import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaYoutube } from 'react-icons/fa';
+// Social Media Icons removed from this page (now handled exclusively by Footer)
 
-// Define video and image paths for slideshow
+// Define image paths for slideshow
 const slideshowMedia = [
-  { type: 'video', src: '/videos/campus-tour.mp4', poster: '/images/campus-slide-1.JPG' },
+  { type: 'image', src: '/images/campus-slide-1.JPG' },
   { type: 'image', src: '/images/campus-slide-2.JPG' },
   { type: 'image', src: '/images/campus-slide-3.JPG' },
 ];
@@ -56,12 +54,12 @@ const HomePage = () => {
   useEffect(() => {
     setHasMounted(true);
     const currentMedia = slideshowMedia[currentSlide];
-    
+
     // If current slide is a video, don't auto-advance
     if (currentMedia.type === 'video') {
       return;
     }
-    
+
     const interval = setInterval(() => {
       setCurrentSlide((prevSlide) => (prevSlide + 1) % slideshowMedia.length);
     }, 5000); // Change slide every 5 seconds
@@ -73,243 +71,86 @@ const HomePage = () => {
     setIsModalOpen(false);
   };
 
-  const breadcrumbItems = [
-    { name: 'Home', url: '/' }
-  ];
 
   return (
     <>
-      <SEO
-        title="Uday Pratap College - Premier Educational Institution"
-        description="Join Uday Pratap College for quality education in BA, BBA, and BCA programs. Modern facilities, experienced faculty, and excellent placement opportunities. Apply now!"
-        keywords="college admissions, BA program, BBA program, BCA program, higher education, academic excellence, college application, educational institution"
-        canonical="/"
-        ogImage="/images/og-image-1200x630.jpg"
-        ogImageWidth={1200}
-        ogImageHeight={630}
-        ogImageAlt="Uday Pratap College - Premier Educational Institution with modern campus and quality education"
-        twitterSite="@udaypratapcollege"
-        twitterCreator="@udaypratapcollege"
-        structuredData={[
-          organizationSchema,
-          breadcrumbSchema(breadcrumbItems),
-          {
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            "name": "Uday Pratap College Homepage",
-            "description": "Premier educational institution offering BA, BBA, and BCA programs with academic excellence and modern facilities.",
-            "url": "https://udaypratapcollege.com",
-            "mainEntity": {
-              "@type": "EducationalOrganization",
-              "name": "Uday Pratap College"
-            }
-          },
-          {
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [
-              {
-                "@type": "Question",
-                "name": "What programs does Uday Pratap College offer?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Uday Pratap College offers Bachelor of Arts (BA), Bachelor of Business Administration (BBA), and Bachelor of Computer Applications (BCA) programs."
-                }
-              },
-              {
-                "@type": "Question", 
-                "name": "How can I apply for admission?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "You can apply for admission through our online application portal or visit the college campus. Contact our admissions office for more information."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "What are the admission requirements?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Admission requirements vary by program. Generally, you need to have completed 10+2 or equivalent education. Please check specific requirements for each program."
-                }
-              }
-            ]
-          }
-        ]}
-      />
-      
       <main className="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen">
         {/* 1. Notification Ticker */}
         <NotificationTicker />
 
-        {/* 2. Video/Photo Slideshow - Below Notification */}
-        <section className="relative w-full overflow-hidden" style={{ height: 'calc(100vh - 120px)' }}>
-          {/* Slideshow */}
-          <div className="absolute inset-0">
+        {/* 2. Glassmorphism Hero Section */}
+        <section className="relative w-full overflow-hidden flex items-center justify-center min-h-[90vh]">
+          {/* Background Slideshow */}
+          <div className="absolute inset-0 z-0">
             {slideshowMedia.map((media, index) => (
               <div
                 key={index}
-                className={`absolute inset-0 transition-opacity duration-1000 ${
-                  index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                }`}
+                className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? 'opacity-100' : 'opacity-0'
+                  }`}
               >
-                {media.type === 'video' ? (
-                  <video
-                    src={media.src}
-                    poster={media.poster}
-                    autoPlay={index === currentSlide}
-                    muted
-                    loop
-                    playsInline
-                    className="w-full h-full object-cover"
-                    onEnded={() => {
-                      // Move to next slide when video ends
-                      setCurrentSlide((prev) => (prev + 1) % slideshowMedia.length);
-                    }}
-                  />
-                ) : (
-                  <Image
-                    src={media.src}
-                    alt={`Campus View ${index + 1}`}
-                    fill
-                    className="object-cover"
-                    priority={index === 0}
-                  />
-                )}
+                <div className="absolute inset-0 bg-black/40 z-10" /> {/* Dark overlay to make text pop */}
+                <Image
+                  src={media.src}
+                  alt={`Campus View ${index + 1}`}
+                  fill
+                  className="object-cover scale-105 animate-[slow-pan_20s_ease-in-out_infinite_alternate]"
+                  priority={index === 0}
+                />
               </div>
             ))}
           </div>
 
-
           {/* Slideshow Indicators */}
           {hasMounted && (
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-3 z-40">
+            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3 z-30">
               {slideshowMedia.map((media, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
-                  className={`relative group transition-all duration-300 ${
-                    index === currentSlide ? 'scale-125' : 'scale-100 hover:scale-110'
-                  }`}
+                  className="group p-2"
                   aria-label={`Go to slide ${index + 1}`}
                 >
-                  {media.type === 'video' ? (
-                    <div className={`w-6 h-6 rounded-lg transition-all duration-300 shadow-lg flex items-center justify-center ${
-                      index === currentSlide
-                        ? 'bg-yellow-500 shadow-yellow-500/50'
-                        : 'bg-white/60 hover:bg-white/80'
-                    }`}>
-                      <svg className={`w-3 h-3 ${index === currentSlide ? 'text-gray-900' : 'text-gray-600'}`} fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
-                      </svg>
-                    </div>
-                  ) : (
-                    <div className={`w-4 h-4 rounded-full transition-all duration-300 shadow-lg ${
-                      index === currentSlide
-                        ? 'bg-gradient-to-r from-blue-300 to-indigo-400 shadow-blue-300/50'
-                        : 'bg-white/60 hover:bg-white/80'
+                  <div className={`h-1.5 rounded-full transition-all duration-500 ease-out ${index === currentSlide
+                    ? 'w-10 bg-white shadow-[0_0_10px_rgba(255,255,255,0.8)]'
+                    : 'w-4 bg-white/40 group-hover:bg-white/60'
                     }`} />
-                  )}
                 </button>
               ))}
             </div>
           )}
         </section>
 
-        {/* 3. Welcome Section */}
-        <section className="py-16 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <h1 className="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
-                Welcome to <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-400 bg-clip-text text-transparent">Uday Pratap College</span>
-              </h1>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <p className="text-xl md:text-2xl mb-8 text-gray-600 font-medium leading-relaxed">
-                A Legacy of Excellence in Education. Shaping Futures.
-              </p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-            >
-              <Link
-                href="/admissions"
-                className="enterprise-button text-lg px-8 py-4"
-              >
-                🎓 Admissions Open
-              </Link>
-        <button
-                onClick={() => setIsModalOpen(true)}
-                className="enterprise-button-secondary text-lg px-8 py-4"
-        >
-                💬 Inquire Now
-        </button>
-            </motion.div>
-          </div>
-        </section>
-
         {/* 4. Quick Stats Section */}
-        <section className="py-16 bg-gray-50 dark:bg-gray-900">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-              >
-                <Card variant="elevated" className="text-center">
-                  <CardContent>
-                    <h3 className="text-3xl font-bold text-blue-600 mb-2">{stats.students}+</h3>
-                    <p className="text-gray-600 dark:text-gray-400">Students Enrolled</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                <Card variant="elevated" className="text-center">
-                  <CardContent>
-                    <h3 className="text-3xl font-bold text-blue-600 mb-2">{stats.faculty}+</h3>
-                    <p className="text-gray-600 dark:text-gray-400">Expert Faculty</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-              >
-                <Card variant="elevated" className="text-center">
-                  <CardContent>
-                    <h3 className="text-3xl font-bold text-blue-600 mb-2">{stats.placementRate}%</h3>
-                    <p className="text-gray-600 dark:text-gray-400">Placement Rate</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-              >
-                <Card variant="elevated" className="text-center">
-                  <CardContent>
-                    <h3 className="text-3xl font-bold text-blue-600 mb-2">{stats.programs}</h3>
-                    <p className="text-gray-600 dark:text-gray-400">Programs Offered</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
+        <section className="py-20 bg-gray-50/50 dark:bg-gray-900 border-y border-gray-100 dark:border-gray-800">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+              <AnimatedCounter
+                value={stats.students}
+                suffix="+"
+                label="Students Enrolled"
+                duration={2.5}
+                colorTheme="indigo"
+              />
+              <AnimatedCounter
+                value={stats.faculty}
+                suffix="+"
+                label="Expert Faculty"
+                duration={2.0}
+                colorTheme="emerald"
+              />
+              <AnimatedCounter
+                value={stats.placementRate}
+                suffix="%"
+                label="Placement Rate"
+                duration={2.2}
+                colorTheme="rose"
+              />
+              <AnimatedCounter
+                value={stats.programs}
+                label="Programs Offered"
+                duration={1.8}
+                colorTheme="amber"
+              />
             </div>
           </div>
         </section>
@@ -331,49 +172,69 @@ const HomePage = () => {
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
               {programs.map((program, index) => {
                 const colorClasses = getProgramColorClasses(program.color);
+
+                // Set up custom vibrant background gradients based on the theme color
+                let bgGradient = 'from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100';
+                if (program.color === 'emerald') bgGradient = 'from-emerald-50 to-teal-50 hover:from-emerald-100 hover:to-teal-100';
+                if (program.color === 'purple') bgGradient = 'from-purple-50 to-fuchsia-50 hover:from-purple-100 hover:to-fuchsia-100';
+                if (program.color === 'rose') bgGradient = 'from-rose-50 to-pink-50 hover:from-rose-100 hover:to-pink-100';
+
                 return (
                   <motion.div
                     key={program.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                   >
-                    <Card variant="elevated" className="h-full">
-                      <CardContent className="text-center">
-                        <div className={`w-16 h-16 ${colorClasses.bg} rounded-full flex items-center justify-center mx-auto mb-4`}>
-                          <span className={`text-2xl font-bold ${colorClasses.text}`}>
-                            {program.shortName}
+                    <div className={`group relative bg-gradient-to-br ${bgGradient} rounded-[2rem] overflow-hidden shadow-lg border border-white/60 dark:border-gray-700 hover:shadow-2xl hover:-translate-y-4 transition-all duration-500 flex flex-col h-full cursor-pointer`}>
+                      {/* Vibrant Decorative Top Glow */}
+                      <div className={`absolute top-0 left-0 right-0 h-1.5 ${colorClasses.bg} opacity-80 group-hover:opacity-100 transition-opacity blur-[1px]`} />
+
+                      <div className="p-8 sm:p-10 flex-grow flex flex-col relative z-10">
+                        <div className="flex items-center justify-between mb-8">
+                          <div className={`w-20 h-20 ${colorClasses.bg} text-white shadow-xl rounded-2xl flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500 ease-out`}>
+                            <span className="text-3xl font-extrabold tracking-tight">
+                              {program.shortName}
+                            </span>
+                          </div>
+                          <span className={`text-sm font-bold ${colorClasses.text} bg-white/80 backdrop-blur-sm px-4 py-1.5 rounded-full shadow-sm`}>
+                            {program.duration}
                           </span>
                         </div>
-                        <h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-4">
+
+                        <h3 className="text-3xl font-extrabold text-gray-900 mb-4 group-hover:text-blue-700 transition-colors leading-tight">
                           {program.name}
                         </h3>
-                        <p className="text-gray-600 dark:text-gray-400 mb-4">
+
+                        <p className="text-gray-700 text-lg mb-8 flex-grow leading-relaxed font-medium">
                           {program.description}
                         </p>
-                        <div className="mb-6">
-                          <p className="text-sm text-gray-500 dark:text-gray-500 mb-2">
-                            Duration: {program.duration}
-                          </p>
-                          <p className="text-sm text-gray-500 dark:text-gray-500">
-                            Annual Fee: {formatCurrency(program.fees.annual)}
-                          </p>
-                        </div>
-                        <Button
-                          variant="primary"
-                          size="md"
-                          className={`w-full ${colorClasses.hover}`}
-                          asChild
-                        >
-                          <Link href={`/academics/programs/${program.id}`}>
-                            Learn More
+
+                        <div className="pt-6 border-t border-gray-900/10 mt-auto">
+                          <div className="flex justify-between items-center mb-8">
+                            <span className="text-sm font-bold text-gray-500 uppercase tracking-wider">Annual Fee</span>
+                            <span className="text-2xl font-black text-gray-900">{formatCurrency(program.fees.annual)}</span>
+                          </div>
+
+                          <Link
+                            href={`/academics/programs/${program.id}`}
+                            className={`flex items-center justify-center w-full font-bold text-lg transition-all duration-300 ${colorClasses.bg} text-white px-6 py-4 rounded-xl shadow-[0_8px_16px_rgba(0,0,0,0.15)] hover:shadow-[0_12px_24px_rgba(0,0,0,0.25)] hover:opacity-95 active:scale-95 group-hover:-translate-y-1 group-hover:scale-[1.02]`}
+                          >
+                            Explore Program
+                            <svg className="w-6 h-6 ml-2 transition-transform duration-300 group-hover:translate-x-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
                           </Link>
-                        </Button>
-                      </CardContent>
-                    </Card>
+                        </div>
+                      </div>
+
+                      {/* Background Floating Blob Effect for extreme premium feel */}
+                      <div className={`absolute -bottom-24 -right-24 w-64 h-64 ${colorClasses.bg} rounded-full mix-blend-multiply filter blur-3xl opacity-5 group-hover:opacity-20 transition-opacity duration-700`} />
+                    </div>
                   </motion.div>
                 );
               })}
@@ -392,7 +253,7 @@ const HomePage = () => {
                 Stay updated with our latest events and activities
               </p>
             </div>
-      <FeaturedEventsCarousel />
+            <FeaturedEventsCarousel />
           </div>
         </section>
 
@@ -460,61 +321,22 @@ const HomePage = () => {
               >
                 Apply Now
               </Link>
-          <button
+              <button
                 onClick={() => setIsModalOpen(true)}
                 className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-3 rounded-lg text-lg font-semibold transition-colors duration-200"
-          >
+              >
                 Get Information
-          </button>
-        </div>
-          </div>
-        </section>
-
-        {/* 8. Social Media Section */}
-        <section className="py-12 bg-gray-800 text-white">
-          <div className="max-w-4xl mx-auto text-center px-4">
-            <h2 className="text-2xl font-bold mb-6">Connect With Us</h2>
-            <p className="text-gray-300 mb-8">
-              Follow us on social media for updates, news, and insights.
-            </p>
-            <div className="flex justify-center space-x-6">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">
-                <FaFacebookF size={24} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">
-                <FaTwitter size={24} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">
-                <FaInstagram size={24} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">
-                <FaLinkedinIn size={24} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">
-                <FaYoutube size={24} />
-              </a>
+              </button>
             </div>
           </div>
         </section>
 
-        {/* Social Share Section */}
-        <section className="py-16 bg-gray-100">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Share Our College</h2>
-              <p className="text-lg text-gray-600">Help others discover Uday Pratap College by sharing this page</p>
-      </div>
 
-            <div className="max-w-2xl mx-auto">
-              <SocialShare />
-            </div>
-          </div>
-        </section>
 
         {/* Modal for Inquiry Form */}
         <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
           <InquiryForm onSuccess={handleInquirySuccess} />
-      </Modal>
+        </Modal>
       </main>
     </>
   );

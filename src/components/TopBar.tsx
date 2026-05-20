@@ -5,9 +5,10 @@ import React from 'react';
 import Link from 'next/link';
 //import { useSession } from 'next-auth/react'; // <<< Import useSession hook
 import { FaTwitter, FaInstagram, FaFacebookF, FaYoutube, FaLinkedinIn } from 'react-icons/fa';
+import { getCollegeInfo } from '@/lib/content';
 
 const TopBar = () => {
-
+  const { social } = getCollegeInfo();
 
   const commonLinkClasses = "hover:text-gray-300 transition-colors duration-150 focus:outline-none focus:text-gray-300 focus:ring-1 focus:ring-sky-500 rounded-sm";
   const socialIconClasses = "hover:text-sky-300 transition-colors duration-150 focus:outline-none focus:text-sky-300 focus:ring-1 focus:ring-sky-500 rounded-sm p-0.5";
@@ -35,19 +36,19 @@ const TopBar = () => {
 
           {/* Social Media Icons */}
           <div className="flex items-center space-x-2 rtl:sm:space-x-reverse pl-2">
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter" className={socialIconClasses}>
+            <a href={social.twitter} target="_blank" rel="noopener noreferrer" aria-label="Twitter" className={socialIconClasses}>
               <FaTwitter size="1.1em" />
             </a>
-            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className={socialIconClasses}>
+            <a href={social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className={socialIconClasses}>
               <FaInstagram size="1.1em" />
             </a>
-            <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className={socialIconClasses}>
+            <a href={social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className={socialIconClasses}>
               <FaFacebookF size="1.1em" />
             </a>
-            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className={socialIconClasses}>
+            <a href={social.youtube} target="_blank" rel="noopener noreferrer" aria-label="YouTube" className={socialIconClasses}>
               <FaYoutube size="1.1em" />
             </a>
-            <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className={socialIconClasses}>
+            <a href={social.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className={socialIconClasses}>
               <FaLinkedinIn size="1.1em" />
             </a>
           </div>

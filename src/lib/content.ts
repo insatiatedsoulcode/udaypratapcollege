@@ -16,6 +16,7 @@ export interface CollegeInfo {
     instagram: string;
     linkedin: string;
     youtube: string;
+    whatsapp: string;
   };
 }
 
@@ -120,11 +121,12 @@ const staticContent: ContentData = {
       address: "123 Education Street, Varanasi, UP 221001"
     },
     social: {
-      facebook: "https://www.facebook.com/udaypratapcollege",
-      twitter: "https://www.twitter.com/udaypratapcollege",
-      instagram: "https://www.instagram.com/udaypratapcollege",
-      linkedin: "https://www.linkedin.com/company/udaypratapcollege",
-      youtube: "https://www.youtube.com/udaypratapcollege"
+      "facebook": "https://www.facebook.com/profile.php?id=61577380963932",
+      "twitter": "https://www.twitter.com/udaypratapcollege",
+      "instagram": "https://www.instagram.com/uday.pratapcollege",
+      "linkedin": "https://www.linkedin.com/company/udaypratapcollege",
+      "youtube": "https://www.youtube.com/udaypratapcollege",
+      "whatsapp": "https://wa.me/919208596868?text=I%20have%20an%20inquiry%20regarding%20Uday%20Pratap%20College"
     }
   },
   stats: {
@@ -147,8 +149,8 @@ const staticContent: ContentData = {
       careerOptions: ["Civil Services", "Journalism", "Teaching", "Social Work", "Public Administration"],
       eligibility: "10+2 or equivalent from any recognized board",
       fees: {
-        annual: 25000,
-        total: 75000
+        annual: 5000,
+        total: 15000
       },
       highlights: [
         "Comprehensive curriculum covering humanities and social sciences",
@@ -169,8 +171,8 @@ const staticContent: ContentData = {
       careerOptions: ["Business Analyst", "Marketing Manager", "HR Specialist", "Operations Manager", "Entrepreneur"],
       eligibility: "10+2 or equivalent from any recognized board",
       fees: {
-        annual: 35000,
-        total: 105000
+        annual: 25000,
+        total: 75000
       },
       highlights: [
         "Industry-relevant curriculum",
@@ -191,8 +193,8 @@ const staticContent: ContentData = {
       careerOptions: ["Software Developer", "Web Developer", "Database Administrator", "System Analyst", "IT Consultant"],
       eligibility: "10+2 or equivalent with Mathematics",
       fees: {
-        annual: 40000,
-        total: 120000
+        annual: 25000,
+        total: 75000
       },
       highlights: [
         "Modern computer labs with latest technology",
@@ -415,7 +417,8 @@ export function getDefaultContent(): ContentData {
         twitter: "#",
         instagram: "#",
         linkedin: "#",
-        youtube: "#"
+        youtube: "#",
+        whatsapp: "#"
       }
     },
     stats: {
@@ -510,25 +513,25 @@ export function getProgramColorClasses(color: string): {
 } {
   const colorMap = {
     blue: {
-      bg: 'bg-blue-100',
+      bg: 'bg-blue-600',
       text: 'text-blue-600',
       border: 'border-blue-200',
-      hover: 'hover:bg-blue-600'
+      hover: 'hover:bg-blue-700'
     },
     green: {
-      bg: 'bg-green-100',
+      bg: 'bg-green-600',
       text: 'text-green-600',
       border: 'border-green-200',
-      hover: 'hover:bg-green-600'
+      hover: 'hover:bg-green-700'
     },
     purple: {
-      bg: 'bg-purple-100',
+      bg: 'bg-purple-600',
       text: 'text-purple-600',
       border: 'border-purple-200',
-      hover: 'hover:bg-purple-600'
+      hover: 'hover:bg-purple-700'
     }
   };
-  
+
   return colorMap[color as keyof typeof colorMap] || colorMap.blue;
 }
 
@@ -545,6 +548,6 @@ export function getFeatureIconClasses(color: string): {
     red: { bg: 'bg-red-100', text: 'text-red-600' },
     indigo: { bg: 'bg-indigo-100', text: 'text-indigo-600' }
   };
-  
+
   return colorMap[color as keyof typeof colorMap] || colorMap.blue;
 }
